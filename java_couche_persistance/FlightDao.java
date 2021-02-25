@@ -1,3 +1,7 @@
+package com.example.jetty_jersey.dao;
+
+import java.util.List;
+
 public interface FlightDao {
 
 
@@ -5,7 +9,7 @@ public interface FlightDao {
 	 * get a list of flights based on certain criteria
 	 * @GET
 	 */
-	List<Flight> getFlightsFromCriteria(Fight.Plane plane, int price, String destination, int nbOfSeats);
+	List<Flight> getFlightsFromCriteria(Aircraft aircraft, int price, String destination, int nbOfSeats);
 
 	/**
 	 * get infos from a specific flight (with the id)
@@ -13,11 +17,6 @@ public interface FlightDao {
 	 */
 	Flight getInfoFromAFlight(int idFlight);
 
-	/**
-	 * get infos from a plane
-	 * @GET
-	 */
-	Flight.Plane getPlaneInfo(int idPlane);
 
 	/**
 	 * delete a specific flight

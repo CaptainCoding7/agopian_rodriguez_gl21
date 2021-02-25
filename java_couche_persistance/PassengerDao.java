@@ -1,3 +1,7 @@
+package com.example.jetty_jersey.dao;
+
+import java.util.List;
+
 public interface PassengerDao {
 
 
@@ -37,6 +41,6 @@ public interface PassengerDao {
 	 * Get the list of flights for which the passenger is concerned
 	 * @GET
 	 */
-	List<Flights> getFlightsList(int idUser);
+	List<Flight> getFlightsList(int idUser);
 
 }

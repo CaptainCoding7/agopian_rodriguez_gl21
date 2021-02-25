@@ -1,4 +1,4 @@
-package Business_Objects;
+package com.example.jetty_jersey.dao;
 
 import java.awt.*;
 import java.util.List;
