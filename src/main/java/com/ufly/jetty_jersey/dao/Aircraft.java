@@ -2,6 +2,9 @@ package com.ufly.jetty_jersey.dao;
 
 import java.awt.Image;
 
+import javax.jdo.annotations.*;
+
+@PersistenceCapable
 public class Aircraft {
 
 	
@@ -9,6 +12,8 @@ public class Aircraft {
 		ALLER_RETOUR/*A->B B->A*/, ALLER_SIMPLE/*A->B*/, BALLADE/*A->A*/ 
 	}
 	
+	@PrimaryKey
+	@Persistent(valueStrategy=IdGeneratorStrategy.INCREMENT)
 	private int aircraftID;
 	private String aircraftModel;
 	private String owner;

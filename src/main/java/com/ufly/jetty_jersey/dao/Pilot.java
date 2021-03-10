@@ -3,6 +3,9 @@ package com.ufly.jetty_jersey.dao;
 import java.awt.Image;
 import java.util.List;
 
+import javax.jdo.annotations.PersistenceCapable;
+
+@PersistenceCapable
 public class Pilot extends Passenger {
 
 	private Image license;

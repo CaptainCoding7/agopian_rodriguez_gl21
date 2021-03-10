@@ -9,6 +9,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
@@ -17,7 +18,7 @@ import com.ufly.jetty_jersey.dao.*;
 @Path("ufly")
 public class WebServicesREST {
 
-	public static class TestClass {
+	public class TestClass {
 		public int id;
 	}
 	
@@ -50,10 +51,10 @@ public class WebServicesREST {
 	@Produces(MediaType.APPLICATION_JSON)
 	@GET
 	@Path("flightInfo")
-	public Flight getInfoFromAFlight(TestClass instance) {
+	public Flight getInfoFromAFlight(int instance) {
 		ArrayList<Flight> flightsList= new ArrayList<Flight>(Arrays.asList(new Flight(1),new Flight(2),new Flight(3)));
 		for(Flight f:flightsList) {
-			if(f.getFlightID()==instance.id)
+			if(f.getFlightID()==instance)
 				return f;
 		}
 		return null;
@@ -66,11 +67,12 @@ public class WebServicesREST {
 	 */
 	@Produces(MediaType.APPLICATION_JSON)
 	@GET
-	@Path("aircraftInfo")
-	public Aircraft getAircraftInfo(TestClass instance) {
+	@Path("aircraftInfo/{id}")
+	public Aircraft getAircraftInfo(@PathParam("id") int id) {
 		ArrayList<Aircraft> aircraftsList= new ArrayList<Aircraft>(Arrays.asList(new Aircraft(1),new Aircraft(2),new Aircraft(3)));	
 		for(Aircraft a:aircraftsList){
-			if(a.getAircraftID()==instance.id)
+			System.out.println(a.getAircraftID());
+			if(a.getAircraftID()==id)
 				return a;
 		}
 		return null;
@@ -155,7 +157,6 @@ public class WebServicesREST {
 	}
 	
 	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
 	@GET
 	@Path("getuserinfo")
 	public Passenger getInfosFromUser(TestClass instance) {
@@ -171,14 +172,19 @@ public class WebServicesREST {
 	@POST
 	@Path("edituser")
 	public void editUserInfos(TestClass instance) {
+/*
 		ArrayList<Passenger> passengerList=new ArrayList<Passenger>(Arrays.asList(new Passenger(1),new Passenger(2),new Passenger(3)));
 		for(Passenger p:passengerList){
-			if(p.getUserID()==instance.id) {
+			if(p.getUserID()==id) {
 				p.setFirstName("Lucas");
 				System.out.println("edit user: ");
-				System.out.println(p);
+				System.out.println(p.getUserID());
 			}
 		}
+		*/
+		System.out.println("edit user");
+		System.out.println(instance.id);
+		
 	}
 	/**
 	 * 
