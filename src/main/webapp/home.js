@@ -1,5 +1,6 @@
 function getServerData(url, success){
     $.ajax({
+		contentType : 'application/json',
         dataType: "json",
         url: url
     }).done(success);
@@ -9,10 +10,19 @@ function postServerData(url, data, success){
 
     $.ajax({
 		type: 'POST',	
+        url: url,
+		data: data,
+		contentType : 'application/json',
+        dataType: "json"
+    }).done(success);
+}
+
+function putServerData(url, data, success){
+
+    $.ajax({
+		type: 'PUT',	
         url: url, 
 		data: data,
-		//contentType : "text/plain; charSet=UTF-8",
-		contentType: application/json,
         dataType: "json"
     }).done(success);
 }
@@ -35,18 +45,22 @@ $(function(){
 	});
 
 	$("#button2").click(function(){
-		getServerData("ws/ufly/aircraftInfo/1",callDone);
+		var data = {
+	        id: 1
+	    };
+		putServerData("ws/ufly/addflight",JSON.stringify(data),callDone);
 	});
 
 	$("#button3").click(function(){				
 		var data = {
-	        id: 1
+	        id: 2
 	    };
 		var dataJson = JSON.stringify(data);
         //console.log(dataJson);
-		postServerData("ws/ufly/edituser",data,callDone);
+		postServerData("ws/ufly/edituser",dataJson,callDone);
 
 	});
 	
 });
 
+		//contentType : "text/plain; charSet=UTF-8",
