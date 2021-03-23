@@ -9,7 +9,6 @@ import javax.jdo.annotations.PersistenceCapable;
 public class Pilot extends Passenger {
 
 	private Image license;
-	private Image medicalCertificate;
 	// flights list for which the user participate as a pilot
 	private List<Flight> pilotFlightsList; 
 
@@ -23,11 +22,10 @@ public class Pilot extends Passenger {
 	// pilot version
 	public Pilot(int userID, Birthday birthday, String firstName, String lastName, Image selfPicture, String phoneNumber,
 			Image identityCard, String livingLocation, String description, List<Flight> passengerFlightsList,
-			Image license, Image medicalCertificate, List<Flight> pilotFlightsList, int flightHours) {
+			Image license, List<Flight> pilotFlightsList, int flightHours) {
 		super(userID, firstName, lastName, selfPicture, phoneNumber, identityCard, livingLocation, description,
 				passengerFlightsList, birthday);
 		this.license = license;
-		this.medicalCertificate = medicalCertificate;
 		this.pilotFlightsList = pilotFlightsList;
 		this.flightHours = flightHours;
 	}
@@ -35,12 +33,11 @@ public class Pilot extends Passenger {
 	// pilot version
 	public Pilot(int userID, int day, int month, int years, String firstName, String lastName, Image selfPicture,
 			String phoneNumber, Image identityCard, String livingLocation, String description,
-			List<Flight> passengerFlightsList, Image license, Image medicalCertificate, List<Flight> pilotFlightsList,
+			List<Flight> passengerFlightsList, Image license, List<Flight> pilotFlightsList,
 			int flightHours) {
 		super(userID, day, month, years, firstName, lastName, selfPicture, phoneNumber, identityCard, livingLocation,
 				description, passengerFlightsList);
 		this.license = license;
-		this.medicalCertificate = medicalCertificate;
 		this.pilotFlightsList = pilotFlightsList;
 		this.flightHours = flightHours;
 	}
@@ -48,20 +45,11 @@ public class Pilot extends Passenger {
 	public Pilot(int userID) {
 		super(userID);
 		this.license = null;
-		this.medicalCertificate = null;
 		this.pilotFlightsList = null;
 		this.flightHours = 0;
 
 	}
 
-
-	public Image getMedicalCertificate() {
-		return medicalCertificate;
-	}
-
-	public void setMedicalCertificate(Image medicalCertificate) {
-		this.medicalCertificate = medicalCertificate;
-	}
 
 	public List<Flight> getPilotFlightsList() {
 		return pilotFlightsList;

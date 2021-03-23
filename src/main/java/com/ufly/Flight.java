@@ -16,7 +16,7 @@ public class Flight {
 			
 	
 	public enum TypeOfFlight{
-		ALLER_RETOUR/*A->B B->A*/, ALLER_SIMPLE/*A->B*/, BALLADE/*A->A*/ 
+		ROUND_TRIP/*A->B B->A*/, ONE_WAY_TICKET/*A->B*/, BALLAD/*A->A*/ 
 	}
 	
 	@PrimaryKey
@@ -38,10 +38,9 @@ public class Flight {
 	private int pricePerPassenger;
 	private int availableSeats;
 	
-	public Flight(int flightID, Aircraft aircraft, TypeOfFlight typeOfFlight, String departureAirport, String arrivalAirport, LocalTime duration,
-			LocalDateTime depatureDate, LocalDateTime arrivalDate, String flightTitle, String flightDescription,
-			List<Passenger> passengerInFlight, int pricePerPassenger) {
-		this.flightID=flightID;
+	public Flight(Aircraft aircraft, TypeOfFlight typeOfFlight, String departureAirport, String arrivalAirport, LocalTime duration,
+			LocalDateTime depatureDate, LocalDateTime arrivalDate, String flightTitle, String flightDescription, int pricePerPassenger) {
+		//this.flightID=flightID; // auto-increment s'en occupe !
 		this.aircraft = aircraft;
 		this.typeOfFlight = typeOfFlight;
 		this.departureAirport = departureAirport;
@@ -55,22 +54,21 @@ public class Flight {
 		this.pricePerPassenger = pricePerPassenger;
 	}
 	
-	public Flight(int flightID)
+	public Flight()
 	{
-		this.flightID=flightID;
 		this.aircraft = null;
 		this.setAvailableSeats(0);
-		this.typeOfFlight = TypeOfFlight.ALLER_RETOUR;
+		this.typeOfFlight = TypeOfFlight.ROUND_TRIP;
 		this.departureAirport = "";
 		this.arrivalAirport = "";
 		this.duration = null;
 		this.depatureDate = null;
 		this.arrivalDate = null;
 		this.flightTitle = "";
-		this.flightDescription = "";
-		this.passengerInFlight = null;
+		this.flightDescription = "default flight";
 		this.pricePerPassenger = 0;	
 	}
+
 	
 	public int getFlightID(){
 		return this.flightID;

@@ -12,6 +12,8 @@ import java.util.List;
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
+import javax.jdo.Query;
+import javax.jdo.Transaction;
 import javax.jdo.annotations.PersistenceCapable;
 
 import com.ufly.Aircraft;
@@ -24,74 +26,67 @@ import com.ufly.Flight.TypeOfFlight;
  *
  */
 
-@PersistenceCapable
 public class PilotDaoImpl extends PassengerDaoImpl implements PilotDao {
+
 	
-	PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("Example");
-	
+	PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("UFly_Objects");
+
 	public List<Flight> getPilotedFlightsList(int idUser) {
 		List<Flight> SubList = new ArrayList<Flight>(Arrays.asList(
-				new Flight(1,
-						new Aircraft(1),
-						TypeOfFlight.ALLER_RETOUR,
-						"Alforville",
-						"Les Pavillons-sous-bois",
-						LocalTime.of(1,30),
-						LocalDateTime.of(2021, 01, 01, 0, 0),
-						LocalDateTime.of(2021, 01, 01, 1, 30),
-						"Fete du nouvel an",
-						"Visite surprise chez Paulsy", 
-						new ArrayList<Passenger>(Arrays.asList(new Passenger(1), 
-																new Passenger(2))),
-						10
-						),
-				new Flight(2,
-						new Aircraft(2),
-						TypeOfFlight.ALLER_SIMPLE,
-						"Roissy",
-						"Chamonix",
-						LocalTime.of(1,30),
-						LocalDateTime.of(2021, 01, 01, 0, 0),
-						LocalDateTime.of(2021, 01, 01, 1, 30),
-						"Voyage sportif",
-						"Decouverte du ski avec Paulsy", 
-						new ArrayList<Passenger>(Arrays.asList(new Passenger(1), 
-																new Passenger(2))),
-						12
-						),
-				new Flight(3,
-						new Aircraft(3),
-						TypeOfFlight.BALLADE,
-						"Volcan Volvic",
-						"Volcan Volvic",
-						LocalTime.of(1,30),
-						LocalDateTime.of(2021, 01, 01, 0, 0),
-						LocalDateTime.of(2021, 01, 01, 1, 30),
-						"Survoler l'auvergne",
-						"Visite aerienne des volcan de Volvic", 
-						new ArrayList<Passenger>(Arrays.asList(new Passenger(1), 
-																new Passenger(2))),
-						14
-						)));
-		return SubList ;
+				new Flight(new Aircraft(), TypeOfFlight.ROUND_TRIP, "Alforville", "Les Pavillons-sous-bois",
+						LocalTime.of(1, 30), LocalDateTime.of(2021, 01, 01, 0, 0),
+						LocalDateTime.of(2021, 01, 01, 1, 30), "Fete du nouvel an", "Visite surprise chez Paulsy",10),
+				new Flight(new Aircraft(), TypeOfFlight.ONE_WAY_TICKET, "Roissy", "Chamonix", LocalTime.of(1, 30),
+						LocalDateTime.of(2021, 01, 01, 0, 0), LocalDateTime.of(2021, 01, 01, 1, 30), "Voyage sportif",
+						"Decouverte du ski avec Paulsy",12),
+				new Flight(new Aircraft(), TypeOfFlight.BALLAD, "Volcan Volvic", "Volcan Volvic",
+						LocalTime.of(1, 30), LocalDateTime.of(2021, 01, 01, 0, 0),
+						LocalDateTime.of(2021, 01, 01, 1, 30), "Survoler l'auvergne",
+						"Visite aerienne des volcan de Volvic",14)));
+		return SubList;
 	}
 
 	public void addAFlight(int idUser) {
 		
-		Flight f = new Flight(idUser);
+		PersistenceManager pm;
+		Transaction tx;
+
+		Flight f = new Flight();
 		f.setFlightDescription("un voyage en avion trop cool");
-		
-		// save 
-		PersistenceManager pm = pmf.getPersistenceManager();
-		f = pm.makePersistent(f);
-		pm.close();
+
+		// save
+		pm = pmf.getPersistenceManager();
+		tx = pm.currentTransaction();
+		try {
+			tx.begin();
+			pm.makePersistent(f);
+			tx.commit();
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
 
 		// retrieve
-		PersistenceManager pm_ret = pmf.getPersistenceManager();
-		Flight f_ret = pm_ret.getObjectById(Flight.class, idUser);
-		pm_ret.close();
-		System.out.println("flight retrieved : "+f_ret.getFlightDescription());
-		
+		pm = pmf.getPersistenceManager();
+		tx = pm.currentTransaction();
+		try {
+			tx.begin();
+
+			// Query q = pm.newQuery("SELECT FROM " + Flight.class.getName() + " WHERE price
+			// < 150.00 ORDER BY price ASC");
+			Flight f_ret = pm.getObjectById(Flight.class, idUser);
+			System.out.println("flight retrieved : " + f_ret.getFlightDescription());
+			tx.commit();
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+
+			pm.close();
+		}
+
 	}
 
 	public void editAFlight(int idUser, int idFlight) {
@@ -99,5 +94,4 @@ public class PilotDaoImpl extends PassengerDaoImpl implements PilotDao {
 
 	}
 
-	
 }

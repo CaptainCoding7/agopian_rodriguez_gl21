@@ -2,6 +2,7 @@ package com.ufly.ws;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -37,8 +38,9 @@ public class WebServicesREST {
 	@Produces(MediaType.APPLICATION_JSON)
 	@GET
 	@Path("flightsList")
-	public ArrayList<Flight> getFlightsFromCriteria() {
-		ArrayList<Flight> flightsList= new ArrayList<Flight>(Arrays.asList(new Flight(1),new Flight(2),new Flight(3)));
+	public List<Flight> getFlightsFromCriteria() {
+		//ArrayList<Flight> flightsList= new ArrayList<Flight>(Arrays.asList(new Flight(1),new Flight(2),new Flight(3)));
+		List<Flight> flightsList=(new FlightDaoImpl().getFlightsFromCriteria(null, 0, null, 0));
 		return flightsList;
 	}
 	
@@ -54,14 +56,9 @@ public class WebServicesREST {
 	 */
 	@Produces(MediaType.APPLICATION_JSON)
 	@GET
-	@Path("flightInfo")
-	public Flight getInfoFromAFlight(int instance) {
-		ArrayList<Flight> flightsList= new ArrayList<Flight>(Arrays.asList(new Flight(1),new Flight(2),new Flight(3)));
-		for(Flight f:flightsList) {
-			if(f.getFlightID()==instance)
-				return f;
-		}
-		return null;
+	@Path("flightInfo/{id}")
+	public Flight getInfoFromAFlight(@PathParam("id") int id) {
+		return new FlightDaoImpl().getInfoFromAFlight(id);
 	}
 		
 	/**
@@ -73,27 +70,15 @@ public class WebServicesREST {
 	@GET
 	@Path("aircraftInfo/{id}")
 	public Aircraft getAircraftInfo(@PathParam("id") int id) {
-		ArrayList<Aircraft> aircraftsList= new ArrayList<Aircraft>(Arrays.asList(new Aircraft(1),new Aircraft(2),new Aircraft(3)));	
-		for(Aircraft a:aircraftsList){
-			System.out.println(a.getAircraftID());
-			if(a.getAircraftID()==id)
-				return a;
-		}
-		return null;
+		return new AircraftDaoImpl().getAircraftInfo(id);
+
 	}
 	
 	@Consumes(MediaType.APPLICATION_JSON)
 	@DELETE
-	@Path("deleteflight")
-	public void deleteAFlight(TestClass instance){
-		ArrayList<Flight> flightsList= new ArrayList<Flight>(Arrays.asList(new Flight(1),new Flight(2),new Flight(3)));
-		for(Flight f:flightsList){
-			if(f.getFlightID()==instance.id){
-				flightsList.remove(f);
-				System.out.println(flightsList);
-				break;
-			}
-		}
+	@Path("deleteflight/{id}")
+	public void deleteAFlight(@PathParam("id") int id){
+		new FlightDaoImpl().deleteAFlight(id);
 	}
 	
 	/* PILOT ***********************/
@@ -108,7 +93,7 @@ public class WebServicesREST {
 	@GET
 	@Path("pilotFlightsList")
 	public ArrayList<Flight> getPilotedFlightsList(TestClass instance) {
-		ArrayList<Flight> flightsList= new ArrayList<Flight>(Arrays.asList(new Flight(1),new Flight(2),new Flight(3)));
+		ArrayList<Flight> flightsList= new ArrayList<Flight>(Arrays.asList(new Flight(),new Flight(),new Flight()));
 		return flightsList;
 	}
 		
@@ -133,7 +118,7 @@ public class WebServicesREST {
 	@POST
 	@Path("editflight")
 	public void editAFlight(TestClass instance) {//,TestClass instance2) {
-		ArrayList<Flight> flightsList= new ArrayList<Flight>(Arrays.asList(new Flight(1),new Flight(2),new Flight(3)));
+		ArrayList<Flight> flightsList= new ArrayList<Flight>(Arrays.asList(new Flight(),new Flight(),new Flight()));
 		for(Flight f:flightsList){
 			if(f.getFlightID()==instance.id){
 				// and if the flight is in the list of flights piloted by the user
@@ -208,7 +193,7 @@ public class WebServicesREST {
 	@POST
 	@Path("book")
 	public void bookAFlight(TestClass instance) {//, TestClass instance2) {
-		ArrayList<Flight> flightsList= new ArrayList<Flight>(Arrays.asList(new Flight(1),new Flight(2),new Flight(3)));
+		ArrayList<Flight> flightsList= new ArrayList<Flight>(Arrays.asList(new Flight(),new Flight(),new Flight()));
 		for(Flight f:flightsList){
 			if(f.getFlightID()==instance.id){
 				System.out.println(instance.id);
@@ -227,7 +212,7 @@ public class WebServicesREST {
 	@GET
 	@Path("passengerflightslist")
 	public ArrayList<Flight> getFlightsList(TestClass instance) {
-		ArrayList<Flight> flightsList= new ArrayList<Flight>(Arrays.asList(new Flight(1),new Flight(2),new Flight(3)));
+		ArrayList<Flight> flightsList= new ArrayList<Flight>(Arrays.asList(new Flight(),new Flight(),new Flight()));
 		return flightsList;
 	}
 		

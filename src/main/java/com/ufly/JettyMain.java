@@ -51,6 +51,10 @@ public class JettyMain {
 		ContextHandlerCollection contexts = new ContextHandlerCollection();
 		contexts.setHandlers(new Handler[] { handlerWebServices, handlerPortalCtx });
 		server.setHandler(contexts);
+		
+		// Generate data
+		GenerateData gd = new GenerateData();
+		gd.generateFlights();
 
 		// Start server
 		server.start();

@@ -18,9 +18,8 @@ public class Aircraft {
 	private int rentingPrice;
 	private Image picture;
 	
-	public Aircraft(int aircraftID,String aircraftModel, String owner, String registration,
+	public Aircraft(String aircraftModel, String owner, String registration,
 			int seatNumber, int flightHours, int rentingPrice, Image picture) {
-		this.aircraftID=aircraftID;
 		this.aircraftModel = aircraftModel;
 		this.owner = owner;
 		this.registration = registration;
@@ -30,8 +29,7 @@ public class Aircraft {
 		this.picture = picture;
 	}
 	
-	public Aircraft(int aircraftID) {
-		this.aircraftID=aircraftID;
+	public Aircraft() {
 		this.aircraftModel = "";
 		this.owner = "";
 		this.registration = "";

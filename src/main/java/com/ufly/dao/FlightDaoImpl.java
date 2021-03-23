@@ -8,6 +8,14 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
+
+import javax.jdo.JDOHelper;
+import javax.jdo.PersistenceManager;
+import javax.jdo.PersistenceManagerFactory;
+import javax.jdo.Query;
+import javax.jdo.Transaction;
+import javax.jdo.annotations.PersistenceCapable;
 
 import com.ufly.Aircraft;
 import com.ufly.Flight;
@@ -18,77 +26,127 @@ import com.ufly.Flight.TypeOfFlight;
  * @author Paul
  *
  */
+
+@PersistenceCapable
 public class FlightDaoImpl implements FlightDao {
 
+	
+	PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("UFly_Objects");
+	
 	public List<Flight> getFlightsFromCriteria(Aircraft aircraft, int price, String destination, int nbOfSeats) {
 
-		List<Flight> SubList = new ArrayList<Flight>(Arrays.asList(
-				new Flight(1,
-						new Aircraft(1),
-						TypeOfFlight.ALLER_RETOUR,
-						"Alforville",
-						"Les Pavillons-sous-bois",
-						LocalTime.of(1,30),
-						LocalDateTime.of(2021, 01, 01, 0, 0),
-						LocalDateTime.of(2021, 01, 01, 1, 30),
-						"Fete du nouvel an",
-						"Visite surprise chez Paulsy", 
-						new ArrayList<Passenger>(Arrays.asList(new Passenger(1), 
-																new Passenger(2))),
-						10
-						),
-				new Flight(2,
-						new Aircraft(2),
-						TypeOfFlight.ALLER_SIMPLE,
-						"Roissy",
-						"Chamonix",
-						LocalTime.of(1,30),
-						LocalDateTime.of(2021, 01, 01, 0, 0),
-						LocalDateTime.of(2021, 01, 01, 1, 30),
-						"Voyage sportif",
-						"Decouverte du ski avec Paulsy", 
-						new ArrayList<Passenger>(Arrays.asList(new Passenger(1), 
-																new Passenger(2))),
-						12
-						),
-				new Flight(3,
-						new Aircraft(3),
-						TypeOfFlight.BALLADE,
-						"Volcan Volvic",
-						"Volcan Volvic",
-						LocalTime.of(1,30),
-						LocalDateTime.of(2021, 01, 01, 0, 0),
-						LocalDateTime.of(2021, 01, 01, 1, 30),
-						"Survoler l'auvergne",
-						"Visite aerienne des volcan de Volvic", 
-						new ArrayList<Passenger>(Arrays.asList(new Passenger(1), 
-																new Passenger(2))),
-						14
-						)));
-		return SubList ;
+		PersistenceManager pm;
+		Transaction tx;
+		List<Flight> flights = new ArrayList<Flight>(); 
+		
+		
+		// retrieve
+		pm = pmf.getPersistenceManager();
+		tx = pm.currentTransaction();
+		// retainValues pour que les attributs soit gardés
+	    tx.setRetainValues(true);
+		try {
+			tx.begin();
+			Flight f;			
+			/*
+			Query q = pm.newQuery("SELECT MAX(flightID) FROM " + Flight.class.getName());
+			int maxid=(Integer) q.execute();			
+			System.out.println("max id="+maxid);
+			//while((f = pm.getObjectById(Flight.class, id))!=null){
+			for(int id=1; id<=maxid; id++) {
+				f = pm.getObjectById(Flight.class, id);
+				flights.add(f);
+			}
+			System.out.println("teeeeeeeest");
+			*/
+			Query q = pm.newQuery(Flight.class);
+			flights = (List<Flight>) q.execute();
+			
+			for(Flight fget:flights)
+				System.out.println("flight retrieved : " + fget.getFlightDescription());
+			tx.commit();
+			
+		} 
+		
+		finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+
+			pm.close();
+			
+		}
+		
+		return flights ;
+
 	}
 
 	public Flight getInfoFromAFlight(int idFlight) {
-		return new Flight(idFlight,
-				new Aircraft(1),
-				TypeOfFlight.ALLER_RETOUR,
-				"Alforville",
-				"Les Pavillons-sous-bois",
-				LocalTime.of(1,30),
-				LocalDateTime.of(2021, 01, 01, 0, 0),
-				LocalDateTime.of(2021, 01, 01, 1, 30),
-				"Fete du nouvel an",
-				"Visite surprise chez Paulsy", 
-				new ArrayList<Passenger>(Arrays.asList(new Passenger(1), 
-														new Passenger(2))),
-				10
-				);
+		
+		PersistenceManager pm;
+		Transaction tx;
+		Flight f;
+// retrieve
+		pm = pmf.getPersistenceManager();
+		tx = pm.currentTransaction();
+		// retainValues pour que les attributs soit gardés
+	    tx.setRetainValues(true);
+		try {
+			tx.begin();
+			f = pm.getObjectById(Flight.class, idFlight);
+			f.setFlightTitle("TIIIIITLLLLE");
+			tx.commit();
+			
+		} 
+		
+		finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+
+			pm.close();
+			
+		}
+		
+		return f;
 	}
 
-
 	public void deleteAFlight(int idFlight) {
-		System.out.println("The flight with the Id :"+idFlight+" is delete");// TODO Auto-generated method stub
+		
+		PersistenceManager pm;
+		Transaction tx;
+		Flight f;
+		List<Flight> flights = new ArrayList<Flight>(); 
 
+// retrieve
+		pm = pmf.getPersistenceManager();
+		tx = pm.currentTransaction();
+		// retainValues pour que les attributs soit gardés
+	    tx.setRetainValues(true);
+	    
+	    getFlightsFromCriteria(null, 0, null, 0);
+	    
+		try {
+			tx.begin();
+			f = pm.getObjectById(Flight.class, idFlight);
+			pm.deletePersistent(f);
+			tx.commit();
+			
+		} 
+		
+		finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+
+			pm.close();
+			
+		}
+		
+		System.out.println("The flight with the Id :"+idFlight+" has been deleted");// TODO Auto-generated method stub
+		
+	    getFlightsFromCriteria(null, 0, null, 0);		
+		
 	}
 
 	public void sendReminderEmail(int idFlight) {

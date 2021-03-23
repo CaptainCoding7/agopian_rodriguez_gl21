@@ -33,8 +33,8 @@ public class PassengerDaoImpl implements PassengerDao {
 
 	public List<Flight> getFlightsList(int idUser) {
 		List<Flight> FlightList = new ArrayList<Flight>();
-		FlightList.add(new Flight(1));
-		FlightList.add(new Flight(2));
+		FlightList.add(new Flight());
+		FlightList.add(new Flight());
 		return FlightList;
 	}
 
