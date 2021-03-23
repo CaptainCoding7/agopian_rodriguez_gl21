@@ -27,6 +27,16 @@ function putServerData(url, data, success){
     }).done(success);
 }
 
+function deleteServerData(url, success){
+
+    $.ajax({
+		type: 'DELETE',	
+        url: url, 
+		contentType : 'application/json',
+        dataType: "json"
+    }).done(success);
+}
+
 function callDone(result){
 	var templateExample = _.template($('#templateExample').html());
 
@@ -40,25 +50,37 @@ function callDone(result){
 
 $(function(){
 	
-	$("#button1").click(function(){
-		getServerData("ws/ufly/passengerflightslist",callDone);
+	$("#butFlightsList").click(function(){
+		getServerData("ws/ufly/flightsList",callDone);
 	});
 
-	$("#button2").click(function(){
+	$("#butFlightInfo").click(function(){
+		getServerData("ws/ufly/flightInfo/2",callDone);
+	});
+
+	$("#butAddFlight").click(function(){
 		var data = {
 	        id: 1
 	    };
 		putServerData("ws/ufly/addflight",JSON.stringify(data),callDone);
 	});
 
-	$("#button3").click(function(){				
+	$("#butEditUser").click(function(){				
 		var data = {
 	        id: 2
 	    };
-		var dataJson = JSON.stringify(data);
-        //console.log(dataJson);
-		postServerData("ws/ufly/edituser",dataJson,callDone);
+		var id="totototo";
 
+		var dataJson = JSON.stringify(data);
+		var idJson = JSON.stringify(id);
+        //console.log(dataJson);
+		postServerData("ws/ufly/edituser",idJson,callDone);
+
+	});
+
+	$("#butDeleteFlight").click(function(){
+
+		deleteServerData("ws/ufly/deleteflight/1",callDone);
 	});
 	
 });

@@ -1,6 +1,6 @@
  <!DOCTYPE html>
 <html>
-	<div style="background-image: url('bg.jpg');" media="screen and (device-height: 1000px)"> 
+	<div class="image" style="background-image: url('bg.jpg');" media="screen and (device-height: 1000px)"> 
 
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>     
@@ -16,7 +16,7 @@
 			</div>
 		</script>
 
-		<h1 class="titre" align="center">Ufly</h1>
+		<h1 align="center">Ufly</h1>
 		<h3 align="center">Share a flight, share a dream</h3>
 		<ul align="east">
 			<li><a href="connexion.html">Se connecter</a></li>
@@ -26,13 +26,16 @@
 		<p class="bandeau">
 		</p>
 
-		<div>
-			<input type="text" class="search" placeholder="Search a flight...">
-		</div>
+		<form>
+			<input type="text" id="search" class="search" placeholder="Search a departure place...">
+			<input type="submit" value="Search" src="icon_loupe.png">
+		</form>
 
-		<button id="button1">See your flights</button>
-		<button id="button2">Add a flight</button>
-		<button id="button3">Edit user</button>
+		<button id="butFlightsList">See flights</button>
+		<button id="butAddFlight">Add a flight</button>
+		<button id="butEditUser">Edit user</button>
+		<button id="butFlightInfo">Info from a flight</button>
+		<button id="butDeleteFlight">Delete a flight</button>
 		
 		<div id="result"></div>
 		
