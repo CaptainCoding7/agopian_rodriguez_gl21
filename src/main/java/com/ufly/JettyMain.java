@@ -1,5 +1,8 @@
 package com.ufly;
 
+import javax.jdo.JDOHelper;
+import javax.jdo.PersistenceManagerFactory;
+
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.ServerConnector;
@@ -54,7 +57,7 @@ public class JettyMain {
 		
 		// Generate data
 		GenerateData gd = new GenerateData();
-		gd.generateFlights();
+		gd.generateAll();
 
 		// Start server
 		server.start();

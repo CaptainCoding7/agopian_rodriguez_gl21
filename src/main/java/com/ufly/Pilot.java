@@ -20,10 +20,10 @@ public class Pilot extends Passenger {
 	private int flightHours;
 
 	// pilot version
-	public Pilot(int userID, Birthday birthday, String firstName, String lastName, Image selfPicture, String phoneNumber,
+	public Pilot(Birthday birthday, String firstName, String lastName, Image selfPicture, String phoneNumber,
 			Image identityCard, String livingLocation, String description, List<Flight> passengerFlightsList,
 			Image license, List<Flight> pilotFlightsList, int flightHours) {
-		super(userID, firstName, lastName, selfPicture, phoneNumber, identityCard, livingLocation, description,
+		super(firstName, lastName, selfPicture, phoneNumber, identityCard, livingLocation, description,
 				passengerFlightsList, birthday);
 		this.license = license;
 		this.pilotFlightsList = pilotFlightsList;
@@ -31,19 +31,19 @@ public class Pilot extends Passenger {
 	}
 
 	// pilot version
-	public Pilot(int userID, int day, int month, int years, String firstName, String lastName, Image selfPicture,
+	public Pilot(int day, int month, int years, String firstName, String lastName, Image selfPicture,
 			String phoneNumber, Image identityCard, String livingLocation, String description,
 			List<Flight> passengerFlightsList, Image license, List<Flight> pilotFlightsList,
 			int flightHours) {
-		super(userID, day, month, years, firstName, lastName, selfPicture, phoneNumber, identityCard, livingLocation,
+		super(day, month, years, firstName, lastName, selfPicture, phoneNumber, identityCard, livingLocation,
 				description, passengerFlightsList);
 		this.license = license;
 		this.pilotFlightsList = pilotFlightsList;
 		this.flightHours = flightHours;
 	}
 
-	public Pilot(int userID) {
-		super(userID);
+	public Pilot() {
+		super();
 		this.license = null;
 		this.pilotFlightsList = null;
 		this.flightHours = 0;

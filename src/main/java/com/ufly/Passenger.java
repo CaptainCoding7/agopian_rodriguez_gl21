@@ -32,9 +32,8 @@ public class Passenger {
 	private Birthday birthday;
 	
 	
-	public Passenger(int userID, String firstName, String lastName, Image selfPicture, String phoneNumber, Image identityCard,
+	public Passenger(String firstName, String lastName, Image selfPicture, String phoneNumber, Image identityCard,
 			String livingLocation, String description, List<Flight> passengerFlightsList, Birthday birthday) {
-		this.userID=userID;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.selfPicture = selfPicture;
@@ -46,9 +45,8 @@ public class Passenger {
 		this.birthday = birthday;
 	}
 
-	public Passenger(int userID, int day, int month, int years, String firstName, String lastName, Image selfPicture, 
+	public Passenger(int day, int month, int years, String firstName, String lastName, Image selfPicture, 
 			String phoneNumber, Image identityCard, String livingLocation, String description, List<Flight> passengerFlightsList) {
-		this.userID=userID;
 		this.birthday = new Birthday();
 		this.birthday.day = day;
 		this.birthday.month = month;
@@ -63,8 +61,7 @@ public class Passenger {
 		this.passengerFlightsList = passengerFlightsList;
 	}
 	
-	public Passenger(int userID) {
-		this.userID=userID;
+	public Passenger() {
 		this.birthday = null;
 		this.birthday.day = 0;
 		this.birthday.month = 1;

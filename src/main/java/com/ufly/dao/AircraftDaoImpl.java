@@ -20,7 +20,11 @@ import com.ufly.Flight;
 @PersistenceCapable
 public class AircraftDaoImpl implements AircraftDao {
 
-	PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("UFly_Objects");
+	PersistenceManagerFactory pmf;
+	
+	public AircraftDaoImpl(PersistenceManagerFactory pmf) {
+		this.pmf=pmf;
+	}
 	
 	public Aircraft getAircraftInfo(int aircraftID) {
 		PersistenceManager pm;

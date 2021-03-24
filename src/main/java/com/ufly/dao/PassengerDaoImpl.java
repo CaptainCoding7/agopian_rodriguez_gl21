@@ -3,6 +3,7 @@ package com.ufly.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.annotations.PersistenceCapable;
 
 import com.ufly.Flight;
@@ -12,9 +13,14 @@ import com.ufly.Passenger;
 @PersistenceCapable
 public class PassengerDaoImpl implements PassengerDao {
 	
-
+	PersistenceManagerFactory pmf;
+	
+	public PassengerDaoImpl(PersistenceManagerFactory pmf) {
+		this.pmf=pmf;
+	}
+	
 	public Passenger GetInfosFromUser(int idUser) {
-		return new Passenger(1, 
+		return new Passenger( 
 				"Paulsy", 
 				"Agopian", 
 				null, 

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.jdo.JDOHelper;
+import javax.jdo.PersistenceManagerFactory;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -23,6 +25,7 @@ import com.ufly.dao.*;
 @Path("ufly")
 public class WebServicesREST {
 
+	
 	public static class TestClass {
 		public int id;
 	}
@@ -40,7 +43,7 @@ public class WebServicesREST {
 	@Path("flightsList")
 	public List<Flight> getFlightsFromCriteria() {
 		//ArrayList<Flight> flightsList= new ArrayList<Flight>(Arrays.asList(new Flight(1),new Flight(2),new Flight(3)));
-		List<Flight> flightsList=(new FlightDaoImpl().getFlightsFromCriteria(null, 0, null, 0));
+		List<Flight> flightsList=(DaoFactory.getFlightDao().getFlightsFromCriteria(null, 0, null, 0));
 		return flightsList;
 	}
 	
@@ -58,7 +61,7 @@ public class WebServicesREST {
 	@GET
 	@Path("flightInfo/{id}")
 	public Flight getInfoFromAFlight(@PathParam("id") int id) {
-		return new FlightDaoImpl().getInfoFromAFlight(id);
+		return DaoFactory.getFlightDao().getInfoFromAFlight(id);
 	}
 		
 	/**
@@ -70,7 +73,7 @@ public class WebServicesREST {
 	@GET
 	@Path("aircraftInfo/{id}")
 	public Aircraft getAircraftInfo(@PathParam("id") int id) {
-		return new AircraftDaoImpl().getAircraftInfo(id);
+		return DaoFactory.getAircraftDao().getAircraftInfo(id);
 
 	}
 	
@@ -78,7 +81,7 @@ public class WebServicesREST {
 	@DELETE
 	@Path("deleteflight/{id}")
 	public void deleteAFlight(@PathParam("id") int id){
-		new FlightDaoImpl().deleteAFlight(id);
+		DaoFactory.getFlightDao().deleteAFlight(id);
 	}
 	
 	/* PILOT ***********************/
@@ -91,10 +94,9 @@ public class WebServicesREST {
 	 */
 	@Produces(MediaType.APPLICATION_JSON)
 	@GET
-	@Path("pilotFlightsList")
-	public ArrayList<Flight> getPilotedFlightsList(TestClass instance) {
-		ArrayList<Flight> flightsList= new ArrayList<Flight>(Arrays.asList(new Flight(),new Flight(),new Flight()));
-		return flightsList;
+	@Path("pilotFlightsList/{id}")
+	public List<Flight> getPilotedFlightsList(@PathParam("id") int id) {
+		return DaoFactory.getPilotDao().getPilotedFlightsList(id);
 	}
 		
 	/**
@@ -105,7 +107,7 @@ public class WebServicesREST {
 	@PUT
 	@Path("addflight")
 	public void addAFlight(TestClass instance) {
-		new PilotDaoImpl().addAFlight(instance.id);
+		DaoFactory.getPilotDao().addAFlight(instance.id);
 		//System.out.println("new user "+instance.id);
 	
 	}
@@ -143,15 +145,15 @@ public class WebServicesREST {
 	@PUT
 	@Path("createuser")
 	public void createANewUser(TestClass instance) {
-		ArrayList<Passenger> passengerList=new ArrayList<Passenger>(Arrays.asList(new Passenger(1),new Passenger(2),new Passenger(3)));
-		passengerList.add(new Passenger(instance.id));
+		ArrayList<Passenger> passengerList=new ArrayList<Passenger>(Arrays.asList(new Passenger(),new Passenger(),new Passenger()));
+		passengerList.add(new Passenger());
 	}
 	
 	@Produces(MediaType.APPLICATION_JSON)
 	@GET
 	@Path("getuserinfo")
 	public Passenger getInfosFromUser(TestClass instance) {
-		ArrayList<Passenger> passengerList=new ArrayList<Passenger>(Arrays.asList(new Passenger(1),new Passenger(2),new Passenger(3)));
+		ArrayList<Passenger> passengerList=new ArrayList<Passenger>(Arrays.asList(new Passenger(),new Passenger(),new Passenger()));
 		for(Passenger p:passengerList){
 			if(p.getUserID()==instance.id)
 				return p;

@@ -19,6 +19,7 @@ import javax.jdo.annotations.PersistenceCapable;
 import com.ufly.Aircraft;
 import com.ufly.Flight;
 import com.ufly.Passenger;
+import com.ufly.Pilot;
 import com.ufly.Flight.TypeOfFlight;
 
 /**
@@ -29,7 +30,11 @@ import com.ufly.Flight.TypeOfFlight;
 public class PilotDaoImpl extends PassengerDaoImpl implements PilotDao {
 
 	
-	PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("UFly_Objects");
+	PersistenceManagerFactory pmf;
+	
+	public PilotDaoImpl(PersistenceManagerFactory pmf) {
+		super(pmf);
+	}
 
 	public List<Flight> getPilotedFlightsList(int idUser) {
 		List<Flight> SubList = new ArrayList<Flight>(Arrays.asList(
@@ -46,20 +51,29 @@ public class PilotDaoImpl extends PassengerDaoImpl implements PilotDao {
 		return SubList;
 	}
 
+	/**
+	 * 
+	 */
 	public void addAFlight(int idUser) {
 		
 		PersistenceManager pm;
 		Transaction tx;
+		Pilot pilotRetrieved;
+		List<Flight> pilotFlightsList;
 
 		Flight f = new Flight();
 		f.setFlightDescription("un voyage en avion trop cool");
-
+		
+	
 		// save
 		pm = pmf.getPersistenceManager();
 		tx = pm.currentTransaction();
 		try {
 			tx.begin();
+			pilotRetrieved = pm.getObjectById(Pilot.class, idUser);
+			pilotFlightsList = pilotRetrieved.getPilotFlightsList();
 			pm.makePersistent(f);
+			
 			tx.commit();
 		} finally {
 			if (tx.isActive()) {

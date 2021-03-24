@@ -31,7 +31,11 @@ import com.ufly.Flight.TypeOfFlight;
 public class FlightDaoImpl implements FlightDao {
 
 	
-	PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("UFly_Objects");
+	PersistenceManagerFactory pmf;
+	
+	public FlightDaoImpl(PersistenceManagerFactory pmf) {
+		this.pmf=pmf;
+	}	
 	
 	public List<Flight> getFlightsFromCriteria(Aircraft aircraft, int price, String destination, int nbOfSeats) {
 

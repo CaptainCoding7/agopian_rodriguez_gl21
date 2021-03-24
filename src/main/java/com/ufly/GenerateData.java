@@ -28,6 +28,28 @@ public class GenerateData {
 	 */
 	public void generateAicrafts() {
 		
+		PersistenceManager pm;
+		Transaction tx;
+		List<Aircraft> aircrafts = new ArrayList<Aircraft>(Arrays.asList(new Aircraft(),new Aircraft(),new Aircraft()));
+		aircrafts.get(0).setAircraftModel("Cessna 172");
+		aircrafts.get(1).setAircraftModel("Piper PA28");
+		aircrafts.get(2).setAircraftModel("Robin DR400 - 100HP");
+		
+		// save
+		pm = pmf.getPersistenceManager();
+		tx = pm.currentTransaction();
+		try {
+			tx.begin();
+			for(Aircraft a: aircrafts) {
+				pm.makePersistent(a);
+			}
+			tx.commit();
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
 		
 	}
 	
@@ -98,5 +120,72 @@ public class GenerateData {
 			pm.close();
 		}
 	}
+	
+	/**
+	 * Passenger generation, store them in the database
+	 */
+	public void generatePassengers() {
+		
+		PersistenceManager pm;
+		Transaction tx;
+		List<Passenger> pass = new ArrayList<Passenger>(Arrays.asList(new Passenger(),new Passenger()));
+		//pass.get(0).setFirstName("michel");
+		//pass.get(1).setFirstName("jean-patrick");		
+		// save
+		pm = pmf.getPersistenceManager();
+		tx = pm.currentTransaction();
+		try {
+			tx.begin();
+			for(Passenger a: pass) {
+				pm.makePersistent(a);
+			}
+			tx.commit();
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+		
+	}
+	
+	/**
+	 * Passenger generation, store them in the database
+	 */
+	public void generatePilots() {
+		
+		PersistenceManager pm;
+		Transaction tx;
+		List<Pilot> pass = new ArrayList<Pilot>(Arrays.asList(new Pilot(),new Pilot(),new Pilot()));
+		pass.get(0).setFirstName("michel");
+		pass.get(1).setFirstName("jean-patrick");		
+		// save
+		pm = pmf.getPersistenceManager();
+		tx = pm.currentTransaction();
+		try {
+			tx.begin();
+			for(Pilot a: pass) {
+				pm.makePersistent(a);
+			}
+			tx.commit();
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+		
+	}
+	
+	/**
+	 * Generate all the data
+	 */
+	public void generateAll() {
+		this.generateAicrafts();
+		this.generateFlights();
+		//this.generatePassengers();
+		//this.generatePilots();
+	}
+	
 	
 }
