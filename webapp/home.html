@@ -6,27 +6,25 @@
 		<link type="text/css" rel="stylesheet" media="all" title="CSS" href="style.css" />                                                 
 	</head>
 
-	<body class="image" style="background-image: url('bg.jpg');" media="screen and (device-height: 1000px)">
-
+	<body>
+		<!--Using to activate underscore.js-->
 		<script id="templateExample" type="text/template">
 			<div>
 				<%= attribute %>
 			</div>
 		</script>
 
-		<h1 align="center">Welcome to Ufly</h1>
-		<h3 align="center">Share a flight, share a dream</h3>
-		<ul align="east">
+		<h1 >Welcome to Ufly</h1>
+		<h2 >Share a flight, share a dream</h2>
+		<ul>
 			<li><a href="connexion.html">Se connecter</a></li>
 			<li><a href="inscription.html">S'inscrire</a></li>
 			<li><a href="who.html">Qui sommes-nous ?</a></li>
 		</ul>
-		<p class="bandeau">
-		</p>
 
 		<form>
 			<input type="text" id="search" class="search" placeholder="Search a departure place...">
-			<input type="submit" value="Search" src="icon_loupe.png">
+			<button type="submit" value="Search" src="icon_loupe.png"></button>
 		</form>
 
 		<button id="butFlightsList">See flights</button>
