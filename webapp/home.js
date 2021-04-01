@@ -49,20 +49,37 @@ function callDone(result){
 
 
 $(function(){
+
 	
 	$("#butFlightsList").click(function(){
-		getServerData("ws/ufly/flightsList",callDone);
+
+		var data = {
+			plane : "Cessna 172",
+			price : 50,
+			destination : "Amsterdam",
+			seats : 0
+		}
+		var plane = "Cessa 172";
+		
+
+		getServerData("ws/flight/flightsList/Cessna 172/50/Amsterdam/0",callDone);
+		//getServerData("ws/flight/flightsList/data",callDone);
 	});
 
 	$("#butFlightInfo").click(function(){
-		getServerData("ws/ufly/flightInfo/2",callDone);
+		getServerData("ws/flight/flightInfo/2",callDone);
 	});
 
 	$("#butAddFlight").click(function(){
 		var data = {
 	        id: 1
 	    };
-		putServerData("ws/ufly/addflight",JSON.stringify(data),callDone);
+		putServerData("ws/flight/addflight",JSON.stringify(data),callDone);
+	});
+
+	$("#butDeleteFlight").click(function(){
+
+		deleteServerData("ws/flight/deleteflight/1",callDone);
 	});
 
 	$("#butEditUser").click(function(){				
@@ -74,14 +91,11 @@ $(function(){
 		var dataJson = JSON.stringify(data);
 		var idJson = JSON.stringify(id);
         //console.log(dataJson);
-		postServerData("ws/ufly/edituser",idJson,callDone);
+		postServerData("ws/passenger/edituser",idJson,callDone);
 
 	});
 
-	$("#butDeleteFlight").click(function(){
 
-		deleteServerData("ws/ufly/deleteflight/1",callDone);
-	});
 	
 });
 

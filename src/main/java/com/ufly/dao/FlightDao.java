@@ -12,7 +12,7 @@ public interface FlightDao {
 	 * get a list of flights based on certain criteria
 	 * GET
 	 */
-	List<Flight> getFlightsFromCriteria(Aircraft aircraft, int price, String destination, int nbOfSeats);
+	List<Flight> getFlightsFromCriteria(String plane, int price, String destination, int nbOfSeats);
 
 	/**
 	 * get infos from a specific flight (with the id)

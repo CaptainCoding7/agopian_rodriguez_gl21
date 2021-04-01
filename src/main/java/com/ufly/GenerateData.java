@@ -9,6 +9,7 @@ import java.util.List;
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
+import javax.jdo.Query;
 import javax.jdo.Transaction;
 
 import com.ufly.Flight.TypeOfFlight;
@@ -53,6 +54,37 @@ public class GenerateData {
 		
 	}
 	
+	public List<Aircraft> getAircraftsList(){
+		
+		PersistenceManager pm;
+		Transaction tx;
+		List<Aircraft> a;
+		
+		// retrieve aircraft list
+		pm = pmf.getPersistenceManager();
+		tx = pm.currentTransaction();
+		// retainValues pour que les attributs soit gardés
+	    tx.setRetainValues(true);
+		try {
+			tx.begin();
+			Query q = pm.newQuery(Aircraft.class);
+			a = (List<Aircraft>) q.execute();
+			tx.commit();
+			
+		} 
+		
+		finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+
+			pm.close();
+			
+		}
+		
+		return a;
+	}
+	
 	/**
 	 * Flights generation, store them in the database
 	 */
@@ -61,12 +93,13 @@ public class GenerateData {
 		PersistenceManager pm;
 		Transaction tx;
 
+		List<Aircraft> aircrafts = this.getAircraftsList();
 		List<Flight> flights = new ArrayList<Flight>(Arrays.asList(
 				new Flight(
-						new Aircraft(),
+						aircrafts.get(0),
 						TypeOfFlight.ROUND_TRIP,
 						"Alforville",
-						"Les Pavillons-sous-bois",
+						"Amsterdam",
 						LocalTime.of(1,30),
 						LocalDateTime.of(2021, 01, 01, 0, 0),
 						LocalDateTime.of(2021, 01, 01, 1, 30),
@@ -129,8 +162,8 @@ public class GenerateData {
 		PersistenceManager pm;
 		Transaction tx;
 		List<Passenger> pass = new ArrayList<Passenger>(Arrays.asList(new Passenger(),new Passenger()));
-		//pass.get(0).setFirstName("michel");
-		//pass.get(1).setFirstName("jean-patrick");		
+		pass.get(0).setFirstName("michel");
+		pass.get(1).setFirstName("jean-patrick");		
 		// save
 		pm = pmf.getPersistenceManager();
 		tx = pm.currentTransaction();
@@ -164,9 +197,11 @@ public class GenerateData {
 		tx = pm.currentTransaction();
 		try {
 			tx.begin();
+			
 			for(Pilot a: pass) {
 				pm.makePersistent(a);
 			}
+			//pm.makePersistentAll(pass);
 			tx.commit();
 		} finally {
 			if (tx.isActive()) {
@@ -183,8 +218,8 @@ public class GenerateData {
 	public void generateAll() {
 		this.generateAicrafts();
 		this.generateFlights();
-		//this.generatePassengers();
-		//this.generatePilots();
+		this.generatePassengers();
+		this.generatePilots();
 	}
 	
 	

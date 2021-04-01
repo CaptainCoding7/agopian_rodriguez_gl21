@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
@@ -37,7 +38,7 @@ public class FlightDaoImpl implements FlightDao {
 		this.pmf=pmf;
 	}	
 	
-	public List<Flight> getFlightsFromCriteria(Aircraft aircraft, int price, String destination, int nbOfSeats) {
+	public List<Flight> getFlightsFromCriteria(String plane, int price, String destination, int nbOfSeats) {
 
 		PersistenceManager pm;
 		Transaction tx;
@@ -66,8 +67,16 @@ public class FlightDaoImpl implements FlightDao {
 			Query q = pm.newQuery(Flight.class);
 			flights = (List<Flight>) q.execute();
 			
-			for(Flight fget:flights)
+			for(Flight fget:flights) {
 				System.out.println("flight retrieved : " + fget.getFlightDescription());
+			}
+			System.out.println(plane+price+destination+nbOfSeats);
+			flights=flights.stream()
+					.filter(p->p.getPricePerPassenger()<=price)
+					.filter(p->p.getAircraft().getAircraftModel().equals(plane))
+					.filter(p->p.getArrivalAirport().equals(destination))
+					.filter(p->p.getAvailableSeats()>=nbOfSeats)
+					.collect(Collectors.toList());
 			tx.commit();
 			
 		} 

@@ -23,11 +23,8 @@ public class PassengerDaoImpl implements PassengerDao {
 		return new Passenger( 
 				"Paulsy", 
 				"Agopian", 
-				null, 
 				"118 218", 
-				null, 
 				"Alfortville", 
-				"I love music and fly",
 				null, 
 				null);
 	}

@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.jdo.JDOHelper;
-import javax.jdo.PersistenceManagerFactory;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -22,11 +20,11 @@ import com.ufly.Passenger;
 import com.ufly.dao.*;
 
 
-@Path("ufly")
-public class WebServicesREST {
+@Path("flight")
+public class FlightWS {
 
 	
-	public static class TestClass {
+	public static class IdContainer {
 		public int id;
 	}
 	
@@ -40,10 +38,13 @@ public class WebServicesREST {
 	
 	@Produces(MediaType.APPLICATION_JSON)
 	@GET
-	@Path("flightsList")
-	public List<Flight> getFlightsFromCriteria() {
+	@Path("flightsList/{plane}/{price}/{destination}/{seats}")
+	public List<Flight> getFlightsFromCriteria(@PathParam("plane") String plane,@PathParam("price") int price,@PathParam("destination") String destination,@PathParam("seats") int seats) {
 		//ArrayList<Flight> flightsList= new ArrayList<Flight>(Arrays.asList(new Flight(1),new Flight(2),new Flight(3)));
-		List<Flight> flightsList=(DaoFactory.getFlightDao().getFlightsFromCriteria(null, 0, null, 0));
+		//List<Flight> flightsList=(DaoFactory.getFlightDao().getFlightsFromCriteria(ff.plane, ff.price, ff.destination, ff.seats));
+		List<Flight> flightsList=(DaoFactory.getFlightDao().getFlightsFromCriteria(plane, price, destination, seats));
+		System.out.println(flightsList);
+
 		return flightsList;
 	}
 	
@@ -106,7 +107,7 @@ public class WebServicesREST {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@PUT
 	@Path("addflight")
-	public void addAFlight(TestClass instance) {
+	public void addAFlight(IdContainer instance) {
 		DaoFactory.getPilotDao().addAFlight(instance.id);
 		//System.out.println("new user "+instance.id);
 	
@@ -119,7 +120,7 @@ public class WebServicesREST {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@POST
 	@Path("editflight")
-	public void editAFlight(TestClass instance) {//,TestClass instance2) {
+	public void editAFlight(IdContainer instance) {//,IdContainer instance2) {
 		ArrayList<Flight> flightsList= new ArrayList<Flight>(Arrays.asList(new Flight(),new Flight(),new Flight()));
 		for(Flight f:flightsList){
 			if(f.getFlightID()==instance.id){
@@ -144,7 +145,7 @@ public class WebServicesREST {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@PUT
 	@Path("createuser")
-	public void createANewUser(TestClass instance) {
+	public void createANewUser(IdContainer instance) {
 		ArrayList<Passenger> passengerList=new ArrayList<Passenger>(Arrays.asList(new Passenger(),new Passenger(),new Passenger()));
 		passengerList.add(new Passenger());
 	}
@@ -152,7 +153,7 @@ public class WebServicesREST {
 	@Produces(MediaType.APPLICATION_JSON)
 	@GET
 	@Path("getuserinfo")
-	public Passenger getInfosFromUser(TestClass instance) {
+	public Passenger getInfosFromUser(IdContainer instance) {
 		ArrayList<Passenger> passengerList=new ArrayList<Passenger>(Arrays.asList(new Passenger(),new Passenger(),new Passenger()));
 		for(Passenger p:passengerList){
 			if(p.getUserID()==instance.id)
@@ -164,7 +165,7 @@ public class WebServicesREST {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@POST
 	@Path("edituser")
-	public void editUserInfos(TestClass instance) {
+	public void editUserInfos(IdContainer instance) {
 /*
 		ArrayList<Passenger> passengerList=new ArrayList<Passenger>(Arrays.asList(new Passenger(1),new Passenger(2),new Passenger(3)));
 		for(Passenger p:passengerList){
@@ -187,14 +188,14 @@ public class WebServicesREST {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@POST
 	@Path("notepilot")
-	public void noteAPilot(TestClass instance) {
+	public void noteAPilot(IdContainer instance) {
 		System.out.println("note pilot "+instance.id);	
 	}	
 
 	@Consumes(MediaType.APPLICATION_JSON)
 	@POST
 	@Path("book")
-	public void bookAFlight(TestClass instance) {//, TestClass instance2) {
+	public void bookAFlight(IdContainer instance) {//, IdContainer instance2) {
 		ArrayList<Flight> flightsList= new ArrayList<Flight>(Arrays.asList(new Flight(),new Flight(),new Flight()));
 		for(Flight f:flightsList){
 			if(f.getFlightID()==instance.id){
@@ -213,7 +214,7 @@ public class WebServicesREST {
 	@Produces(MediaType.APPLICATION_JSON)
 	@GET
 	@Path("passengerflightslist")
-	public ArrayList<Flight> getFlightsList(TestClass instance) {
+	public ArrayList<Flight> getFlightsList(IdContainer instance) {
 		ArrayList<Flight> flightsList= new ArrayList<Flight>(Arrays.asList(new Flight(),new Flight(),new Flight()));
 		return flightsList;
 	}

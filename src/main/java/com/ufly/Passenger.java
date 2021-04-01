@@ -7,6 +7,7 @@ import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
+import javax.persistence.ElementCollection;
 
 @PersistenceCapable
 public class Passenger {
@@ -16,12 +17,16 @@ public class Passenger {
 	private int userID;
 	private String firstName;
 	private String lastName;
-	private Image selfPicture;
+	//private Image selfPicture;
 	private String phoneNumber;
-	private Image identityCard;
+	//private Image identityCard;
 	private String livingLocation;
-	private String description;
+	
+	//private String description;
+	
+	@Persistent(defaultFetchGroup = "true")	
 	private List<Flight> passengerFlightsList;
+	
 	
 	protected class Birthday {
 		private int day;
@@ -32,47 +37,44 @@ public class Passenger {
 	private Birthday birthday;
 	
 	
-	public Passenger(String firstName, String lastName, Image selfPicture, String phoneNumber, Image identityCard,
-			String livingLocation, String description, List<Flight> passengerFlightsList, Birthday birthday) {
+	public Passenger(String firstName, String lastName, String phoneNumber,
+			String livingLocation, List<Flight> passengerFlightsList, Birthday birthday) {
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.selfPicture = selfPicture;
+		//this.selfPicture = selfPicture;
 		this.phoneNumber = phoneNumber;
-		this.identityCard = identityCard;
+		//this.identityCard = identityCard;
 		this.livingLocation = livingLocation;
-		this.description = description;
+		//this.description = description;
 		this.passengerFlightsList = passengerFlightsList;
 		this.birthday = birthday;
 	}
 
-	public Passenger(int day, int month, int years, String firstName, String lastName, Image selfPicture, 
-			String phoneNumber, Image identityCard, String livingLocation, String description, List<Flight> passengerFlightsList) {
+	public Passenger(int day, int month, int years, String firstName, String lastName, 
+			String phoneNumber, String livingLocation, List<Flight> passengerFlightsList) {
 		this.birthday = new Birthday();
 		this.birthday.day = day;
 		this.birthday.month = month;
 		this.birthday.years = years;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.selfPicture = selfPicture;
+		//this.selfPicture = selfPicture;
 		this.phoneNumber = phoneNumber;
-		this.identityCard = identityCard;
+		//this.identityCard = identityCard;
 		this.livingLocation = livingLocation;
-		this.description = description;
+		//this.description = description;
 		this.passengerFlightsList = passengerFlightsList;
 	}
 	
 	public Passenger() {
 		this.birthday = null;
-		this.birthday.day = 0;
-		this.birthday.month = 1;
-		this.birthday.years = 0;
 		this.firstName = "";
 		this.lastName = "";
-		this.selfPicture = null;
+		//this.selfPicture = null;
 		this.phoneNumber = "";
-		this.identityCard = null;
+		//this.identityCard = null;
 		this.livingLocation = "";
-		this.description = "";
+		//this.description = "defaul";
 		this.passengerFlightsList = null;
 	}	
 
@@ -132,14 +134,6 @@ public class Passenger {
 		this.lastName = lastName;
 	}
 
-	public Image getSelfPicture() {
-		return selfPicture;
-	}
-
-	public void setSelfPicture(Image selfPicture) {
-		this.selfPicture = selfPicture;
-	}
-
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
@@ -148,13 +142,6 @@ public class Passenger {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public Image getIdentityCard() {
-		return identityCard;
-	}
-
-	public void setIdentityCard(Image identityCard) {
-		this.identityCard = identityCard;
-	}
 
 	public String getLivingLocation() {
 		return livingLocation;
@@ -164,13 +151,6 @@ public class Passenger {
 		this.livingLocation = livingLocation;
 	}
 
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
 
 	public List<Flight> getPassengerFlightsList() {
 		return passengerFlightsList;
