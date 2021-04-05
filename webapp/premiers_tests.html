@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Liens interview</title>
+        <link href="https://fonts.googleapis.com/css?family=Handlee" rel="stylesheet">
+    </head>
+    <hr width="1000px"/> <!--or "30%"-->
+    <body bgcolor="#FFFFFF">
+
+        <h1><span>Premiers Tests en HTML</span></h1>
+
+        <header>
+            <h3> Most important heading </h3>
+            <h5> Less important heading </h5>
+        </header>
+
+        <nav>
+           <ul>
+              <li><a href="#">Home</a></li>
+              <li><a href="#">Services</a></li>
+              <li><a href="#">About us</a></li>
+           </ul>
+        </nav>
+        <!-- text -->
+        <div style="background-color:skyblue; color:white; padding:20px;">
+            <!--
+            The <div> element defines a block-level section in a document=contains html elements
+            
+            The <span> element defines an inline section in a document=contains text-->
+            
+
+            <p  align="center" class="section">
+		      Ingénieur 1: </br>
+                <a href="https://www.linkedin.com/in/stephane-dubled-9696a39b/"target="_blank">
+	            Stéphane DUBLED
+	            </a>
+                line...<br/>...break
+
+
+	
+            </p>
+        </div>
+            <p> 
+<!--------------------------- Test de listes---------------------------------------->
+                <img src="cap.jpg" height="500px" width="700px" border="3px" alt="Bouclier de captain america"/>
+
+                <ol>
+                    <li> test liste</li>
+                    <li>avec num</li>
+                </ol>
+                <ul>
+                    <li> ou sans</li>
+                    <li>num</li>
+                </ul>
+            </p>
+
+            <p> 
+<!----------------------------------------Test de tableaux--------------------------->
+                <h2>Some 
+      <span style="color:red">Important</span>
+    table test</h2>
+                <table border="3">
+                    <tr bgcolor="grey">
+                        <td>Couleurs du bouclier</td>
+                        <td>Symbole du bouclier</td>
+                        <td>Matériau du bouclier</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"> Bleu Blanc Rouge + Etoile = USA Flag </td>
+                        <td> Vibranium</td>
+                    </tr>
+            </table>
+            </p>
+<!--------------------------------Test de "forms" (user inputs)------------------------->
+            <p>
+                <form>
+                    <input type="text" name="username" /><br />
+                    <input type="password" name="password" />
+                    <input type="submit" value="Submit" /> 
+                </form>
+
+                <form>
+                    <input type="checkbox" name="attributes" value="1" /> tall <br />
+                    <input type="checkbox" name="attributes" value="2" /> smart <br />
+                    <input type="submit" value="Submit" /> 
+                </form>
+                <form>
+                    <input type="radio" name="gender" value="male" /> Male <br />
+                    <input type="radio" name="gender" value="female" /> Female <br />
+                    <input type="submit" value="Submit" /> 
+                </form>
+                <form>Envoyez-moi un message ! <br/>
+                    <textarea name="message" ></textarea><br/>   
+                    <input type="submit" value="Send" /> 
+
+                </form>
+
+                Besoin de PHP pour récupérer les données soumises par l'utilisateur !
+            </p>
+
+            <p>
+                <!--
+                <frameset cols="25%,50%,25%">
+                    <frame src="a.htm" />
+                    <frame src="b.htm" />
+                    <frame src="c.htm" />
+                    <noframes>Frames not supported!</noframes>
+                </frameset>
+            -->
+                 
+            </p>
+
+                    <div class="section">
+            <h2><span>My Media</span></h2>
+            <iframe height="150" width="300" src="https://www.youtube.com/embed/Q6_5InVJZ88" allowfullscreen frameborder="0"></iframe>
+        </div>
+        <footer>Thx to my family<br/> @Captain America All Rights Reserved</footer>
+        
+<!----------------------------Test article------------------------>
+
+        <article style="background-color:grey; color:white; padding:20px;">
+            <h2>Des nouvelles du cosmos: le Faucon Millenium a été retrouvé échoué sur une lune de Jupiter! </h2>
+            <aside> Incroyable n'est-ce pas?
+            </aside>
+
+
+            <section>
+                Le célèbre vaisseau de Han Solo diffusait cette musique grâce à ses HP haute qualité de Coruscant:<br/>
+                <audio controls autoplay>
+                    <source src="T-Jam.mp3" type="T-Jam/mpeg">
+                    <source src="T-Jam.ogg" type="T-Jam/ogg">
+                </audio>
+            </section>
+
+            Status: <progress min="0" max="100" value="35">
+            </progress><br/>
+            Votre article charge...Vous allez pouvoir lire la suite... Si si on vous assure...
+
+        </article>
+
+        <p>
+            <!--
+            localStorage.setItem("key1", "value1");
+            //this will print the value
+            alert(localStorage.getItem("key1")); 
+            localStorage.removeItem("key1");
+            localStorage.clear();
+        -->
+
+            <!--navigator.geolocation.getCurrentPosition();-->
+        </p>
+
+<!-----------------------------DRAG AND DROP -------------------------->
+           
+        <script>
+            function allowDrop(ev) {
+                ev.preventDefault();
+            }
+
+            function drag(ev) {
+                ev.dataTransfer.setData("hello", ev.target.id);
+            }
+
+            function drop(ev) {
+                ev.preventDefault();
+                var data = ev.dataTransfer.getData("hello");
+                ev.target.appendChild(document.getElementById(data));
+            }
+
+       </script>
+            
+            <div id="box" ondrop="drop(event)" ondragover="allowDrop(event)" style="border:1px solid black; width:150px; height:50px"></div>
+
+            <img id="image" src="cap.jpg" draggable="true"
+               ondragstart="drag(event)" width="150" height="50" alt="" />
+            
+<!--------------------DRAWING------------------------------->
+<h2> Quelques formes géométriques...</h2>
+<h5> Avec svg...</h5>
+
+<svg width="1000" height="500">
+   <circle cx="80" cy="80" r="50" fill="brown" /><!--rx and ry for ellipse-->
+   <rect width="300" height="100" x="200" y="20" fill="red" >
+        <animate attributeName="x" from="0" to="300" dur="3s" fill="freeze" repeatCount="indefinite"/> 
+    </rect>
+   <line x1="10" y1="300" x2="500" y2="300" style="stroke:#016530; stroke-linecap:round; stroke-width:20"  />
+   <polyline style="stroke-linejoin:miter; stroke:black; stroke-width:12; fill: yellow;" points="700 10, 900 100, 900 200" />
+   <polygon points="600 10, 630 30, 650 20" style="fill: white; stroke:blue;" />
+   <path d="M 0 0 L200 200 L200 0 Z" style="stroke:#000;  fill:none;" />
+</svg>
+
+<h5>Ou avec Canvas</h5><!--It's only a container for graphics. Need a scipt written with JavaScript to draw smthg-->
+
+<!--The canvas supports various other methods for drawing:
+
+Draw a Line
+moveTo(x,y): Defines the starting point of the line.
+lineTo(x,y): Defines the ending point of the line.
+
+Draw a Circle
+beginPath(): Starts the drawing.
+arc(x,y,r,start,stop): Sets the parameters of the circle.
+stroke(): Ends the drawing.
+
+Gradients
+createLinearGradient(x,y,x1,y1): Creates a linear gradient.
+createRadialGradient(x,y,r,x1,y1,r1): Creates a radial/circular gradient.
+
+Drawing Text on the Canvas
+Font: Defines the font properties for the text.
+fillText(text,x,y): Draws "filled" text on the canvas.
+strokeText(text,x,y): Draws text on the canvas (no fill).
+
+-->
+     <canvas id="canvas1" 
+   width="400" height="300"></canvas> 
+
+   <script>
+      var can = document.getElementById("canvas1"); 
+      var ctx1 = can.getContext("2d");
+      ctx1.fillStyle ="rgba(0, 200, 0, 1)";
+      ctx1.fillRect(20,20,100,100);
+      ctx1.rotate( (Math.PI / 180) * 25);  //rotate 25 degrees (25pi/180 rad)
+
+      ctx1.fillStyle = "#0000FF";
+      ctx1.fillRect(10,10, 100, 100);
+
+
+      var canvas = document.getElementById('canvas1');
+ctx =canvas.getContext('2d');
+ctx.font="bold 22px Tahoma";
+ctx.textAlign="start";
+ctx.fillText("start", 10, 30);
+ctx.translate(100, 150);
+ctx.fillText("after translate", 0, 0);
+ctx.rotate(1);
+ctx.fillText("after rotate", 0, 0);
+ctx.scale(1.5, 4);
+ctx.fillText("after scale", 0,20);
+   </script>
+
+<!----------------------------------------------------------------->
+
+<form>
+   <label for="email">Your e-mail address: </label> 
+   <input type="text" name="email" placeholder="email@example.com" autofocus="" /> 
+</form>
+
+<form autocomplete="off">
+   <label for="e-mail">Your e-mail address: </label>
+   <input name="Email" type="text" required />
+   <input type="submit" value="Submit"/>
+</form>
+        
+        <!-- text-->
+    </body>
+</html>
