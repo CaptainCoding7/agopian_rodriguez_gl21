@@ -2,6 +2,7 @@ package com.ufly.ws;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -14,15 +15,12 @@ import javax.ws.rs.core.MediaType;
 
 import com.ufly.Flight;
 import com.ufly.Passenger;
+import com.ufly.dao.DaoFactory;
 
 
 @Path("passenger")
 public class PassengerWS {
 
-	
-	public static class IdContainer {
-		public int id;
-	}
 
 	/* PASSENGER ***********************/
 	
@@ -35,39 +33,22 @@ public class PassengerWS {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@PUT
 	@Path("createuser")
-	public void createANewUser(IdContainer instance) {
-		ArrayList<Passenger> passengerList=new ArrayList<Passenger>(Arrays.asList(new Passenger(),new Passenger(),new Passenger()));
-		passengerList.add(new Passenger());
+	public void createANewUser(Passenger passenger) {
+		DaoFactory.getPassengerDao().createANewUser(passenger);
 	}
 	
 	@Produces(MediaType.APPLICATION_JSON)
 	@GET
-	@Path("getuserinfo")
-	public Passenger getInfosFromUser(IdContainer instance) {
-		ArrayList<Passenger> passengerList=new ArrayList<Passenger>(Arrays.asList(new Passenger(),new Passenger(),new Passenger()));
-		for(Passenger p:passengerList){
-			if(p.getUserID()==instance.id)
-				return p;
-			}
-		return null;
+	@Path("getuserinfo/{id}")
+	public Passenger getInfosFromUser(@PathParam("id") int id) {
+		return DaoFactory.getPassengerDao().getInfosFromUser(id);
 	}
 	
 	@Consumes(MediaType.APPLICATION_JSON)
 	@POST
-	@Path("edituser")
-	public void editUserInfos(IdContainer instance) {
-/*
-		ArrayList<Passenger> passengerList=new ArrayList<Passenger>(Arrays.asList(new Passenger(1),new Passenger(2),new Passenger(3)));
-		for(Passenger p:passengerList){
-			if(p.getUserID()==id) {
-				p.setFirstName("Lucas");
-				System.out.println("edit user: ");
-				System.out.println(p.getUserID());
-			}
-		}
-		*/
-		System.out.println("edit user");
-		System.out.println(instance.id);
+	@Path("edituser/{id}")
+	public void editUserInfos(@PathParam("id") int id) {
+		
 		
 	}
 	/**
@@ -77,19 +58,19 @@ public class PassengerWS {
 	 */
 	@Consumes(MediaType.APPLICATION_JSON)
 	@POST
-	@Path("notepilot")
-	public void noteAPilot(IdContainer instance) {
-		System.out.println("note pilot "+instance.id);	
+	@Path("notepilot/{id}")
+	public void noteAPilot(@PathParam("id") int id) {
+		System.out.println("note pilot "+id);	
 	}	
 
 	@Consumes(MediaType.APPLICATION_JSON)
 	@POST
-	@Path("book")
-	public void bookAFlight(IdContainer instance) {//, IdContainer instance2) {
+	@Path("book/{id}")
+	public void bookAFlight(@PathParam("id") int id) {//, IdContainer instance2) {
 		ArrayList<Flight> flightsList= new ArrayList<Flight>(Arrays.asList(new Flight(),new Flight(),new Flight()));
 		for(Flight f:flightsList){
-			if(f.getFlightID()==instance.id){
-				System.out.println(instance.id);
+			if(f.getFlightID()==id){
+				System.out.println(id);
 				//f.setAvailableSeats(f.getAvailableSeats()-Integer.parseInt(instance2.id));
 				break;
 			}
@@ -103,10 +84,9 @@ public class PassengerWS {
 	 */
 	@Produces(MediaType.APPLICATION_JSON)
 	@GET
-	@Path("passengerflightslist")
-	public ArrayList<Flight> getFlightsList(IdContainer instance) {
-		ArrayList<Flight> flightsList= new ArrayList<Flight>(Arrays.asList(new Flight(),new Flight(),new Flight()));
-		return flightsList;
+	@Path("passengerflightslist/{id}")
+	public List<Flight> getFlightsList(@PathParam("id") int id) {
+		return DaoFactory.getPassengerDao().getFlightsList(id);
 	}
 		
 	

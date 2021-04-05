@@ -1,6 +1,7 @@
 package com.ufly;
 
 import java.awt.Image;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,20 +27,20 @@ public class Pilot extends Passenger {
 	private int flightHours;
 
 	// pilot version
-	public Pilot(Birthday birthday, String firstName, String lastName, Image selfPicture, String phoneNumber,
-			String livingLocation, List<Flight> passengerFlightsList,
+	public Pilot(String mail, String pwd, String firstName, String lastName, String phoneNumber,
+			String livingLocation, List<Flight> passengerFlightsList, String birthday,
 			Image license, List<Flight> pilotFlightsList, int flightHours) {
-		super(firstName, lastName, phoneNumber, livingLocation,	passengerFlightsList, birthday);
+		super(mail, pwd, firstName, lastName, phoneNumber, livingLocation,	passengerFlightsList, birthday);
 		this.license = license;
 		this.pilotFlightsList = pilotFlightsList;
 		this.flightHours = flightHours;
 	}
 
 	// pilot version
-	public Pilot(int day, int month, int years, String firstName, String lastName,
+	public Pilot(String mail, String pwd,int day, int month, int years, String firstName, String lastName,
 			String phoneNumber, String livingLocation, List<Flight> passengerFlightsList, Image license, List<Flight> pilotFlightsList,
 			int flightHours) {
-		super(day, month, years, firstName, lastName, phoneNumber, livingLocation, passengerFlightsList);
+		super(mail, pwd, day, month, years, firstName, lastName, phoneNumber, livingLocation, passengerFlightsList);
 		this.license = license;
 		this.pilotFlightsList = pilotFlightsList;
 		this.flightHours = flightHours;

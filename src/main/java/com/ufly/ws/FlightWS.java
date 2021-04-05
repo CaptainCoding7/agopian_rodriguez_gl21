@@ -1,5 +1,6 @@
 package com.ufly.ws;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -28,6 +29,14 @@ public class FlightWS {
 		public int id;
 	}
 	
+	public static class SearchCriteria{
+		public String plane;
+		public int price;
+		public String destination;
+		public int seats;
+		//public String depDate;	
+	}
+	
 	/* ne fonctionne pas avec des variables statiques */
 //	public static ArrayList<Flight> flightsList= new ArrayList<Flight>(Arrays.asList(new Flight("ADC-F2"),new Flight("KDO-A6"),new Flight("UDO-G5")));
 //	public static ArrayList<Aircraft> aircraftsList= new ArrayList<Aircraft>(Arrays.asList(new Aircraft("B737"),new Aircraft("A256"),new Aircraft("R2D2")));	
@@ -36,16 +45,12 @@ public class FlightWS {
 
 	/* FLIGHT ***********************/
 	
-	@Produces(MediaType.APPLICATION_JSON)
-	@GET
-	@Path("flightsList/{plane}/{price}/{destination}/{seats}")
-	public List<Flight> getFlightsFromCriteria(@PathParam("plane") String plane,@PathParam("price") int price,@PathParam("destination") String destination,@PathParam("seats") int seats) {
-		//ArrayList<Flight> flightsList= new ArrayList<Flight>(Arrays.asList(new Flight(1),new Flight(2),new Flight(3)));
-		//List<Flight> flightsList=(DaoFactory.getFlightDao().getFlightsFromCriteria(ff.plane, ff.price, ff.destination, ff.seats));
-		List<Flight> flightsList=(DaoFactory.getFlightDao().getFlightsFromCriteria(plane, price, destination, seats));
-		System.out.println(flightsList);
-
-		return flightsList;
+	@Consumes(MediaType.APPLICATION_JSON)
+	@POST
+	@Path("flightsList")
+	//public List<Flight> getFlightsFromCriteria(@PathParam("plane") String plane,@PathParam("price") int price,@PathParam("destination") String destination,@PathParam("seats") int seats) {
+	public List<Flight> getFlightsFromCriteria(SearchCriteria sc) {
+		return DaoFactory.getFlightDao().getFlightsFromCriteria(sc);
 	}
 	
 	
@@ -84,141 +89,6 @@ public class FlightWS {
 	public void deleteAFlight(@PathParam("id") int id){
 		DaoFactory.getFlightDao().deleteAFlight(id);
 	}
-	
-	/* PILOT ***********************/
-	
-	
-	/**
-	 * Take the id of the user and return the list of the flights for which he's concerned AS A PILOT
-	 * @param instance
-	 * @return
-	 */
-	@Produces(MediaType.APPLICATION_JSON)
-	@GET
-	@Path("pilotFlightsList/{id}")
-	public List<Flight> getPilotedFlightsList(@PathParam("id") int id) {
-		return DaoFactory.getPilotDao().getPilotedFlightsList(id);
-	}
-		
-	/**
-	 * Create a new flight for the pilot designated by his id
-	 * @param instance
-	 */
-	@Consumes(MediaType.APPLICATION_JSON)
-	@PUT
-	@Path("addflight")
-	public void addAFlight(IdContainer instance) {
-		DaoFactory.getPilotDao().addAFlight(instance.id);
-		//System.out.println("new user "+instance.id);
-	
-	}
-	
-	/**
-	 * Edit a flight for the pilot designated by his id
-	 * @param instance
-	 */
-	@Consumes(MediaType.APPLICATION_JSON)
-	@POST
-	@Path("editflight")
-	public void editAFlight(IdContainer instance) {//,IdContainer instance2) {
-		ArrayList<Flight> flightsList= new ArrayList<Flight>(Arrays.asList(new Flight(),new Flight(),new Flight()));
-		for(Flight f:flightsList){
-			if(f.getFlightID()==instance.id){
-				// and if the flight is in the list of flights piloted by the user
-				//System.out.print("edit the flight "+instance2.id);
-				System.out.print("edit the flight _");
-				System.out.println(" for the user "+instance.id+ ":");
-				f.setFlightTitle("Excursion nocturne inoubliable");
-				//System.out.println(instance2);
-			}
-		}
-	}
-
-	/* PASSENGER ***********************/
-	
-	
-	/**
-	 * 
-	 * @param instance
-	 * @return
-	 */
-	@Consumes(MediaType.APPLICATION_JSON)
-	@PUT
-	@Path("createuser")
-	public void createANewUser(IdContainer instance) {
-		ArrayList<Passenger> passengerList=new ArrayList<Passenger>(Arrays.asList(new Passenger(),new Passenger(),new Passenger()));
-		passengerList.add(new Passenger());
-	}
-	
-	@Produces(MediaType.APPLICATION_JSON)
-	@GET
-	@Path("getuserinfo")
-	public Passenger getInfosFromUser(IdContainer instance) {
-		ArrayList<Passenger> passengerList=new ArrayList<Passenger>(Arrays.asList(new Passenger(),new Passenger(),new Passenger()));
-		for(Passenger p:passengerList){
-			if(p.getUserID()==instance.id)
-				return p;
-			}
-		return null;
-	}
-	
-	@Consumes(MediaType.APPLICATION_JSON)
-	@POST
-	@Path("edituser")
-	public void editUserInfos(IdContainer instance) {
-/*
-		ArrayList<Passenger> passengerList=new ArrayList<Passenger>(Arrays.asList(new Passenger(1),new Passenger(2),new Passenger(3)));
-		for(Passenger p:passengerList){
-			if(p.getUserID()==id) {
-				p.setFirstName("Lucas");
-				System.out.println("edit user: ");
-				System.out.println(p.getUserID());
-			}
-		}
-		*/
-		System.out.println("edit user");
-		System.out.println(instance.id);
-		
-	}
-	/**
-	 * 
-	 * @param instance: id du flight
-	 * @param instance2: nb de places reservées
-	 */
-	@Consumes(MediaType.APPLICATION_JSON)
-	@POST
-	@Path("notepilot")
-	public void noteAPilot(IdContainer instance) {
-		System.out.println("note pilot "+instance.id);	
-	}	
-
-	@Consumes(MediaType.APPLICATION_JSON)
-	@POST
-	@Path("book")
-	public void bookAFlight(IdContainer instance) {//, IdContainer instance2) {
-		ArrayList<Flight> flightsList= new ArrayList<Flight>(Arrays.asList(new Flight(),new Flight(),new Flight()));
-		for(Flight f:flightsList){
-			if(f.getFlightID()==instance.id){
-				System.out.println(instance.id);
-				//f.setAvailableSeats(f.getAvailableSeats()-Integer.parseInt(instance2.id));
-				break;
-			}
-		}
-	}	
-	
-	/**
-	 * Take the id of the user and return the list of the flights for which he's concerned AS A PASSENGER
-	 * @param instance
-	 * @return
-	 */
-	@Produces(MediaType.APPLICATION_JSON)
-	@GET
-	@Path("passengerflightslist")
-	public ArrayList<Flight> getFlightsList(IdContainer instance) {
-		ArrayList<Flight> flightsList= new ArrayList<Flight>(Arrays.asList(new Flight(),new Flight(),new Flight()));
-		return flightsList;
-	}
-		
 	
 	
 }

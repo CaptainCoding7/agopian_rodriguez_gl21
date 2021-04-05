@@ -12,7 +12,7 @@ public interface PassengerDao {
 	 * Add a new user
 	 * PUT
 	 */
-	void createANewUser();
+	void createANewUser(Passenger passenger);
 
 	/**
 	 * Get user information
