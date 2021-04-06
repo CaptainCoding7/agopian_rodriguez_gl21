@@ -49,7 +49,7 @@ public class FlightDaoImpl implements FlightDao {
 		// retrieve
 		pm = pmf.getPersistenceManager();
 		tx = pm.currentTransaction();
-		// retainValues pour que les attributs soit gardés
+		// retainValues pour que les attributs soit gardÃ©s
 	    tx.setRetainValues(true);
 		try {
 			tx.begin();
@@ -93,7 +93,7 @@ public class FlightDaoImpl implements FlightDao {
 // retrieve
 		pm = pmf.getPersistenceManager();
 		tx = pm.currentTransaction();
-		// retainValues pour que les attributs soit gardés
+		// retainValues pour que les attributs soit gardÃ©s
 	    tx.setRetainValues(true);
 		try {
 			tx.begin();
@@ -124,7 +124,7 @@ public class FlightDaoImpl implements FlightDao {
 // retrieve
 		pm = pmf.getPersistenceManager();
 		tx = pm.currentTransaction();
-		// retainValues pour que les attributs soit gardés
+		// retainValues pour que les attributs soit gardÃ©s
 	    tx.setRetainValues(true);
 	    
 	    getFlightsFromCriteria(null);

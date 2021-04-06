@@ -15,7 +15,7 @@ import javax.jdo.Transaction;
 import com.ufly.Flight.TypeOfFlight;
 
 /**
- * Classe pour générer des données (vols, users, pilots...) au lancement du serveur
+ * Classe pour gÃ©nÃ©rer des donnÃ©es (vols, users, pilots...) au lancement du serveur
  * @author Paul
  *
  */
@@ -63,7 +63,7 @@ public class GenerateData {
 		// retrieve aircraft list
 		pm = pmf.getPersistenceManager();
 		tx = pm.currentTransaction();
-		// retainValues pour que les attributs soit gardés
+		// retainValues pour que les attributs soit gardÃ©s
 	    tx.setRetainValues(true);
 		try {
 			tx.begin();
