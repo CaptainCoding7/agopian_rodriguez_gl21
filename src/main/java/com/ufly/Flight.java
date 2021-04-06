@@ -25,7 +25,7 @@ public class Flight {
 	private Aircraft aircraft;
 	private TypeOfFlight typeOfFlight;
 	private String departureAirport;
-	private String arrivalAirport;
+	private String destination;
 	private LocalTime duration;
 	private LocalDateTime depatureDate;
 	private LocalDateTime arrivalDate;
@@ -44,7 +44,7 @@ public class Flight {
 		this.aircraft = aircraft;
 		this.typeOfFlight = typeOfFlight;
 		this.departureAirport = departureAirport;
-		this.arrivalAirport = arrivalAirport;
+		this.destination = arrivalAirport;
 		this.duration = duration;
 		this.depatureDate = depatureDate;
 		this.arrivalDate = arrivalDate;
@@ -60,7 +60,7 @@ public class Flight {
 		this.setAvailableSeats(0);
 		this.typeOfFlight = TypeOfFlight.ROUND_TRIP;
 		this.departureAirport = "";
-		this.arrivalAirport = "";
+		this.destination = "";
 		this.duration = null;
 		this.depatureDate = null;
 		this.arrivalDate = null;
@@ -102,12 +102,12 @@ public class Flight {
 		this.departureAirport = departureAirport;
 	}
 
-	public String getArrivalAirport() {
-		return arrivalAirport;
+	public String getDestination() {
+		return destination;
 	}
 
-	public void setArrivalAirport(String arrivalAirport) {
-		this.arrivalAirport = arrivalAirport;
+	public void setDestination(String arrivalAirport) {
+		this.destination = arrivalAirport;
 	}
 
 	public LocalTime getDuration() {

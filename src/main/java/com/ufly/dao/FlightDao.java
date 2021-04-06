@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.ufly.Aircraft;
 import com.ufly.Flight;
+import com.ufly.ws.FlightWS;
 
 public interface FlightDao {
 
@@ -12,7 +13,7 @@ public interface FlightDao {
 	 * get a list of flights based on certain criteria
 	 * GET
 	 */
-	List<Flight> getFlightsFromCriteria(Aircraft aircraft, int price, String destination, int nbOfSeats);
+	List<Flight> getFlightsFromCriteria(FlightWS.SearchCriteria sc);
 
 	/**
 	 * get infos from a specific flight (with the id)

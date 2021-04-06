@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
@@ -20,6 +21,7 @@ import javax.jdo.annotations.PersistenceCapable;
 import com.ufly.Aircraft;
 import com.ufly.Flight;
 import com.ufly.Passenger;
+import com.ufly.ws.FlightWS;
 import com.ufly.Flight.TypeOfFlight;
 
 /**
@@ -37,7 +39,7 @@ public class FlightDaoImpl implements FlightDao {
 		this.pmf=pmf;
 	}	
 	
-	public List<Flight> getFlightsFromCriteria(Aircraft aircraft, int price, String destination, int nbOfSeats) {
+	public List<Flight> getFlightsFromCriteria(FlightWS.SearchCriteria sc) {
 
 		PersistenceManager pm;
 		Transaction tx;
@@ -52,24 +54,22 @@ public class FlightDaoImpl implements FlightDao {
 		try {
 			tx.begin();
 			Flight f;			
-			/*
-			Query q = pm.newQuery("SELECT MAX(flightID) FROM " + Flight.class.getName());
-			int maxid=(Integer) q.execute();			
-			System.out.println("max id="+maxid);
-			//while((f = pm.getObjectById(Flight.class, id))!=null){
-			for(int id=1; id<=maxid; id++) {
-				f = pm.getObjectById(Flight.class, id);
-				flights.add(f);
-			}
-			System.out.println("teeeeeeeest");
-			*/
+
 			Query q = pm.newQuery(Flight.class);
 			flights = (List<Flight>) q.execute();
 			
-			for(Flight fget:flights)
+			for(Flight fget:flights) {
 				System.out.println("flight retrieved : " + fget.getFlightDescription());
+			}
+			System.out.println(sc.plane+sc.price+sc.destination+sc.seats);
+			flights=flights.stream()
+					.filter(p->p.getPricePerPassenger()<=sc.price)
+					.filter(p->p.getAircraft().getAircraftModel().equals(sc.plane))
+					.filter(p->p.getDestination().equals(sc.destination))
+					.filter(p->p.getAvailableSeats()>=sc.seats)
+					//.filter(p->p.getDepatureDate().compareTo(LocalDateTime.parse(sc.depDate))>0)
+					.collect(Collectors.toList());
 			tx.commit();
-			
 		} 
 		
 		finally {
@@ -98,7 +98,6 @@ public class FlightDaoImpl implements FlightDao {
 		try {
 			tx.begin();
 			f = pm.getObjectById(Flight.class, idFlight);
-			f.setFlightTitle("TIIIIITLLLLE");
 			tx.commit();
 			
 		} 
@@ -128,7 +127,7 @@ public class FlightDaoImpl implements FlightDao {
 		// retainValues pour que les attributs soit gardés
 	    tx.setRetainValues(true);
 	    
-	    getFlightsFromCriteria(null, 0, null, 0);
+	    getFlightsFromCriteria(null);
 	    
 		try {
 			tx.begin();
@@ -149,7 +148,7 @@ public class FlightDaoImpl implements FlightDao {
 		
 		System.out.println("The flight with the Id :"+idFlight+" has been deleted");// TODO Auto-generated method stub
 		
-	    getFlightsFromCriteria(null, 0, null, 0);		
+	    getFlightsFromCriteria(null);		
 		
 	}
 

@@ -39,50 +39,74 @@ function deleteServerData(url, success){
 
 function callDone(result){
 	var templateExample = _.template($('#templateExample').html());
-
+	
 	var html = templateExample({
+		//"attribute":JSON.stringify(result[0].flightID)
 		"attribute":JSON.stringify(result)
 	});
-
+	//https://makitweb.com/return-json-response-ajax-using-jquery-php/
 	$("#result").append(html);
 }
 
 
 $(function(){
+
 	
 	$("#butFlightsList").click(function(){
-		getServerData("ws/ufly/flightsList",callDone);
+
+		var data = {
+			plane : "Cessna 172",
+			price : 50,
+			destination : "Amsterdam",
+			seats : 0
+			//depDate : "2020-12-03T10:15:30"
+		}
+		var plane = "Cessa 172";
+		
+		var dataJson = JSON.stringify(data);
+		//getServerData("ws/flight/flightsList/Cessna 172/50/Amsterdam/0",callDone);
+		postServerData("ws/flight/flightsList",dataJson,callDone);
 	});
 
 	$("#butFlightInfo").click(function(){
-		getServerData("ws/ufly/flightInfo/2",callDone);
+		getServerData("ws/flight/flightInfo/2",callDone);
 	});
 
 	$("#butAddFlight").click(function(){
 		var data = {
 	        id: 1
 	    };
-		putServerData("ws/ufly/addflight",JSON.stringify(data),callDone);
-	});
-
-	$("#butEditUser").click(function(){				
-		var data = {
-	        id: 2
-	    };
-		var id="totototo";
-
-		var dataJson = JSON.stringify(data);
-		var idJson = JSON.stringify(id);
-        //console.log(dataJson);
-		postServerData("ws/ufly/edituser",idJson,callDone);
-
+		putServerData("ws/flight/addflight",JSON.stringify(data),callDone);
 	});
 
 	$("#butDeleteFlight").click(function(){
 
-		deleteServerData("ws/ufly/deleteflight/1",callDone);
+		deleteServerData("ws/flight/deleteflight/1",callDone);
 	});
-	
+
+////////////////////////////////////////  PASSENGER  /////////////////
+
+	$("#butAddUser").click(function(){
+		var newUser = {
+			mail : "paulagopian94@com",
+			pwd : "4s5DA53DJdb",
+			firstName : "Paul",
+			lastName : "Agopian",
+			phoneNumber : "0782653889",
+			livingLocation : "Alfortville",
+			passengerFlightsList : null,
+			birthday : "1999-04-19"
+		};
+		putServerData("ws/passenger/createuser",JSON.stringify(newUser),callDone);
+	});
+
+
+	$("#butInfoUser").click(function(){				
+
+		getServerData("ws/passenger/getuserinfo/11",callDone);
+
+	});
+
 });
 
 		//contentType : "text/plain; charSet=UTF-8",

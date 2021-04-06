@@ -11,31 +11,22 @@ public class Aircraft {
 	@Persistent(valueStrategy=IdGeneratorStrategy.INCREMENT)
 	private int aircraftID;
 	private String aircraftModel;
-	private String owner;
 	private String registration;
 	private int seatNumber;
-	private int flightHours;
-	private int rentingPrice;
 	private Image picture;
 	
 	public Aircraft(String aircraftModel, String owner, String registration,
 			int seatNumber, int flightHours, int rentingPrice, Image picture) {
 		this.aircraftModel = aircraftModel;
-		this.owner = owner;
 		this.registration = registration;
 		this.seatNumber = seatNumber;
-		this.flightHours = flightHours;
-		this.rentingPrice = rentingPrice;
 		this.picture = picture;
 	}
 	
 	public Aircraft() {
 		this.aircraftModel = "";
-		this.owner = "";
 		this.registration = "";
 		this.seatNumber = 0;
-		this.flightHours = 0;
-		this.rentingPrice = 0;
 		this.picture = null;
 	}
 
@@ -55,13 +46,6 @@ public class Aircraft {
 		this.aircraftModel = aircraftModel;
 	}
 
-	public String getOwner() {
-		return owner;
-	}
-
-	public void setOwner(String owner) {
-		this.owner = owner;
-	}
 	
 	public String getRegistration() {
 		return registration;
@@ -78,23 +62,7 @@ public class Aircraft {
 	public void setSeatNumber(int seatNumber) {
 		this.seatNumber = seatNumber;
 	}
-	
-	public int getFlightHours() {
-		return flightHours;
-	}
 
-	public void setFlightHours(int flightHours) {
-		this.flightHours = flightHours;
-	}
-	
-	public int getRentingPrice() {
-		return rentingPrice;
-	}
-
-	public void setRentingPrice(int rentingPrice) {
-		this.rentingPrice = rentingPrice;
-	}
-	
 	public Image getPicture() {
 		return picture;
 	}
