@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.jdo.JDOHelper;
-import javax.jdo.PersistenceManagerFactory;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -49,7 +47,7 @@ public class WebServicesREST {
 	
 	
 	/**
-	 * Recupère les infos d'un vol parmi ceux de la liste à partir d'un ID de vol 
+	 * Recupï¿½re les infos d'un vol parmi ceux de la liste ï¿½ partir d'un ID de vol 
 	 * pour specifier l'instance du vol en question sur postman, on ecrit:
 	 * {
 	 * 		"flightID" : "ADC-F2"
@@ -182,7 +180,7 @@ public class WebServicesREST {
 	/**
 	 * 
 	 * @param instance: id du flight
-	 * @param instance2: nb de places reservées
+	 * @param instance2: nb de places reservï¿½es
 	 */
 	@Consumes(MediaType.APPLICATION_JSON)
 	@POST
