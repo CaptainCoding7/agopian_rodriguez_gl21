@@ -1,0 +1,51 @@
+ <!DOCTYPE html>
+<html>
+	<div class="image" style="background-image: url('bg.jpg');" media="screen and (device-height: 1000px)"> 
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>     
+		<title>Ufly | Site de coavionnage</title>
+		<link type="text/css" rel="stylesheet" media="all" title="CSS" href="style.css" />                                                 
+	</head>
+
+	<body>
+
+		<script id="templateExample" type="text/template">
+			<div>
+				<%= attribute %>
+			</div>
+		</script>
+
+		<h1 align="center">Ufly</h1>
+		<h3 align="center">Share a flight, share a dream</h3>
+		<ul align="east">
+			<li><a href="connexion.html">Se connecter</a></li>
+			<li><a href="inscription.html">S'inscrire</a></li>
+			<li><a href="who.html">Qui sommes-nous ?</a></li>
+		</ul>
+		<p class="bandeau">
+		</p>
+
+		<form>
+			<input type="text" id="butSearch" class="search" placeholder="Search a departure place...">
+			<input type="submit" value="Search" src="icon_loupe.png">
+		</form>
+
+		<button id="butFlightsList">See flights</button>
+		<button id="butAddFlight">Add a flight</button>
+		<button id="butAddUser">Add a user</button>
+		<button id="butInfoUser">Info user</button>
+		<button id="butFlightInfo">Info from a flight</button>
+		<button id="butDeleteFlight">Delete a flight</button>
+		
+		<div id="result">
+			<p><a href="premiers_tests.html">Lien bidon</a></p>
+
+
+		</div>
+		
+	    <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+	    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+		<script type="text/javascript" src="home.js"></script>
+	</body>
+</html>
