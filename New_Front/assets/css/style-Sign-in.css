@@ -1929,7 +1929,7 @@
 			input[type="button"].alt.icon:before,
 			button.alt.icon:before,
 			.button.alt.icon:before {
-				color: #aaa;
+				color:white;
 			}
 
 		input[type="submit"].special,
@@ -2177,7 +2177,7 @@
 		input[type="checkbox"] + label,
 		input[type="radio"] + label {
 			text-decoration: none;
-			color: #666;
+			color: #fff;
 			cursor: pointer;
 			display: inline-block;
 			font-size: 1em;
@@ -2237,7 +2237,7 @@
 
 	::-webkit-input-placeholder {
 		opacity: 1.0;
-		color: #aaa !important;
+		color: #fff !important;
 	}
 
 	:-moz-placeholder {
