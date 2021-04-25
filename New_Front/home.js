@@ -48,7 +48,7 @@ function callDone(result){
 		
 		let arrival = templateExample({
 			"attribute":JSON.stringify(result[i].destination)
-		});	//https://makitweb.com/return-json-response-ajax-using-jquery-php/
+		});
 		
 		let price = templateExample({
 			"attribute":JSON.stringify(result[i].pricePerPassenger)
@@ -123,7 +123,7 @@ $(function(){
 
 		let results = document.querySelector("#list-result");
 		results.innerHTML = "";
-		
+
 		var data = {
 			departure : $("#departure").val(),
 			plane : $("#plane").val(),
@@ -180,7 +180,3 @@ $(function(){
 	});
 
 });
-
-
-
-
