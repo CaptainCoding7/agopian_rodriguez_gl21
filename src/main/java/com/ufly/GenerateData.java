@@ -14,7 +14,7 @@ import javax.jdo.Transaction;
 import com.ufly.Flight.TypeOfFlight;
 
 /**
- * Classe pour générer des données (vols, users, pilots...) au lancement du serveur
+ * Classe pour gï¿½nï¿½rer des donnï¿½es (vols, users, pilots...) au lancement du serveur
  * @author Paul
  *
  */
@@ -62,7 +62,7 @@ public class GenerateData {
 		// retrieve aircraft list
 		pm = pmf.getPersistenceManager();
 		tx = pm.currentTransaction();
-		// retainValues pour que les attributs soit gardés
+		// retainValues pour que les attributs soit gardï¿½s
 	    tx.setRetainValues(true);
 		try {
 			tx.begin();
@@ -108,7 +108,7 @@ public class GenerateData {
 						//new ArrayList<Passenger>(Arrays.asList(new Passenger(1), 
 						//										new Passenger(2))),
 						10,
-						"http://localhost:8080/images/pic01.jpg"
+						"pic01.jpg"
 						),
 				new Flight(
 						new Aircraft(),
@@ -121,7 +121,7 @@ public class GenerateData {
 						"Voyage sportif",
 						"Decouverte du ski avec Paulsy", 
 						12,
-						"http://localhost:8080/images/pic02.jpg"
+						"./images/pic02.jpg"
 						),
 				new Flight(
 						new Aircraft(),
@@ -134,7 +134,7 @@ public class GenerateData {
 						"Survoler l'auvergne",
 						"Visite aerienne des volcan de Volvic", 
 						14,
-						"http://localhost:8080/images/pic02.jpg"
+						"./images/pic03.jpg"
 				)));		
 
 		// save

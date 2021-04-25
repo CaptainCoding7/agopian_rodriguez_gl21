@@ -65,30 +65,42 @@ function callDone(result){
 		let img = templateExample({
 			"attribute":JSON.stringify(result[i].flightImg)
 		});
-		
+
+		let tmp = document.createElement("p");//tempary element
+
 		// Display the element in the page
 		let newFlight = document.createElement("li"); //creation of the element to insert in the list
 		newFlight.className = "display"
 		
 		let imgDisplay = document.createElement("img");
-		img.src = "D:\Documents\EIDD\2A\Genie logiciel\agopian_rodriguez_gl21-main_cloned\agopian_rodriguez_gl21\pic01.jpg";
-		img.alt = "Image Of the Travel";
+		imgDisplay.className = "img-journey";
+		tmp.innerHTML = img;
+		console.log("test");
+		console.log(tmp.textContent.replace(/[^a-zA-Z0-9.\/]/g, ""));
+		imgDisplay.src = tmp.textContent.replace(/[^a-zA-Z0-9.\/]/g, "") ;
+		imgDisplay.alt = "Image Of the Travel";
 		newFlight.appendChild(imgDisplay);
 		
 		let displayPrice = document.createElement("p"); // display the price of the flight
-		displayPrice.innerHTML = price + " per passenger";
+		displayPrice.innerHTML = price + " &euro; per passenger";
+		displayPrice.innerHTML = displayPrice.textContent;
 		newFlight.appendChild(displayPrice);//insertion in the tag
 		
 		let titleDisplay = document.createElement("h1");
 		titleDisplay.innerHTML = title;
+		titleDisplay.innerHTML = titleDisplay.textContent;
 		newFlight.appendChild(titleDisplay);//insertion in the tag
 		
 		let journey = document.createElement("p");
-		journey.innerHTML = "departure : " + departure + "<br>" + "arrival : " + arrival;
+		tmp.innerHTML = "Departure : " + departure
+		journey.innerHTML = tmp.textContent + "<br>";
+		tmp.innerHTML = "Arrival : " + arrival;
+		journey.innerHTML += tmp.textContent;
 		newFlight.appendChild(journey);//insertion in the tag
 		
 		let seatDisplay = document.createElement("p");
 		seatDisplay.innerHTML = "Nb of places : " + seats;
+		seatDisplay.innerHTML = seatDisplay.textContent;
 		newFlight.appendChild(seatDisplay);//insertion in the tag
 		
 		document.querySelector("#list-result").appendChild(newFlight);//insert the new flight in the list		
@@ -97,24 +109,21 @@ function callDone(result){
 	
 }
 
-/*
-function callDone(result){
-	var templateExample = _.template($('#templateExample').html());
-	
-	let html = templateExample({
-			"attribute":JSON.stringify(result[0].flightImg)
-	});
-	
-	$("#results").append(html);
-	
-	document.querySelector("#results").style.display = 	"flex";
-	
-}	
-*/
 $(function(){
 
-	$("#butFlightsList").click(function(){
+	$("#butFlightsList").click(function(event){
 
+		console.log("Clic : ");
+		console.log($("#departure").val());
+		if($("#departure").val() == "")
+		{
+			console.log("departure is null");
+			return false;
+		}
+
+		let results = document.querySelector("#list-result");
+		results.innerHTML = "";
+		
 		var data = {
 			departure : $("#departure").val(),
 			plane : $("#plane").val(),
@@ -132,9 +141,7 @@ $(function(){
 			seats : 0
 			//depDate : "2020-12-03T10:15:30"
 		}
-		
-		console.log($("#price").val());
-		
+
 		var plane = "Cessa 172";
 		
 		var dataJson = JSON.stringify(data);
@@ -173,3 +180,7 @@ $(function(){
 	});
 
 });
+
+
+
+
