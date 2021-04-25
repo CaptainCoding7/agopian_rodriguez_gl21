@@ -9,11 +9,13 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 import javax.persistence.ElementCollection;
+import javax.persistence.Id;
 
 @PersistenceCapable
 public class Passenger {
 	
 	@PrimaryKey
+	@Id
 	@Persistent(valueStrategy=IdGeneratorStrategy.INCREMENT)
 	private int userID;
 	private String mail;
@@ -25,7 +27,7 @@ public class Passenger {
 	
 	
 	@Persistent(defaultFetchGroup = "true")	
-	private List<Flight> passengerFlightsList;
+	private List<Flight> bookedFlightsList;
 	
 	private LocalDate birthday;
 	
@@ -38,7 +40,7 @@ public class Passenger {
 		this.lastName = lastName;
 		this.phoneNumber = phoneNumber;
 		this.livingLocation = livingLocation;
-		this.passengerFlightsList = passengerFlightsList;
+		this.bookedFlightsList = passengerFlightsList;
 		this.birthday = LocalDate.parse(birthday);
 	}
 
@@ -50,7 +52,7 @@ public class Passenger {
 		this.lastName = lastName;
 		this.phoneNumber = phoneNumber;
 		this.livingLocation = livingLocation;
-		this.passengerFlightsList = passengerFlightsList;
+		this.bookedFlightsList = passengerFlightsList;
 		this.birthday = LocalDate.of(year, month, day);
 	}
 	
@@ -60,7 +62,7 @@ public class Passenger {
 		this.lastName = "";
 		this.phoneNumber = "";
 		this.livingLocation = "";
-		this.passengerFlightsList = null;
+		this.bookedFlightsList = null;
 	}	
 
 	public int getUserID() {
@@ -113,12 +115,12 @@ public class Passenger {
 	}
 
 
-	public List<Flight> getPassengerFlightsList() {
-		return passengerFlightsList;
+	public List<Flight> getBookedFlightsList() {
+		return bookedFlightsList;
 	}
 
-	public void setPassengerFlightsList(List<Flight> passengerFlightsList) {
-		this.passengerFlightsList = passengerFlightsList;
+	public void setBookedFlightsList(List<Flight> passengerFlightsList) {
+		this.bookedFlightsList = passengerFlightsList;
 	}
 
 	public String getMail() {

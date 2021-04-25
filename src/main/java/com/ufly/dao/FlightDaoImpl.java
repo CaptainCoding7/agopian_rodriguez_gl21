@@ -57,18 +57,49 @@ public class FlightDaoImpl implements FlightDao {
 
 			Query q = pm.newQuery(Flight.class);
 			flights = (List<Flight>) q.execute();
-			
-			for(Flight fget:flights) {
-				System.out.println("flight retrieved : " + fget.getFlightDescription());
-			}
+
 			System.out.println(sc.plane+sc.price+sc.destination+sc.seats);
+			/*
 			flights=flights.stream()
-					.filter(p->p.getPricePerPassenger()<=sc.price)
-					.filter(p->p.getAircraft().getAircraftModel().equals(sc.plane))
-					.filter(p->p.getDestination().equals(sc.destination))
+					
+					.filter(p->p.getDepartureAirport().toUpperCase().equals(sc.departure.toUpperCase()))
+					
+					.filter(p->{
+						switch(sc.price)
+						{
+							case "inf_50":
+								return p.getPricePerPassenger() < 50;
+							case "between_50_100":
+								return (p.getPricePerPassenger() > 50 && p.getPricePerPassenger() < 100);
+							case "between_100_150":
+								return (p.getPricePerPassenger() > 100 && p.getPricePerPassenger() < 150);
+							case "between_150_200":
+								return (p.getPricePerPassenger() > 150 && p.getPricePerPassenger() < 200);
+							case "sup_200":
+								return (p.getPricePerPassenger() > 200);
+							default:
+								return true;
+						}
+						
+					})
+					
+					.filter(p->{
+						if(!sc.plane.toUpperCase().equals("ALL"))
+							return (p.getAircraft().getAircraftModel().toUpperCase().equals(sc.plane.toUpperCase()));
+						return true;
+					})
+					.filter(p->{
+						if(!sc.destination.toUpperCase().equals("ALL"))
+							return (p.getDestination().toUpperCase().equals(sc.destination.toUpperCase()));
+						return true;
+					})
+					.filter(p->p.getDestination().toUpperCase().equals(sc.destination.toUpperCase()))
 					.filter(p->p.getAvailableSeats()>=sc.seats)
 					//.filter(p->p.getDepatureDate().compareTo(LocalDateTime.parse(sc.depDate))>0)
+					 
+					 
 					.collect(Collectors.toList());
+					*/
 			tx.commit();
 		} 
 		
@@ -80,6 +111,15 @@ public class FlightDaoImpl implements FlightDao {
 			pm.close();
 			
 		}
+		
+		
+		for(Flight fget:flights) {
+			System.out.println(fget.getFlightImg());
+			System.out.println("flight retrieved : " + fget.getFlightDescription());
+		}
+		
+		
+		
 		
 		return flights ;
 

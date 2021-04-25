@@ -20,7 +20,7 @@ public class FlightDAOTest {
 
 		FlightWS.SearchCriteria sc = new SearchCriteria();
 		sc.plane = "Cessna 172";
-		sc.price = 50;
+		sc.price = "50";
 		sc.destination = "Amsterdam";
 		sc.seats = 0;
 		

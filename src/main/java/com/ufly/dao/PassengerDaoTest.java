@@ -42,7 +42,8 @@ public class PassengerDaoTest {
 		g.generateAll();
 		Passenger p=new Passenger("paulagopian94@gmail.com","jhfz6ef","Paul", "Agopian","0782653889","Alf",null,"1999-04-19");
 		DaoFactory.getPassengerDao().createANewUser(p);
-		
+		p=new Passenger("pau94@gmail.com","jhfz6ef","lucas", "Agopian","0782653889","Alf",null,"1999-04-19");
+		DaoFactory.getPassengerDao().createANewUser(p);	
 		//--------------- retrieve test : get the new table of passengers from the database
 		
 		PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("UFly_Objects");
@@ -71,7 +72,7 @@ public class PassengerDaoTest {
 			
 		}
 		for(Passenger pget : lp)
-			System.out.println(pget.getMail());
+			System.out.println(pget.getFirstName()+pget.getUserID());
 		assertTrue(lp.get(0).getFirstName().equals("Paul"));
 		assertTrue(lp.get(0).getMail().equals("paulagopian94@gmail.com"));
 

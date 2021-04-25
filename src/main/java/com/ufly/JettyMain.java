@@ -43,7 +43,7 @@ public class JettyMain {
 
 		// Add a handler for resources (/*)
 		ResourceHandler handlerPortal = new ResourceHandler();
-		handlerPortal.setResourceBase("webapp");
+		handlerPortal.setResourceBase("New_Front");
 		handlerPortal.setDirectoriesListed(false);
 		handlerPortal.setWelcomeFiles(new String[] { "home.html" });
 		ContextHandler handlerPortalCtx = new ContextHandler();

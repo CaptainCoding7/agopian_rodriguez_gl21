@@ -1,11 +1,15 @@
 package com.ufly;
 
+import java.awt.Toolkit;
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
@@ -94,63 +98,72 @@ public class GenerateData {
 		Transaction tx;
 
 		List<Aircraft> aircrafts = this.getAircraftsList();
-		List<Flight> flights = new ArrayList<Flight>(Arrays.asList(
-				new Flight(
-						aircrafts.get(0),
-						TypeOfFlight.ROUND_TRIP,
-						"Alforville",
-						"Amsterdam",
-						LocalTime.of(1,30),
-						LocalDateTime.of(2021, 01, 01, 0, 0),
-						LocalDateTime.of(2021, 01, 01, 1, 30),
-						"Fete du nouvel an",
-						"Visite surprise chez Paulsy", 
-						//new ArrayList<Passenger>(Arrays.asList(new Passenger(1), 
-						//										new Passenger(2))),
-						10
-						),
-				new Flight(
-						new Aircraft(),
-						TypeOfFlight.ONE_WAY_TICKET,
-						"Roissy",
-						"Chamonix",
-						LocalTime.of(1,30),
-						LocalDateTime.of(2021, 01, 01, 0, 0),
-						LocalDateTime.of(2021, 01, 01, 1, 30),
-						"Voyage sportif",
-						"Decouverte du ski avec Paulsy", 
-						12
-						),
-				new Flight(
-						new Aircraft(),
-						TypeOfFlight.BALLAD,
-						"Volcan Volvic",
-						"Volcan Volvic",
-						LocalTime.of(1,30),
-						LocalDateTime.of(2021, 01, 01, 0, 0),
-						LocalDateTime.of(2021, 01, 01, 1, 30),
-						"Survoler l'auvergne",
-						"Visite aerienne des volcan de Volvic", 
-						14
-						)));
-		
-
-		
-
-		// save
-		pm = pmf.getPersistenceManager();
-		tx = pm.currentTransaction();
+		List<Flight> flights;
 		try {
-			tx.begin();
-			for(Flight f: flights) {
-				pm.makePersistent(f);
+			flights = new ArrayList<Flight>(Arrays.asList(
+					new Flight(
+							aircrafts.get(0),
+							TypeOfFlight.ROUND_TRIP,
+							"Paris",
+							"Amsterdam",
+							LocalTime.of(1,30),
+							LocalDateTime.of(2021, 01, 01, 0, 0),
+							LocalDateTime.of(2021, 01, 01, 1, 30),
+							"Fete du nouvel an",
+							"Visite surprise chez Paulsy", 
+							//new ArrayList<Passenger>(Arrays.asList(new Passenger(1), 
+							//										new Passenger(2))),
+							10,
+							//Toolkit.getDefaultToolkit().getImage("pic01.jpg")
+							ImageIO.read(new File("New_Front/images/pic01.jpg"))
+							),
+					new Flight(
+							new Aircraft(),
+							TypeOfFlight.ONE_WAY_TICKET,
+							"Roissy",
+							"Chamonix",
+							LocalTime.of(1,30),
+							LocalDateTime.of(2021, 01, 01, 0, 0),
+							LocalDateTime.of(2021, 01, 01, 1, 30),
+							"Voyage sportif",
+							"Decouverte du ski avec Paulsy", 
+							12,
+							null
+							//Toolkit.getDefaultToolkit().getImage("pic02.jpg")
+							),
+					new Flight(
+							new Aircraft(),
+							TypeOfFlight.BALLAD,
+							"Volcan Volvic",
+							"Volcan Volvic",
+							LocalTime.of(1,30),
+							LocalDateTime.of(2021, 01, 01, 0, 0),
+							LocalDateTime.of(2021, 01, 01, 1, 30),
+							"Survoler l'auvergne",
+							"Visite aerienne des volcan de Volvic", 
+							14,
+							null
+							//Toolkit.getDefaultToolkit().getImage("pic03.jpg")
+					)));		
+
+			// save
+			pm = pmf.getPersistenceManager();
+			tx = pm.currentTransaction();
+			try {
+				tx.begin();
+				for(Flight f: flights) {
+					pm.makePersistent(f);
+				}
+				tx.commit();
+			} finally {
+				if (tx.isActive()) {
+					tx.rollback();
+				}
+				pm.close();
 			}
-			tx.commit();
-		} finally {
-			if (tx.isActive()) {
-				tx.rollback();
-			}
-			pm.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	

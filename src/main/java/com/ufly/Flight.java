@@ -1,6 +1,7 @@
 package com.ufly;
 
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.LocalDateTime;
@@ -37,9 +38,10 @@ public class Flight {
 	private List<Passenger> passengerInFlight;
 	private int pricePerPassenger;
 	private int availableSeats;
+	private BufferedImage flightImg;
 	
 	public Flight(Aircraft aircraft, TypeOfFlight typeOfFlight, String departureAirport, String arrivalAirport, LocalTime duration,
-			LocalDateTime depatureDate, LocalDateTime arrivalDate, String flightTitle, String flightDescription, int pricePerPassenger) {
+			LocalDateTime depatureDate, LocalDateTime arrivalDate, String flightTitle, String flightDescription, int pricePerPassenger, BufferedImage flightImg) {
 		//this.flightID=flightID; // auto-increment s'en occupe !
 		this.aircraft = aircraft;
 		this.typeOfFlight = typeOfFlight;
@@ -52,6 +54,7 @@ public class Flight {
 		this.flightDescription = flightDescription;
 		this.availableSeats=aircraft.getSeatNumber();
 		this.pricePerPassenger = pricePerPassenger;
+		this.setFlightImg(flightImg);
 	}
 	
 	public Flight()
@@ -172,6 +175,14 @@ public class Flight {
 
 	public void setAvailableSeats(int availableSeats) {
 		this.availableSeats = availableSeats;
+	}
+
+	public BufferedImage getFlightImg() {
+		return flightImg;
+	}
+
+	public void setFlightImg(BufferedImage flightImg) {
+		this.flightImg = flightImg;
 	}
 
 }

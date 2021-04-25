@@ -53,7 +53,7 @@ public class PassengerDaoImpl implements PassengerDao {
 			
 		}
 		
-		return p.getPassengerFlightsList();
+		return p.getBookedFlightsList();
 	}	
 
 	public void bookAFlight(int idFlight, int nbBookedSeats) {
@@ -66,6 +66,8 @@ public class PassengerDaoImpl implements PassengerDao {
 		
 		PersistenceManager pm;
 		Transaction tx;
+		System.out.print(passenger.getLastName());
+		System.out.print(passenger.getFirstName());
 
 		// save
 		pm = pmf.getPersistenceManager();
@@ -81,10 +83,10 @@ public class PassengerDaoImpl implements PassengerDao {
 			pm.close();
 		}	
 		
-		
-		
-	}
 
+
+	}
+	
 	public Passenger getInfosFromUser(int idUser) {
 		
 		PersistenceManager pm;
@@ -110,6 +112,7 @@ public class PassengerDaoImpl implements PassengerDao {
 			pm.close();
 			
 		}
+		System.out.println(p.getFirstName());
 		
 		return p;
 	}	

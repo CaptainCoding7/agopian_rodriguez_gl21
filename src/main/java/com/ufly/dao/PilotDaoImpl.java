@@ -40,14 +40,14 @@ public class PilotDaoImpl extends PassengerDaoImpl implements PilotDao {
 		List<Flight> SubList = new ArrayList<Flight>(Arrays.asList(
 				new Flight(new Aircraft(), TypeOfFlight.ROUND_TRIP, "Alforville", "Les Pavillons-sous-bois",
 						LocalTime.of(1, 30), LocalDateTime.of(2021, 01, 01, 0, 0),
-						LocalDateTime.of(2021, 01, 01, 1, 30), "Fete du nouvel an", "Visite surprise chez Paulsy",10),
+						LocalDateTime.of(2021, 01, 01, 1, 30), "Fete du nouvel an", "Visite surprise chez Paulsy",10,null),
 				new Flight(new Aircraft(), TypeOfFlight.ONE_WAY_TICKET, "Roissy", "Chamonix", LocalTime.of(1, 30),
 						LocalDateTime.of(2021, 01, 01, 0, 0), LocalDateTime.of(2021, 01, 01, 1, 30), "Voyage sportif",
-						"Decouverte du ski avec Paulsy",12),
+						"Decouverte du ski avec Paulsy",12,null),
 				new Flight(new Aircraft(), TypeOfFlight.BALLAD, "Volcan Volvic", "Volcan Volvic",
 						LocalTime.of(1, 30), LocalDateTime.of(2021, 01, 01, 0, 0),
 						LocalDateTime.of(2021, 01, 01, 1, 30), "Survoler l'auvergne",
-						"Visite aerienne des volcan de Volvic",14)));
+						"Visite aerienne des volcan de Volvic",14,null)));
 		return SubList;
 	}
 

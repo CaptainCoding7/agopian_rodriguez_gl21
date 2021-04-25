@@ -30,8 +30,9 @@ public class FlightWS {
 	}
 	
 	public static class SearchCriteria{
+		public String departure;
 		public String plane;
-		public int price;
+		public String price;
 		public String destination;
 		public int seats;
 		//public String depDate;	
@@ -50,7 +51,9 @@ public class FlightWS {
 	@Path("flightsList")
 	//public List<Flight> getFlightsFromCriteria(@PathParam("plane") String plane,@PathParam("price") int price,@PathParam("destination") String destination,@PathParam("seats") int seats) {
 	public List<Flight> getFlightsFromCriteria(SearchCriteria sc) {
-		return DaoFactory.getFlightDao().getFlightsFromCriteria(sc);
+		List<Flight> l = DaoFactory.getFlightDao().getFlightsFromCriteria(sc);
+		System.out.print(l);
+		return l;
 	}
 	
 	
