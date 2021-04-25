@@ -38,10 +38,10 @@ public class Flight {
 	private List<Passenger> passengerInFlight;
 	private int pricePerPassenger;
 	private int availableSeats;
-	private BufferedImage flightImg;
+	private String flightImg;
 	
 	public Flight(Aircraft aircraft, TypeOfFlight typeOfFlight, String departureAirport, String arrivalAirport, LocalTime duration,
-			LocalDateTime depatureDate, LocalDateTime arrivalDate, String flightTitle, String flightDescription, int pricePerPassenger, BufferedImage flightImg) {
+			LocalDateTime depatureDate, LocalDateTime arrivalDate, String flightTitle, String flightDescription, int pricePerPassenger, String flightImg) {
 		//this.flightID=flightID; // auto-increment s'en occupe !
 		this.aircraft = aircraft;
 		this.typeOfFlight = typeOfFlight;
@@ -177,11 +177,11 @@ public class Flight {
 		this.availableSeats = availableSeats;
 	}
 
-	public BufferedImage getFlightImg() {
+	public String getFlightImg() {
 		return flightImg;
 	}
 
-	public void setFlightImg(BufferedImage flightImg) {
+	public void setFlightImg(String flightImg) {
 		this.flightImg = flightImg;
 	}
 
