@@ -1,4 +1,6 @@
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
 /*
 	Spatial by TEMPLATED
 	templated.co @templatedco
@@ -72,6 +74,7 @@
 	});
 
 =======
+>>>>>>> cfb3e1ae2559d914b71266231940c3a3f23671dd
 /*
 	Spatial by TEMPLATED
 	templated.co @templatedco
@@ -144,5 +147,8 @@
 
 	});
 
+<<<<<<< HEAD
+=======
 >>>>>>> paul_back
+>>>>>>> cfb3e1ae2559d914b71266231940c3a3f23671dd
 })(jQuery);

@@ -5,37 +5,23 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>   
 		<title>Ufly | Home Page</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="shortcut icon" href="#">
 		<link rel="stylesheet" href="assets/css/main.css" />
-		
-		<style>
-		    fieldset {
-		      border: 0;
-		    }
-		    label {
-		      display: block;
-		      margin: 30px 0 0 0;
-		    }
-		    .overflow {
-		      height: 200px;
-		    }
-		  </style>
-		  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-		  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-		  <script>
-		  $( function() {
-		    $( "#plane" ).selectmenu();
-		 
-		    $( "#price" ).selectmenu();
-		 
-		    $( "#nbOfSeats" )
-		      .selectmenu()
-		      .selectmenu( "menuWidget" )
-		        .addClass( "overflow" );
-		 
-		    $( "#destination" ).selectmenu();
-		  } );
+			
+		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+		<script>
+			$( "#plane" ).selectmenu();
+	
+			$( "#price" ).selectmenu();
+				 
+			$( "#nbOfSeats" )
+				.selectmenu()
+				.selectmenu( "menuWidget" )
+				.addClass( "overflow" );
+				 
+			$( "#destination" ).selectmenu();
 		</script>
-		
 	</head>
 	
 	<body class="landing">
@@ -61,63 +47,71 @@
 			<a href="#menu" class="navPanelToggle"><span class="fa fa-bars"></span></a>
 
 		<!-- Banner -->
-			<section id="banner" style="display: flex; flex-flow: column wrap; align-items: center;">
+			<section id="banner">
 				<h2>Ufly</h2>
 				<h3 id="Slogan">Share a flight, Share a Dream </h3>
 
-				<form style="order: 1;  align-self: stretch;">
-					<input type="text" id="search" class="search" placeholder="Search a departure place...">
+				<form id="SearchFlightBar">
+					<input type="text" id="departure" class="search" placeholder="Search a departure place..." required>
 				</form>
 				
-				<ul class="actions" style="margin: 10px auto auto auto; order:3; ">
-					<!--<li><a id="butFlightsList" href="home.html" class="button special big">Search a Flight</a></li>-->
+				<ul class="actions" id="SearchFlightButton">
 					<li><button id="butFlightsList" class="button special big">Search a Flight</a></li>
 				</ul>
 			
-				<form class="demo" action="#" style="order:2;">
+				<form class="demo" id="SearchFlightFilter" action="#">
 				 
-				  <fieldset>
-				    <label for="plane">Select a plane</label>
-				    <select name="plane" id="plane">
-					  <option selected="selected">Tous les avions</option>
-				      <optgroup label="Cessna">
-				      	<option>Cessna 172</option>
-				      </optgroup>
-				      <optgroup label="Piper">
-				      	<option>Piper PA28</option>
-				      </optgroup>
-				      <optgroup label="Robin">
-				      	<option>Robin DR400 - 100HP</option>
-				      </optgroup>
-				    </select>
-				 
-				    <label for="price">Select a price</label>
-				    <select name="price" id="price">
-		            <option value="all "selected="selected">Tous les prix</option>
-				    <option value="inf_50"> &lt; 50 &euro; </option>
-				    <option value="sup_50_inf_100">ui.jQuery.js</option>
-				    <option value="somefile">Some unknown file</option>
-				    </select>
-				 
-				    <label for="nbOfSeats">Select a number of seats</label>
-				    <select name="nbOfSeats" id="nbOfSeats">
-				      <option>1</option>
-				      <option selected="selected">2</option>
-				      <option>3</option>
-				      <option>4</option>
-				      <option>5</option>
-				      <option>6</option>
-				    </select>
-				 
-				    <label for="destination">Select a destination</label>
-				    <select name="destination" id="destination">
-				      <option disabled selected>Please pick one</option>
-				      <option>Mr.</option>
-				      <option>Mrs.</option>
-				      <option>Dr.</option>
-				      <option>Prof.</option>
-				      <option>Other</option>
-				    </select>
+				  <fieldset id="Search-filter">
+					<div id="plane-filter">
+				    	<label for="plane">Select a plane</label>
+				    	<select name="plane" id="plane">
+					  		<option value="All" selected="selected">Tous les avions</option>
+				      		<optgroup label="Cessna">
+				      			<option value="Cessna 172">Cessna 172</option>
+				      		</optgroup>
+				      		<optgroup label="Piper">
+				      			<option value="Piper PA28">Piper PA28</option>
+				      		</optgroup>
+				      		<optgroup label="Robin">
+				      			<option value="Robin DR400 - 100HP">Robin DR400 - 100HP</option>
+				      		</optgroup>
+				    	</select>
+					</div>
+				 	
+					<div id="price-filter">
+					    <label for="price">Select a price</label>
+					    <select name="price" id="price">
+				            <option value="All" selected="selected">Tous les prix</option>
+						    <option value="inf_50"> &lt; 50 &euro; </option>
+						    <option value="between_50_100" >50 &euro; - 100 &euro;</option>
+						    <option value="between_100_150">100 &euro; - 150 &euro;</option>
+						    <option value="between_150_200">150 &euro; - 200 &euro;</option>
+						    <option value="sup_200"> 200 &euro; - </option>
+					    </select>
+				 	</div>
+					
+					<div id="nbseat-filter">
+					    <label for="nbOfSeats">Select a number of seats</label>
+					    <select name="nbOfSeats" id="nbOfSeats">
+						  <option value="0" selected="selected">All</option>
+					      <option value="1">1</option>
+					      <option value="2">2</option>
+					      <option value="3">3</option>
+					      <option value="4">4</option>
+					      <option value="5">5</option>
+					      <option value="6">6</option>
+					    </select>
+					</div>
+				 	
+					<div id="destination-filter">
+					    <label for="destination">Select a destination</label>
+					    <select name="destination" id="destination">
+						  <option value="All" selected="selected">Toute Destination</option> 
+					      <option value="Londre">London</option>
+					      <option value="Paris">Paris</option>
+					      <option value="Amsterdam">Amsterdam</option>
+					    </select>
+					</div>
 				  </fieldset>
 				 
 				</form>
@@ -126,8 +120,10 @@
 
 			
 		<!-- Result section for the display of the flights -->	
-			<section id="result" style="display:block;">
+			<section id="results">
 				<h2>Results:</h2>
+				<ul id="list-result">
+				</ul>
 			</section>	
 
 		<!-- Footer -->

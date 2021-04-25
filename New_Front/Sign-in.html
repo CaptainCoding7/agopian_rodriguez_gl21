@@ -1,92 +1,3 @@
-<<<<<<< HEAD
-<!DOCTYPE HTML>
-
-<html>
-	<head>
-		<title>Ufly | Signin Page</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link rel="stylesheet" href="assets/css/style-Sign-in.css" />
-	</head>
-	<body class="landing">
-
-		<!-- Header -->
-			<header id="header" class="alt">
-				<h1><strong><a href="HomePage.html">UfLy</a></strong></h1>
-				<nav id="nav">
-					<ul>
-						<li><a href="HomePage.html">Home</a></li>
-						<li><a href="Log-in.html">Log in</a></li>
-						<li><a href="Sign-in.html">Sign in</a></li>
-					</ul>
-				</nav>
-			</header>
-
-			<a href="#menu" class="navPanelToggle"><span class="fa fa-bars"></span></a>
-
-		<!-- Banner -->
-			<section id="banner">
-				<h2>Sign in :</h2>
-
-                    <form method="post" action="#">
-                        <div class="row uniform 50%">
-                            <div class="6u 12u$(xsmall)">
-                                <input type="text" name="FirstName" id="FirstName" value="" placeholder="FirstName" />
-                            </div>
-                            <div class="6u$ 12u$(xsmall)">
-                                <input type="text" name="LastName" id="LastName" value="" placeholder="LastName" />
-                            </div>
-                            <div class="6u$ 12u$(xsmall)">
-                                <input type="text" name="PhoneNumber" id="PhoneNumber" value="" placeholder="PhoneNumber" />
-                            </div>  
-                            <div class="12u$">
-                                <div class="select-wrapper">
-                                    <select name="category" id="category">
-                                        <option value="">- Category -</option>
-                                        <option value="1">Manufacturing</option>
-                                        <option value="1">Shipping</option>
-                                        <option value="1">Administration</option>
-                                        <option value="1">Human Resources</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="4u 12u$(xsmall)">
-                                <input type="radio" id="priority-low" name="priority" checked>
-                                <label for="priority-low">Low Priority</label>
-                            </div>
-                            <div class="4u 12u$(xsmall)">
-                                <input type="radio" id="priority-normal" name="priority">
-                                <label for="priority-normal">Normal Priority</label>
-                            </div>
-                            <div class="4u$ 12u$(xsmall)">
-                                <input type="radio" id="priority-high" name="priority">
-                                <label for="priority-high">High Priority</label>
-                            </div>
-                            <div class="6u 12u$(small)">
-                                <input type="checkbox" id="copy" name="copy">
-                                <label for="copy">Email me a copy of this message</label>
-                            </div>
-                            <div class="6u$ 12u$(small)">
-                                <input type="checkbox" id="human" name="human" checked>
-                                <label for="human">I am a human and not a robot</label>
-                            </div>
-                        </div>
-                    </form>
-
-			</section>
-
-		<!-- Footer -->
-			<footer id="footer">
-				<div class="container">
-					<ul class="copyright">
-						<li>&copy; Ufly</li>
-						<li>Images: <a href="http://unsplash.com">Unsplash</a></li>
-					</ul>
-				</div>
-			</footer>
-
-	</body>
-=======
 <!DOCTYPE HTML>
 
 <html>
@@ -116,26 +27,26 @@
 			<section id="banner">
 				<h2>Sign in :</h2>
 
-                    <form method="post" action="#">
+                    <form action="home.html">
                         <div class=" uniform 50%">
                             <div class="6u 12u$(xsmall)" style="margin: auto auto 1% auto;">
-                                <input type="text" name="FirstName" id="FirstName" value="" placeholder="FirstName" style="color: #fff" />
+                                <input type="text" name="FirstName" id="FirstName" value="" placeholder="FirstName" style="color: #fff" required/>
                             </div>
                             <div class="6u$ 12u$(xsmall)" style="margin: auto auto 1% auto;">
-                                <input type="text" name="LastName" id="LastName" value="" placeholder="LastName" style="color: #fff" />
+                                <input type="text" name="LastName" id="LastName" value="" placeholder="LastName" style="color: #fff" required/>
                             </div>
 
 							<div class="6u$ 12u$(xsmall)" style="margin: auto auto 1% auto;">
-                                <input type="text" name="Email" id="Email" value="" placeholder="Email" style="color: #fff" />
+                                <input type="text" name="Email" id="Email" value="" placeholder="Email" style="color: #fff" required/>
                             </div>
 							<div class="6u$ 12u$(xsmall)" style="margin: auto auto 1% auto;">
-                                <input type="text" name="Password" id="Password" value="" placeholder="Password" style="color: #fff" />
+                                <input type="text" name="Password" id="Password" value="" placeholder="Password" style="color: #fff" required/>
                             </div>
                             <div class="6u$ 12u$(xsmall)" style="margin: auto auto 1% auto;">
-                                <input type="text" name="PhoneNumber" id="PhoneNumber" value="" placeholder="PhoneNumber" style="color: #fff" />
+                                <input type="text" name="PhoneNumber" id="PhoneNumber" value="" placeholder="PhoneNumber" style="color: #fff" required />
                             </div>
 							<div class="6u$ 12u$(xsmall)" style="margin: auto auto 1% auto;">
-                                <input type="text" name="livLoc" id="livLoc" value="" placeholder="Living Location" style="color: #fff" 	/>
+                                <input type="text" name="livLoc" id="livLoc" value="" placeholder="Living Location" style="color: #fff" required/>
                             </div>
                      	</div>
 
@@ -158,8 +69,11 @@
 					
 		<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
 	    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+		<script type="text/javascript" src="signin.js"></script>
+
+	</body>
 		<script type="text/javascript" src="home.js"></script>
 
 	</body>
->>>>>>> paul_back
+
 </html>
