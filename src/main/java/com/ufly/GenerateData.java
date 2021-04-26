@@ -108,7 +108,7 @@ public class GenerateData {
 						//new ArrayList<Passenger>(Arrays.asList(new Passenger(1), 
 						//										new Passenger(2))),
 						10,
-						"pic01.jpg"
+						"./images/pic01.jpg"
 						),
 				new Flight(
 						new Aircraft(),

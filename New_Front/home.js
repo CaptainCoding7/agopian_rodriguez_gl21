@@ -100,12 +100,13 @@ function callDone(result){
 
 		// Display the element in the page
 		let newFlight = document.createElement("li"); //creation of the element to insert in the list
-		newFlight.className = "display";
-		newFlight.href = "ViewFlight.html";
+		newFlight.className = "display"
 		tmp.innerHTML = id;
 		newFlight.id = tmp.textContent.replace(/[^a-zA-Z0-9.\/]/g, "");
 		newFlight.onclick = function(){
-			localStorage.setItem('FligthID',this.id);
+			localStorage.setItem('FlightID',this.id);
+			console.log("This.id : " + this.id , "localStorage : " + localStorage.getItem('FlightID'));
+			document.location.href = "ViewFlight.html";
 		}
 		
 		let imgDisplay = document.createElement("img");
@@ -138,7 +139,7 @@ function callDone(result){
 		seatDisplay.innerHTML = "Nb of places : " + seats;
 		seatDisplay.innerHTML = seatDisplay.textContent;
 		newFlight.appendChild(seatDisplay);//insertion in the tag
-		
+
 		document.querySelector("#list-result").appendChild(newFlight);//insert the new flight in the list		
 	}
 	document.querySelector("#results").style.display = 	"grid";
@@ -194,6 +195,7 @@ $(function(){
 		if(event.key == "Enter")
 		{
 			viewFlight();
+			return false;
 		}
 	});
 	

@@ -202,16 +202,16 @@
 
 
 		.button.special {
-			background-color: #3c28f3;
+			background-color: rgba(0, 89, 255, 0.80);
 			color: #ffffff !important;
 		}
 
 			.button.special:hover {
-				background-color: #2857f3;
+				background-color:rgba(0, 89, 255, 0.60);
 			}
 
 			.button.special:active {
-				background-color: #3c28f3;
+				background-color: rgba(0, 89, 255, 0.40);
 			}
 
 		@media screen and (max-width: 480px) {
