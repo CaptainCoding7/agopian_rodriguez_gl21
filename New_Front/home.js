@@ -1,3 +1,29 @@
+if(localStorage.getItem('user')!=null){
+	let userInfo = JSON.parse(localStorage.getItem('user'));
+
+ 	document.getElementById("logSpace").innerHTML = "<li id='logSpace'><a href='https://www.youtube.com'>My Space</a></li>";
+	document.getElementById("signLogout").innerHTML = "<li id='signLogout'><a href='home.html'>Log out</a></li>";
+
+}
+else{
+	
+	let userInfo = JSON.parse(localStorage.getItem('user'));		
+
+ 	document.getElementById("logSpace").innerHTML = "<a href='Log-in.html'>Log in</a>";
+	document.getElementById("signLogout").innerHTML = "<a href='Sign-in.html'>Sign in</a>";
+	console.log("No logged user");
+	console.log(userInfo.firstName +" is logged");
+
+}
+
+$("#signLogout").click(function(event){
+	localStorage.setItem('user', null);    
+	document.location.href = "home.html";                                                                                                                                                            
+
+});
+	
+	
+
 function getServerData(url, success){
     $.ajax({
         dataType: "json",
@@ -38,9 +64,14 @@ function deleteServerData(url, success){
 }
 
 function callDone(result){
-	var templateExample = _.template($('#templateExample').html());
+	
+	var templateExample = _.template($('#flightsToDisplay').html());
 	
 	for (let i = 0; i < result.length; i++) {
+		let id = templateExample({
+			"attribute":JSON.stringify(result[i].flightID)
+		});
+		
 	
 		let departure = templateExample({
 			"attribute":JSON.stringify(result[i].departureAirport)
@@ -70,7 +101,13 @@ function callDone(result){
 
 		// Display the element in the page
 		let newFlight = document.createElement("li"); //creation of the element to insert in the list
-		newFlight.className = "display"
+		newFlight.className = "display";
+		newFlight.href = "ViewFlight.html";
+		tmp.innerHTML = id;
+		newFlight.id = tmp.textContent.replace(/[^a-zA-Z0-9.\/]/g, "");
+		newFlight.onclick = function(){
+			localStorage.setItem('FligthID',this.id);
+		}
 		
 		let imgDisplay = document.createElement("img");
 		imgDisplay.className = "img-journey";
@@ -108,6 +145,7 @@ function callDone(result){
 	document.querySelector("#results").style.display = 	"grid";
 	
 }
+
 
 $(function(){
 	function viewFlight(event){
@@ -150,7 +188,20 @@ $(function(){
 		postServerData("ws/flight/flightsList",dataJson,callDone);
 	}
 
+	// Display the research in the data base
 	$("#butFlightsList").click(viewFlight);
+
+	$("#SearchFlightBar").keydown(function(event){
+		if(event.key == "Enter")
+		{
+			viewFlight();
+		}
+	});
+	
+	
+});
+
+	/*///////////////////////////////////////////////////////
 
 	$("#butFlightInfo").click(function(){
 		getServerData("ws/flight/flightInfo/2",callDone);
@@ -167,14 +218,10 @@ $(function(){
 
 		deleteServerData("ws/flight/deleteflight/1",callDone);
 	});
+*/
 
-	$("#SearchFlightBar").keydown(function(event){
-		console.log(event.key);
-		if(event.key == "Enter")
-		{
-			viewFlight();
-		}
-	});
+
+
 
 ////////////////////////////////////////  PASSENGER  /////////////////
 
@@ -185,8 +232,6 @@ $(function(){
 
 	$("#butInfoUser").click(function(){				
 
-		getServerData("ws/passenger/getuserinfo/11",callDone);
+		getServerData("ws/user/getuserinfo/11",callDone);
 
 	});
-
-});

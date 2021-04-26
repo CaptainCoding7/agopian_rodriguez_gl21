@@ -45,7 +45,7 @@ $(document).ready(function() {
 			birthday : "1999-04-19"
 		};
 		
-		putServerData("ws/passenger/createuser",JSON.stringify(newUser),callDone);
+		putServerData("ws/user/createuser",JSON.stringify(newUser),callDone);
 		
 	});
 })
