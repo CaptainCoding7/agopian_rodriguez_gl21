@@ -113,11 +113,10 @@ $(function(){
 
 	$("#butFlightsList").click(function(event){
 
-		console.log("Clic : ");
-		console.log($("#departure").val());
 		if($("#departure").val() == "")
 		{
-			console.log("departure is null");
+			let searchBar = document.querySelector("#departure");
+			searchBar.style.border = "1px solid red"; 
 			return false;
 		}
 
