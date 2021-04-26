@@ -12,7 +12,6 @@ else{
  	document.getElementById("logSpace").innerHTML = "<a href='Log-in.html'>Log in</a>";
 	document.getElementById("signLogout").innerHTML = "<a href='Sign-in.html'>Sign in</a>";
 	console.log("No logged user");
-	console.log(userInfo.firstName +" is logged");
 
 }
 
