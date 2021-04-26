@@ -110,16 +110,17 @@ function callDone(result){
 }
 
 $(function(){
+	function viewFlight(event){
 
-	$("#butFlightsList").click(function(event){
+		let searchBar = document.querySelector("#departure");
 
 		if($("#departure").val() == "")
 		{
-			let searchBar = document.querySelector("#departure");
-			searchBar.style.border = "1px solid red"; 
+			searchBar.style.border = "2px solid red"; 
 			return false;
 		}
 
+		searchBar.style.border = "initial";
 		let results = document.querySelector("#list-result");
 		results.innerHTML = "";
 
@@ -147,7 +148,9 @@ $(function(){
 		
 		//getServerData("ws/flight/flightsList/Cessna 172/50/Amsterdam/0",callDone);
 		postServerData("ws/flight/flightsList",dataJson,callDone);
-	});
+	}
+
+	$("#butFlightsList").click(viewFlight);
 
 	$("#butFlightInfo").click(function(){
 		getServerData("ws/flight/flightInfo/2",callDone);
@@ -163,6 +166,14 @@ $(function(){
 	$("#butDeleteFlight").click(function(){
 
 		deleteServerData("ws/flight/deleteflight/1",callDone);
+	});
+
+	$("#SearchFlightBar").keydown(function(event){
+		console.log(event.key);
+		if(event.key == "Enter")
+		{
+			viewFlight();
+		}
 	});
 
 ////////////////////////////////////////  PASSENGER  /////////////////
