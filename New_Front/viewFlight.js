@@ -16,10 +16,6 @@ function callDone(result){
 	var templateExample = _.template($('#flightsToDisplay').html());
 	
     //getting all information 
-    let id = templateExample({
-        "attribute":JSON.stringify(result.flightID)
-    });
-
     let departure = templateExample({
         "attribute":JSON.stringify(result.departureAirport)
     });
