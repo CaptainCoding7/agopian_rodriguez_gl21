@@ -10,7 +10,7 @@ import javax.jdo.annotations.Persistent;
 import javax.persistence.ElementCollection;
 
 @PersistenceCapable
-public class Pilot extends Passenger {
+public class Pilot extends User {
 
 	private Image license;
 	

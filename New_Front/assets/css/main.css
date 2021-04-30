@@ -59,7 +59,7 @@
 
 		.search{
  
-			width: 1000px;
+			width: 75%;
 			-webkit-transition: width 0.4s ease-in-out;
 			transition: width 0.4s ease-in-out;
 			float: right;
@@ -400,7 +400,9 @@
 			}
 
 				#header.alt h1 a {
-					color: #FFF;
+					/*color: rgb(255, 255, 255);*/
+					color:rgb(89, 165, 241);
+
 				}
 
 			#header.alt nav {
@@ -409,11 +411,12 @@
 			}
 
 				#header.alt nav a {
-					color: #ddd;
+					/*color: #ddd;*/
+					color:rgb(89, 165, 241);
 				}
 
 					#header.alt nav a:active, #header.alt nav a:hover {
-						color: #FFF;
+						color: rgb(152, 173, 219);
 					}
 
 			#header.alt .button {
@@ -744,3 +747,75 @@
 				}
 
 		}
+/********* Mise en page Home **************/
+body
+{
+	color: white;
+	font-variant: initial;
+}
+
+section
+{
+	display: flex;
+	flex-direction: column;
+}
+
+
+#SearchFlightButton
+{
+	margin: 10px auto auto auto; 
+	order:3;
+}
+
+#SearchFlightFilter
+{
+	order:2;
+}
+
+#SearchFlightBar
+{
+	order: 1;  
+	align-self: stretch;
+}
+
+#Search-filter
+{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-evenly;
+}
+
+#results
+{
+	display:none;
+	align-items: center;
+	color: black;
+		
+}
+#list-result
+{
+	display:grid;
+	grid-template-columns: repeat(3	, 1fr);
+	justify-content: space-evenly;
+}
+
+.img-journey
+{
+	width: 100%;
+	height: 50%;
+}
+
+.display
+{
+	margin: 10px;
+	justify-content: center;
+	text-align:center;
+
+}
+
+.display:hover
+{
+	opacity: 80%;
+}
+

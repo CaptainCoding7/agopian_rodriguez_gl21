@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.ufly.Flight;
 
-public interface PilotDao extends PassengerDao {
+public interface PilotDao extends UserDao {
 
 	/**
 	 * Get the list of flights for which the pilot is concerned AS A PILOT

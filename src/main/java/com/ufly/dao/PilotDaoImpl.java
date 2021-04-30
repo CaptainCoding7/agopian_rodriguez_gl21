@@ -18,7 +18,7 @@ import javax.jdo.annotations.PersistenceCapable;
 
 import com.ufly.Aircraft;
 import com.ufly.Flight;
-import com.ufly.Passenger;
+import com.ufly.User;
 import com.ufly.Pilot;
 import com.ufly.Flight.TypeOfFlight;
 
@@ -27,7 +27,7 @@ import com.ufly.Flight.TypeOfFlight;
  *
  */
 
-public class PilotDaoImpl extends PassengerDaoImpl implements PilotDao {
+public class PilotDaoImpl extends UserDaoImpl implements PilotDao {
 
 	
 	PersistenceManagerFactory pmf;
@@ -39,15 +39,14 @@ public class PilotDaoImpl extends PassengerDaoImpl implements PilotDao {
 	public List<Flight> getPilotedFlightsList(int idUser) {
 		List<Flight> SubList = new ArrayList<Flight>(Arrays.asList(
 				new Flight(new Aircraft(), TypeOfFlight.ROUND_TRIP, "Alforville", "Les Pavillons-sous-bois",
-						LocalTime.of(1, 30), LocalDateTime.of(2021, 01, 01, 0, 0),
-						LocalDateTime.of(2021, 01, 01, 1, 30), "Fete du nouvel an", "Visite surprise chez Paulsy",10),
+						LocalTime.of(1, 30), "2021-03-15 13:30", "2021-03-15 13:30", "Fete du nouvel an", "Visite surprise chez Paulsy",10,null),
 				new Flight(new Aircraft(), TypeOfFlight.ONE_WAY_TICKET, "Roissy", "Chamonix", LocalTime.of(1, 30),
-						LocalDateTime.of(2021, 01, 01, 0, 0), LocalDateTime.of(2021, 01, 01, 1, 30), "Voyage sportif",
-						"Decouverte du ski avec Paulsy",12),
+						"2021-03-15 13:30","2021-03-15 13:30", "Voyage sportif",
+						"Decouverte du ski avec Paulsy",12,null),
 				new Flight(new Aircraft(), TypeOfFlight.BALLAD, "Volcan Volvic", "Volcan Volvic",
-						LocalTime.of(1, 30), LocalDateTime.of(2021, 01, 01, 0, 0),
-						LocalDateTime.of(2021, 01, 01, 1, 30), "Survoler l'auvergne",
-						"Visite aerienne des volcan de Volvic",14)));
+						LocalTime.of(1, 30), "2021-03-15 13:30",
+						"2021-03-15 13:30", "Survoler l'auvergne",
+						"Visite aerienne des volcan de Volvic",14,null)));
 		return SubList;
 	}
 

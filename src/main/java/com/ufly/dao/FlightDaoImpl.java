@@ -3,8 +3,10 @@
  */
 package com.ufly.dao;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -20,7 +22,7 @@ import javax.jdo.annotations.PersistenceCapable;
 
 import com.ufly.Aircraft;
 import com.ufly.Flight;
-import com.ufly.Passenger;
+import com.ufly.User;
 import com.ufly.ws.FlightWS;
 import com.ufly.Flight.TypeOfFlight;
 
@@ -49,7 +51,7 @@ public class FlightDaoImpl implements FlightDao {
 		// retrieve
 		pm = pmf.getPersistenceManager();
 		tx = pm.currentTransaction();
-		// retainValues pour que les attributs soit gardÃ©s
+		// retainValues pour que les attributs soit gardés
 	    tx.setRetainValues(true);
 		try {
 			tx.begin();
@@ -57,21 +59,60 @@ public class FlightDaoImpl implements FlightDao {
 
 			Query q = pm.newQuery(Flight.class);
 			flights = (List<Flight>) q.execute();
+
+			//System.out.println(sc.plane+sc.price+sc.destination+sc.seats);
 			
-			for(Flight fget:flights) {
-				System.out.println("flight retrieved : " + fget.getFlightDescription());
-			}
-			System.out.println(sc.plane+sc.price+sc.destination+sc.seats);
 			flights=flights.stream()
-					.filter(p->p.getPricePerPassenger()<=sc.price)
-					.filter(p->p.getAircraft().getAircraftModel().equals(sc.plane))
-					.filter(p->p.getDestination().equals(sc.destination))
+					
+					.filter(p->p.getDepartureAirport().toUpperCase().equals(sc.departure.toUpperCase()))
+					
+					.filter(p->{
+						switch(sc.price)
+						{
+							case "inf_50":
+								return p.getPricePerPassenger() < 50;
+							case "between_50_100":
+								return (p.getPricePerPassenger() > 50 && p.getPricePerPassenger() < 100);
+							case "between_100_150":
+								return (p.getPricePerPassenger() > 100 && p.getPricePerPassenger() < 150);
+							case "between_150_200":
+								return (p.getPricePerPassenger() > 150 && p.getPricePerPassenger() < 200);
+							case "sup_200":
+								return (p.getPricePerPassenger() > 200);
+							default:
+								return true;
+						}
+						
+					})
+					
+					.filter(p->{
+						if(!sc.plane.toUpperCase().equals("ALL"))
+							return (p.getAircraft().getAircraftModel().toUpperCase().equals(sc.plane.toUpperCase()));
+						return true;
+					})
+					
+					.filter(p->{
+						if(!sc.destination.toUpperCase().equals("ALL"))
+							return (p.getDestination().toUpperCase().equals(sc.destination.toUpperCase()));
+						return true;
+					})
+					
 					.filter(p->p.getAvailableSeats()>=sc.seats)
-					//.filter(p->p.getDepatureDate().compareTo(LocalDateTime.parse(sc.depDate))>0)
+				
+					.filter(p->{
+						if(sc.depDate!=null && !sc.depDate.equals("")) {
+							System.out.println(sc.depDate);
+							DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+							return LocalDateTime.parse(p.getDepatureDate(),formatter).toLocalDate().compareTo(LocalDate.parse(sc.depDate))==0;
+						}
+						return true;
+					})					 
+					
 					.collect(Collectors.toList());
+					
 			tx.commit();
 		} 
-		
+
 		finally {
 			if (tx.isActive()) {
 				tx.rollback();
@@ -80,6 +121,13 @@ public class FlightDaoImpl implements FlightDao {
 			pm.close();
 			
 		}
+		
+		
+		for(Flight fget:flights) {
+			System.out.println(fget.getFlightImg());
+			System.out.println("flight retrieved : " + fget.getFlightDescription());
+		}
+		
 		
 		return flights ;
 
@@ -93,7 +141,7 @@ public class FlightDaoImpl implements FlightDao {
 // retrieve
 		pm = pmf.getPersistenceManager();
 		tx = pm.currentTransaction();
-		// retainValues pour que les attributs soit gardÃ©s
+		// retainValues pour que les attributs soit gardés
 	    tx.setRetainValues(true);
 		try {
 			tx.begin();
@@ -124,7 +172,7 @@ public class FlightDaoImpl implements FlightDao {
 // retrieve
 		pm = pmf.getPersistenceManager();
 		tx = pm.currentTransaction();
-		// retainValues pour que les attributs soit gardÃ©s
+		// retainValues pour que les attributs soit gardés
 	    tx.setRetainValues(true);
 	    
 	    getFlightsFromCriteria(null);
