@@ -1,8 +1,10 @@
+
 if(localStorage.getItem('user')!=null){
 	let userInfo = JSON.parse(localStorage.getItem('user'));
-
- 	document.getElementById("logSpace").innerHTML = "<li id='logSpace'><a href='https://www.youtube.com'>My Space</a></li>";
-	document.getElementById("signLogout").innerHTML = "<li id='signLogout'><a href='home.html'>Log out</a></li>";
+	
+	console.log(localStorage.getItem('user')+ "user logged");
+ 	document.getElementById("logSpace").innerHTML = "<a href='myspace.html'>My Space</a>";
+	document.getElementById("signLogout").innerHTML = "<a href='home.html' onclick='logOut()'>Log out</a>";
 
 }
 else{
@@ -15,14 +17,15 @@ else{
 
 }
 
-$("#signLogout").click(function(event){
-	localStorage.setItem('user', null);    
+function logOut(){
+	
+	console.log("logout");
+	localStorage.removeItem('user');    
 	document.location.href = "home.html";                                                                                                                                                            
 
-});
+}
 	
 	
-
 function getServerData(url, success){
     $.ajax({
         dataType: "json",
@@ -168,27 +171,15 @@ $(function(){
 			price : $("#price").val(),
 			destination : $("#destination").val(),
 			seats : parseInt($("#nbOfSeats").val()),
-			//depDate : "2020-12-03T10:15:30"
+			depDate : $("#date").val()
 		}
-		
-		var dataTest = {
-			departure : "Paris",
-			plane : "Cessna 172",
-			price : 50,
-			destination : "Amsterdam",
-			seats : 0
-			//depDate : "2020-12-03T10:15:30"
-		}
-
-		var plane = "Cessa 172";
-		
+			
 		var dataJson = JSON.stringify(data);
 		
-		//getServerData("ws/flight/flightsList/Cessna 172/50/Amsterdam/0",callDone);
 		postServerData("ws/flight/flightsList",dataJson,callDone);
 	}
 
-	// Display the research in the data base
+	// Display the results of the research
 	$("#butFlightsList").click(viewFlight);
 
 	$("#SearchFlightBar").keydown(function(event){

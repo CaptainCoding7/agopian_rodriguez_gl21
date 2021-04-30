@@ -14,18 +14,24 @@ function putServerData(url, data, success){
 
 
 function callDone(result){
-	var templateExample = _.template($('#templateExample').html());
 	
-	var html = templateExample({
-		//"attribute":JSON.stringify(result[0].flightID)
-		"attribute":JSON.stringify(result)
-	});
-	//https://makitweb.com/return-json-response-ajax-using-jquery-php/
-	$("#result").append(html);
-}
+		
+	if(JSON.parse(result)==true){
+		console.log("Account successfully created");
+		localStorage.setItem('user', JSON.stringify(newUser));
+		alert("You have logged in.");
+		document.location.href = "home.html";
+	}
+	else{
+		console.log("Account creation failed")	;	
+		alert("Mail already used !");
 
+		document.location.href = "Sign-in.html";
+	}
+}
 		
 
+var newUser;
 
 $(document).ready(function() {
 	
@@ -34,7 +40,7 @@ $(document).ready(function() {
 		
 		console.log("create user");
 
-		var newUser = {
+		newUser = {
 			mail : $("#Email").val(),
 			pwd : $("#Password").val(),
 			firstName : $("#FirstName").val(),

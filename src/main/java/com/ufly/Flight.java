@@ -4,6 +4,7 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -28,20 +29,20 @@ public class Flight {
 	private String departureAirport;
 	private String destination;
 	private LocalTime duration;
-	private LocalDateTime depatureDate;
-	private LocalDateTime arrivalDate;
+	private String depatureDate;
+	private String arrivalDate;
 	
 	//thing about the last date before close the booking
 	
 	private String flightTitle;
 	private String flightDescription;
-	private List<Passenger> passengerInFlight;
+	private List<User> passengerInFlight;
 	private int pricePerPassenger;
 	private int availableSeats;
 	private String flightImg;
 	
 	public Flight(Aircraft aircraft, TypeOfFlight typeOfFlight, String departureAirport, String arrivalAirport, LocalTime duration,
-			LocalDateTime depatureDate, LocalDateTime arrivalDate, String flightTitle, String flightDescription, int pricePerPassenger, String flightImg) {
+			String depatureDate, String arrivalDate, String flightTitle, String flightDescription, int pricePerPassenger, String flightImg) {
 		//this.flightID=flightID; // auto-increment s'en occupe !
 		this.aircraft = aircraft;
 		this.typeOfFlight = typeOfFlight;
@@ -121,19 +122,19 @@ public class Flight {
 		this.duration = duration;
 	}
 	
-	public LocalDateTime getDepatureDate() {
+	public String getDepatureDate() {
 		return depatureDate;
 	}
 
-	public void setDepatureDate(LocalDateTime depatureDate) {
-		this.depatureDate = depatureDate;
+	public void setDepatureDate(String departureDate) {
+		this.depatureDate=departureDate;
 	}
 
-	public LocalDateTime getArrivalDate() {
+	public String getArrivalDate() {
 		return arrivalDate;
 	}
 
-	public void setArrivalDate(LocalDateTime arrivalDate) {
+	public void setArrivalDate(String arrivalDate) {
 		this.arrivalDate = arrivalDate;
 	}
 
@@ -153,11 +154,11 @@ public class Flight {
 		this.flightDescription = flightDescription;
 	}
 
-	public List<Passenger> getPassengerInFlight() {
+	public List<User> getPassengerInFlight() {
 		return passengerInFlight;
 	}
 
-	public void setPassengerInFlight(List<Passenger> passengerInFlight) {
+	public void setPassengerInFlight(List<User> passengerInFlight) {
 		this.passengerInFlight = passengerInFlight;
 	}
 

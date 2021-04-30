@@ -7,7 +7,7 @@
     <persistence-unit name="UFly_Objects">
 		<class>com.ufly.Aircraft</class>
 		<class>com.ufly.Flight</class>
-		<class>com.ufly.Passenger</class>
+		<class>com.ufly.User</class>
 		<class>com.ufly.Pilot</class>
         
         <properties>

@@ -202,16 +202,16 @@
 
 
 		.button.special {
-			background-color: rgba(0, 89, 255, 0.80);
+			background-color: #3c28f3;
 			color: #ffffff !important;
 		}
 
 			.button.special:hover {
-				background-color:rgba(0, 89, 255, 0.60);
+				background-color: #2857f3;
 			}
 
 			.button.special:active {
-				background-color: rgba(0, 89, 255, 0.40);
+				background-color: #3c28f3;
 			}
 
 		@media screen and (max-width: 480px) {
@@ -400,7 +400,9 @@
 			}
 
 				#header.alt h1 a {
-					color: #FFF;
+					/*color: rgb(255, 255, 255);*/
+					color:rgb(89, 165, 241);
+
 				}
 
 			#header.alt nav {
@@ -409,11 +411,12 @@
 			}
 
 				#header.alt nav a {
-					color: #ddd;
+					/*color: #ddd;*/
+					color:rgb(89, 165, 241);
 				}
 
 					#header.alt nav a:active, #header.alt nav a:hover {
-						color: #FFF;
+						color: rgb(152, 173, 219);
 					}
 
 			#header.alt .button {

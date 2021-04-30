@@ -3,8 +3,10 @@
  */
 package com.ufly.dao;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -20,7 +22,7 @@ import javax.jdo.annotations.PersistenceCapable;
 
 import com.ufly.Aircraft;
 import com.ufly.Flight;
-import com.ufly.Passenger;
+import com.ufly.User;
 import com.ufly.ws.FlightWS;
 import com.ufly.Flight.TypeOfFlight;
 
@@ -58,8 +60,8 @@ public class FlightDaoImpl implements FlightDao {
 			Query q = pm.newQuery(Flight.class);
 			flights = (List<Flight>) q.execute();
 
-			System.out.println(sc.plane+sc.price+sc.destination+sc.seats);
-			/*
+			//System.out.println(sc.plane+sc.price+sc.destination+sc.seats);
+			
 			flights=flights.stream()
 					
 					.filter(p->p.getDepartureAirport().toUpperCase().equals(sc.departure.toUpperCase()))
@@ -88,21 +90,29 @@ public class FlightDaoImpl implements FlightDao {
 							return (p.getAircraft().getAircraftModel().toUpperCase().equals(sc.plane.toUpperCase()));
 						return true;
 					})
+					
 					.filter(p->{
 						if(!sc.destination.toUpperCase().equals("ALL"))
 							return (p.getDestination().toUpperCase().equals(sc.destination.toUpperCase()));
 						return true;
 					})
-					.filter(p->p.getDestination().toUpperCase().equals(sc.destination.toUpperCase()))
+					
 					.filter(p->p.getAvailableSeats()>=sc.seats)
-					//.filter(p->p.getDepatureDate().compareTo(LocalDateTime.parse(sc.depDate))>0)
-					 
-					 
+				
+					.filter(p->{
+						if(sc.depDate!=null && !sc.depDate.equals("")) {
+							System.out.println(sc.depDate);
+							DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+							return LocalDateTime.parse(p.getDepatureDate(),formatter).toLocalDate().compareTo(LocalDate.parse(sc.depDate))==0;
+						}
+						return true;
+					})					 
+					
 					.collect(Collectors.toList());
-					*/
+					
 			tx.commit();
 		} 
-		
+
 		finally {
 			if (tx.isActive()) {
 				tx.rollback();
@@ -117,8 +127,6 @@ public class FlightDaoImpl implements FlightDao {
 			System.out.println(fget.getFlightImg());
 			System.out.println("flight retrieved : " + fget.getFlightDescription());
 		}
-		
-		
 		
 		
 		return flights ;

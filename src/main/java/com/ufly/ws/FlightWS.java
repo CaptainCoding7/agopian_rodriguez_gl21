@@ -17,7 +17,7 @@ import javax.ws.rs.core.MediaType;
 
 import com.ufly.Aircraft;
 import com.ufly.Flight;
-import com.ufly.Passenger;
+import com.ufly.User;
 import com.ufly.dao.*;
 
 
@@ -35,13 +35,13 @@ public class FlightWS {
 		public String price;
 		public String destination;
 		public int seats;
-		//public String depDate;	
+		public String depDate;	
 	}
 	
 	/* ne fonctionne pas avec des variables statiques */
 //	public static ArrayList<Flight> flightsList= new ArrayList<Flight>(Arrays.asList(new Flight("ADC-F2"),new Flight("KDO-A6"),new Flight("UDO-G5")));
 //	public static ArrayList<Aircraft> aircraftsList= new ArrayList<Aircraft>(Arrays.asList(new Aircraft("B737"),new Aircraft("A256"),new Aircraft("R2D2")));	
-//	public static ArrayList<Passenger> passengerList=new ArrayList<Passenger>(Arrays.asList(new Passenger(1),new Passenger(2),new Passenger(3)));
+//	public static ArrayList<User> passengerList=new ArrayList<User>(Arrays.asList(new User(1),new User(2),new User(3)));
 
 
 	/* FLIGHT ***********************/

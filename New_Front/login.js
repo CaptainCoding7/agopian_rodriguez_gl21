@@ -18,7 +18,7 @@ function postServerData(url, data, success){
 
 function callDone(result){
 	
-		
+	
 	//https://makitweb.com/return-json-response-ajax-using-jqueryif-php/
 	//if((html.textContent=html.textContent.replace(/[^a-zA-Z0-9.\/]/g, "")) == "true"){
 	if(result!=null){
@@ -26,13 +26,11 @@ function callDone(result){
 
 		alert("You have logged in.");
 		document.location.href = "home.html";
-		let test = localStorage.getItem('user');
-		console.log(test);
 	}
 	else
 	{
 		alert("Something wrong happened during the connection \n Your Email or Password is incorrect");
-		location.reload();
+
 		document.location.href = "Log-in.html";
 	}
 }

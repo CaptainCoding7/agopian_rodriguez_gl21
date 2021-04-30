@@ -6,7 +6,8 @@
 		<title>Ufly | Home Page</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="shortcut icon" href="#">
-		<link rel="stylesheet" href="assets/css/main.css" />	
+		<link rel="stylesheet" href="assets/css/main.css" />
+			
 		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 		<script>
@@ -64,7 +65,7 @@
 					<div id="plane-filter">
 				    	<label for="plane">Select a plane</label>
 				    	<select name="plane" id="plane">
-					  		<option value="All" selected="selected">Tous les avions</option>
+					  		<option value="All" selected="selected">All the aircrafts</option>
 				      		<optgroup label="Cessna">
 				      			<option value="Cessna 172">Cessna 172</option>
 				      		</optgroup>
@@ -80,7 +81,7 @@
 					<div id="price-filter">
 					    <label for="price">Select a price</label>
 					    <select name="price" id="price">
-				            <option value="All" selected="selected">Tous les prix</option>
+				            <option value="All" selected="selected">All the prices</option>
 						    <option value="inf_50"> &lt; 50 &euro; </option>
 						    <option value="between_50_100" >50 &euro; - 100 &euro;</option>
 						    <option value="between_100_150">100 &euro; - 150 &euro;</option>
@@ -105,11 +106,17 @@
 					<div id="destination-filter">
 					    <label for="destination">Select a destination</label>
 					    <select name="destination" id="destination">
-						  <option value="All" selected="selected">Toute Destination</option> 
-					      <option value="Londre">London</option>
+						  <option value="All" selected="selected">All the destinations</option> 
+					      <option value="Londres">London</option>
 					      <option value="Paris">Paris</option>
 					      <option value="Amsterdam">Amsterdam</option>
 					    </select>
+					</div>
+					
+					<div id="date-filter">
+					    <label for="date">Select a date (all by default)</label>
+						<input type="date" id="date" name="date" min="2021-01-01" max="2021-12-31">
+						</select>
 					</div>
 				  </fieldset>
 				 

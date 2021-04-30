@@ -14,7 +14,7 @@ import javax.jdo.Transaction;
 import com.ufly.Flight.TypeOfFlight;
 
 /**
- * Classe pour gï¿½nï¿½rer des donnï¿½es (vols, users, pilots...) au lancement du serveur
+ * Classe pour générer des données (vols, users, pilots...) au lancement du serveur
  * @author Paul
  *
  */
@@ -62,7 +62,7 @@ public class GenerateData {
 		// retrieve aircraft list
 		pm = pmf.getPersistenceManager();
 		tx = pm.currentTransaction();
-		// retainValues pour que les attributs soit gardï¿½s
+		// retainValues pour que les attributs soit gardés
 	    tx.setRetainValues(true);
 		try {
 			tx.begin();
@@ -101,14 +101,14 @@ public class GenerateData {
 						"Paris",
 						"Amsterdam",
 						LocalTime.of(1,30),
-						LocalDateTime.of(2021, 01, 01, 0, 0),
-						LocalDateTime.of(2021, 01, 01, 1, 30),
+						"2021-05-26 13:30",
+						"2021-05-26 18:30",
 						"Fete du nouvel an",
 						"Visite surprise chez Paulsy", 
-						//new ArrayList<Passenger>(Arrays.asList(new Passenger(1), 
-						//										new Passenger(2))),
+						//new ArrayList<User>(Arrays.asList(new User(1), 
+						//										new User(2))),
 						10,
-						"./images/pic01.jpg"
+						"images/pic01.jpg"
 						),
 				new Flight(
 						new Aircraft(),
@@ -116,12 +116,12 @@ public class GenerateData {
 						"Roissy",
 						"Chamonix",
 						LocalTime.of(1,30),
-						LocalDateTime.of(2021, 01, 01, 0, 0),
-						LocalDateTime.of(2021, 01, 01, 1, 30),
+						"2021-03-15 13:30",
+						"2021-03-15 15:30",
 						"Voyage sportif",
 						"Decouverte du ski avec Paulsy", 
 						12,
-						"./images/pic02.jpg"
+						"images/pic02.jpg"
 						),
 				new Flight(
 						new Aircraft(),
@@ -129,17 +129,18 @@ public class GenerateData {
 						"Volcan Volvic",
 						"Volcan Volvic",
 						LocalTime.of(1,30),
-						LocalDateTime.of(2021, 01, 01, 0, 0),
-						LocalDateTime.of(2021, 01, 01, 1, 30),
+						"2021-04-20 14:30",
+						"2021-04-20 17:30",
 						"Survoler l'auvergne",
 						"Visite aerienne des volcan de Volvic", 
 						14,
-						"./images/pic03.jpg"
+						"images/pic03.jpg"
 				)));		
-
+			
 		// save
 		pm = pmf.getPersistenceManager();
 		tx = pm.currentTransaction();
+		
 		try {
 			tx.begin();
 			for(Flight f: flights) {
@@ -156,21 +157,25 @@ public class GenerateData {
 	}
 	
 	/**
-	 * Passenger generation, store them in the database
+	 * User generation, store them in the database
 	 */
-	public void generatePassengers() {
+	public void generateUsers() {
 		
 		PersistenceManager pm;
 		Transaction tx;
-		List<Passenger> pass = new ArrayList<Passenger>(Arrays.asList(new Passenger(),new Passenger()));
+		List<User> pass = new ArrayList<User>(Arrays.asList(new User(),new User()));
 		pass.get(0).setFirstName("michel");
-		pass.get(1).setFirstName("jean-patrick");		
+		pass.get(0).setMail("michel@gmail.com");
+		pass.get(0).setPwd("xxx");
+		pass.get(1).setFirstName("jean-patrick");	
+		pass.get(1).setMail("jp@gmail.com");
+
 		// save
 		pm = pmf.getPersistenceManager();
 		tx = pm.currentTransaction();
 		try {
 			tx.begin();
-			for(Passenger a: pass) {
+			for(User a: pass) {
 				pm.makePersistent(a);
 			}
 			tx.commit();
@@ -184,15 +189,19 @@ public class GenerateData {
 	}
 	
 	/**
-	 * Passenger generation, store them in the database
+	 * User generation, store them in the database
 	 */
 	public void generatePilots() {
 		
 		PersistenceManager pm;
 		Transaction tx;
-		List<Pilot> pass = new ArrayList<Pilot>(Arrays.asList(new Pilot(),new Pilot(),new Pilot()));
-		pass.get(0).setFirstName("michel");
-		pass.get(1).setFirstName("jean-patrick");		
+		List<Pilot> pass = new ArrayList<Pilot>(Arrays.asList(new Pilot(),new Pilot()));
+		pass.get(0).setFirstName("benoit");
+		pass.get(0).setMail("b@");
+		pass.get(1).setFirstName("toto");
+		pass.get(1).setMail("t@");
+		
+	
 		// save
 		pm = pmf.getPersistenceManager();
 		tx = pm.currentTransaction();
@@ -219,7 +228,7 @@ public class GenerateData {
 	public void generateAll() {
 		this.generateAicrafts();
 		this.generateFlights();
-		this.generatePassengers();
+		this.generateUsers();
 		this.generatePilots();
 	}
 	

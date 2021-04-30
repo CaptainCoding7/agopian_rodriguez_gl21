@@ -18,8 +18,8 @@ public class DaoFactory {
 		return new FlightDaoImpl(pmf);
 	}
 
-	public static PassengerDao getPassengerDao() {
-		return new PassengerDaoImpl(pmf);
+	public static UserDao getUserDao() {
+		return new UserDaoImpl(pmf);
 	}
 	
 	public static PilotDao getPilotDao() {
