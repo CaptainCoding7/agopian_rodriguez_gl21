@@ -26,10 +26,10 @@ public class Flight {
 	private int flightID;
 	private Aircraft aircraft;
 	private TypeOfFlight typeOfFlight;
-	private String departureAirport;
-	private String destination;
+	private String departureAirdrome;
+	private String destinationAirdrome;
 	private LocalTime duration;
-	private String depatureDate;
+	private String departureDate;
 	private String arrivalDate;
 	
 	//thing about the last date before close the booking
@@ -41,15 +41,15 @@ public class Flight {
 	private int availableSeats;
 	private String flightImg;
 	
-	public Flight(Aircraft aircraft, TypeOfFlight typeOfFlight, String departureAirport, String arrivalAirport, LocalTime duration,
+	public Flight(Aircraft aircraft, TypeOfFlight typeOfFlight, String departureAirdrome, String arrivalAirdrome, LocalTime duration,
 			String depatureDate, String arrivalDate, String flightTitle, String flightDescription, int pricePerPassenger, String flightImg) {
 		//this.flightID=flightID; // auto-increment s'en occupe !
 		this.aircraft = aircraft;
 		this.typeOfFlight = typeOfFlight;
-		this.departureAirport = departureAirport;
-		this.destination = arrivalAirport;
+		this.departureAirdrome = departureAirdrome;
+		this.destinationAirdrome = arrivalAirdrome;
 		this.duration = duration;
-		this.depatureDate = depatureDate;
+		this.departureDate = depatureDate;
 		this.arrivalDate = arrivalDate;
 		this.flightTitle = flightTitle;
 		this.flightDescription = flightDescription;
@@ -63,10 +63,10 @@ public class Flight {
 		this.aircraft = null;
 		this.setAvailableSeats(0);
 		this.typeOfFlight = TypeOfFlight.ROUND_TRIP;
-		this.departureAirport = "";
-		this.destination = "";
+		this.departureAirdrome = "";
+		this.destinationAirdrome = "";
 		this.duration = null;
-		this.depatureDate = null;
+		this.departureDate = null;
 		this.arrivalDate = null;
 		this.flightTitle = "";
 		this.flightDescription = "default flight";
@@ -98,20 +98,20 @@ public class Flight {
 		this.typeOfFlight = typeOfFlight;
 	}
 
-	public String getDepartureAirport() {
-		return departureAirport;
+	public String getDepartureAirdrome() {
+		return departureAirdrome;
 	}
 	
-	public void setDepartureAirport(String departureAirport) {
-		this.departureAirport = departureAirport;
+	public void setDepartureAirdrome(String departureAirdrome) {
+		this.departureAirdrome = departureAirdrome;
 	}
 
-	public String getDestination() {
-		return destination;
+	public String getDestinationAirdrome() {
+		return destinationAirdrome;
 	}
 
-	public void setDestination(String arrivalAirport) {
-		this.destination = arrivalAirport;
+	public void setDestinationAirdrome(String arrivalAirdrome) {
+		this.destinationAirdrome = arrivalAirdrome;
 	}
 
 	public LocalTime getDuration() {
@@ -122,12 +122,12 @@ public class Flight {
 		this.duration = duration;
 	}
 	
-	public String getDepatureDate() {
-		return depatureDate;
+	public String getDepartureDate() {
+		return departureDate;
 	}
 
-	public void setDepatureDate(String departureDate) {
-		this.depatureDate=departureDate;
+	public void setDepartureDate(String departureDate) {
+		this.departureDate=departureDate;
 	}
 
 	public String getArrivalDate() {

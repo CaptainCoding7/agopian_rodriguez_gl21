@@ -3,8 +3,9 @@ package com.ufly.dao;
 import java.util.List;
 
 import com.ufly.Flight;
+import com.ufly.ws.PilotWS.AddingFlightStructure;
 
-public interface PilotDao extends UserDao {
+public interface PilotDao{
 
 	/**
 	 * Get the list of flights for which the pilot is concerned AS A PILOT
@@ -16,12 +17,14 @@ public interface PilotDao extends UserDao {
 	 * Add a new flight (linked with a pilot designated by his id)
 	 * PUT
 	 */
-	void addAFlight(int idUser);
+	void addAFlight(AddingFlightStructure as);
+
 
 		/**
 	 * Edit a specific flight
 	 * POST
 	 */
 	void editAFlight(int idUser, int flightID);
+
 
 }

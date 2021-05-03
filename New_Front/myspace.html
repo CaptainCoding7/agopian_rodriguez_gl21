@@ -23,19 +23,37 @@
 					<ul>
 						<li><a href="home.html">Home</a></li>
 						<li id="logSpace"><a href="Log-in.html">Myspace</a></li>
-						<li id="signLogout"><a href="Sign-in.html">Log Out</a></li>
+						<li id="signLogout"><a href="Sign-in.html" onclick="logOut()">Log Out</a></li>
 					</ul>
 				</nav>
 			</header>
 
+			<hr>
+
 			<a href="#menu" class="navPanelToggle"><span class="fa fa-bars"></span></a>
+			
+
+			<h1 class="myspace_title">
+				My Space
+			</h1>
 
             <form>
-            <div class="options_myspace">
-                <div id="myflights">
-                    <a href="home.html">My flights booked</a></strong>
-                    
-                </div>
+            <div class="options_myspace" id="menu">
+				<a href="home.html">
+                	<div class="myflights">
+						<h2>My bookings</h2>
+                	</div>
+				</a></strong> 
+				<a href="myspace.html">
+                	<div class="myinfo">
+						<h2>My personnal information</h2>
+                	</div>
+				</a></strong> 
+				<a href="myspace.html" id="pilot">
+                	<div class="pilot_section" >
+						<h2>Become a pilot</h2>
+                	</div>
+				</a></strong> 
             </div>
         </form>
 
@@ -53,6 +71,6 @@
 		
 		<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
 	    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
-		<script type="text/javascript" src="home.js"></script>
+		<script type="text/javascript" src="myspace.js"></script>
 	</body>
 </html>

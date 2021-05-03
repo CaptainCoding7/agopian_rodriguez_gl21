@@ -41,9 +41,9 @@ public class UserDaoTest {
 	public void testCreateANewUser() {
 		GenerateData g = new GenerateData();
 		g.generateAll();
-		User p=new User("paulagopian94@gmail.com","jhfz6ef","Paul", "Agopian","0782653889","Alf",null,"1999-04-19");
+		User p=new User("paulagopian94@gmail.com","jhfz6ef","Paul", "Agopian","0782653889","Alf","1999-04-19");
 		DaoFactory.getUserDao().createANewUser(p);
-		p=new User("pau94@gmail.com","jhfz6ef","lucas", "Agopian","0782653889","Alf",null,"1999-04-19");
+		p=new User("pau94@gmail.com","jhfz6ef","lucas", "Agopian","0782653889","Alf","1999-04-19");
 		DaoFactory.getUserDao().createANewUser(p);	
 		//--------------- retrieve test : get the new table of passengers from the database
 		
@@ -95,9 +95,9 @@ public class UserDaoTest {
 	@Test
 	public void testLogin() {
 		
-		User p=new User("paulagopian94@gmail.com","jhfz6ef","Paul", "Agopian","0782653889","Alf",null,"1999-04-19");
+		User p=new User("paulagopian94@gmail.com","jhfz6ef","Paul", "Agopian","0782653889","Alf","1999-04-19");
 		DaoFactory.getUserDao().createANewUser(p);
-		p=new User("pau94@gmail.com","jhfz6ef","lucas", "Agopian","0782653889","Alf",null,"1999-04-19");
+		p=new User("pau94@gmail.com","jhfz6ef","lucas", "Agopian","0782653889","Alf","1999-04-19");
 		DaoFactory.getUserDao().createANewUser(p);	
 		
 		UserWS.LoginInfo pli = new UserWS.LoginInfo();

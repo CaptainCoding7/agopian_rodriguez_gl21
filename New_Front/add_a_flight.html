@@ -1,0 +1,122 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>   
+		<title>Ufly | Home Page</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="shortcut icon" href="#">
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="stylesheet" href="assets/css/style-Sign-in.css" />
+		<link rel="stylesheet" href="assets/css/add_a_flight.css" />
+			
+		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	
+	</head>
+	
+	<body class="landing">
+
+        <!-- Header -->
+			<header id="header" class="alt">
+				<h1><strong><a href="home.html">UfLy</a></strong></h1>
+				<nav id="nav">
+					<ul>
+						<li><a href="home.html">Home</a></li>
+						<li id="logSpace"><a href="Log-in.html">Myspace</a></li>
+						<li id="signLogout"><a href="Sign-in.html">Log Out</a></li>
+					</ul>
+				</nav>
+			</header>
+
+			<hr>
+
+			<a href="#menu" class="navPanelToggle"><span class="fa fa-bars"></span></a>
+			
+
+			<h1 class="myspace_title">
+				Add a flight
+			</h1>
+
+
+            <form action="home.html">
+                <div class=" uniform 50%">
+
+                    <div class="6u 12u$(xsmall)" style="margin: auto auto 1% auto;">
+                        <input type="text" id="flightTitle" value="" placeholder="Flight title"  required/>
+                    </div>
+                    <div class="6u$ 12u$(xsmall)" style="margin: auto auto 1% auto;">
+                        <input type="text" id="flightDescr" value="" placeholder="Flight description"  required/>
+                    </div>
+
+                    <div autocomplete="off" class="6u$ 12u$(xsmall) autocomplete" style="margin: auto auto 1% auto;">
+                        <input type="text" id="depAirdrome" placeholder="Departure airdrome">
+                    </div>
+                    <div autocomplete="off" class="6u$ 12u$(xsmall) autocomplete" style="margin: auto auto 1% auto;">
+                        <input type="text" id="destAirdrome" value="" placeholder="Destination Airdrome" required/>
+                    </div>
+
+                    <div style="margin-left: 25%;">
+                        <a href="liste_aerodromes.xlsx" download>
+                            <p>Download the list of airdromes in France</p>
+                        </a>
+                    </div>
+
+                    <div iclass="6u$ 12u$(xsmall)" style="margin: auto 25% 1% 25%;">
+					    <label for="typeOfFlight">Select a type of Flight</label>
+					    <select id="typeOfFlight">
+						  <option value="ROUND_TRIP">Round Trip (A->B B->A)</option> 
+					      <option value="ONE_WAY_TICKET">One way ticket (A->B)</option>
+					      <option value="BALLAD">Ballad (A->A)</option>
+					    </select>
+					</div>
+
+                    <div style="margin: auto 25% 1% 25%;">
+					    <label for="depDate">Select a departure date/time </label>
+						<input type="datetime-local" id="depDate" name="date" min="2021-01-01" max="2021-12-31" required>
+						</select>
+					</div>
+                    <div style="margin: auto 25% 2% 25%;">
+					    <label for="destDate">Select an arrival date/time</label>
+						<input type="datetime-local" id="arrDate" name="date" min="2021-01-01" max="2021-12-31" required>
+						</select>
+					</div>
+
+                    <div class="6u$ 12u$(xsmall)" style="margin: auto auto 1% auto;">
+                        <input type="text" id="price" value="" placeholder="Price Per Passenger"  required />
+                    </div>
+
+                    <div class="6u$ 12u$(xsmall)" style="margin: auto auto 1% auto;">
+                        <input type="text" id="aircraftModel" value="" placeholder="Model of the aircraft"  required/>
+                    </div>
+                    <div class="6u$ 12u$(xsmall)" style="margin: auto auto 1% auto;">
+                        <input type="text" id="seatNumber" value="" placeholder="Number of seats"  required/>
+                    </div>
+                    <div class="6u$ 12u$(xsmall)" style="margin: auto auto 1% auto;">
+                        <label>Choose a picture for your flight:</label>
+                        <input id="image-file" type="file" onchange="SavePhoto(this)" >
+                    </div>
+
+                 </div>
+
+                <button id="butAddFlight" class="submit special" style="margin-left: 25%;">Submit</button>
+
+            </form>
+
+
+		<!-- Footer -->
+			<footer id="footer">
+				<div class="container">
+					<ul class="copyright">
+						<li>&copy; Ufly</li>
+						<li>Images: <a href="http://unsplash.com">Unsplash</a></li>
+					</ul>
+				</div>
+			</footer>
+			
+		
+		<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+	    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+		<script type="text/javascript" src="add_a_flight.js"></script>
+	</body>
+</html>

@@ -14,6 +14,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import com.ufly.Flight;
+import com.ufly.PilotInfos;
 import com.ufly.User;
 import com.ufly.dao.DaoFactory;
 
@@ -97,9 +98,26 @@ public class UserWS {
 	@POST
 	@Path("login")
 	public User login(LoginInfo li) {
+
 		return DaoFactory.getUserDao().login(li);
 	}	
 
+	@Consumes(MediaType.APPLICATION_JSON)
+	@POST
+	@Path("becomePilot")
+	public PilotInfos becomePilot(int userID)  {
+		PilotInfos p =  DaoFactory.getUserDao().becomePilot(userID);
+		System.out.print(getInfosFromUser(userID).getIsApilot());
+		return p;
+	}
 	
+	@Consumes(MediaType.APPLICATION_JSON)
+	@POST
+	@Path("isApilot")
+	public boolean isAPilot(int userID)  {
+		return DaoFactory.getUserDao().getInfosFromUser(userID).getIsApilot();
+	}	
+
+
 	
 }

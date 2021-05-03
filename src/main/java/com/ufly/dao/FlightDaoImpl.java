@@ -64,7 +64,7 @@ public class FlightDaoImpl implements FlightDao {
 			
 			flights=flights.stream()
 					
-					.filter(p->p.getDepartureAirport().toUpperCase().equals(sc.departure.toUpperCase()))
+					.filter(p->p.getDepartureAirdrome().toUpperCase().equals(sc.departure.toUpperCase()))
 					
 					.filter(p->{
 						switch(sc.price)
@@ -93,7 +93,7 @@ public class FlightDaoImpl implements FlightDao {
 					
 					.filter(p->{
 						if(!sc.destination.toUpperCase().equals("ALL"))
-							return (p.getDestination().toUpperCase().equals(sc.destination.toUpperCase()));
+							return (p.getDestinationAirdrome().toUpperCase().equals(sc.destination.toUpperCase()));
 						return true;
 					})
 					
@@ -103,7 +103,7 @@ public class FlightDaoImpl implements FlightDao {
 						if(sc.depDate!=null && !sc.depDate.equals("")) {
 							System.out.println(sc.depDate);
 							DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-							return LocalDateTime.parse(p.getDepatureDate(),formatter).toLocalDate().compareTo(LocalDate.parse(sc.depDate))==0;
+							return LocalDateTime.parse(p.getDepartureDate(),formatter).toLocalDate().compareTo(LocalDate.parse(sc.depDate))==0;
 						}
 						return true;
 					})					 
