@@ -40,6 +40,7 @@ public class Flight {
 	private int pricePerPassenger;
 	private int availableSeats;
 	private String flightImg;
+	private int pilotID;
 	
 	public Flight(Aircraft aircraft, TypeOfFlight typeOfFlight, String departureAirdrome, String arrivalAirdrome, LocalTime duration,
 			String depatureDate, String arrivalDate, String flightTitle, String flightDescription, int pricePerPassenger, String flightImg) {
@@ -184,6 +185,14 @@ public class Flight {
 
 	public void setFlightImg(String flightImg) {
 		this.flightImg = flightImg;
+	}
+
+	public int getPilotID() {
+		return pilotID;
+	}
+
+	public void setPilotID(int pilotID) {
+		this.pilotID = pilotID;
 	}
 
 }
