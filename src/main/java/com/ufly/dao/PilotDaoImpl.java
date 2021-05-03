@@ -72,6 +72,7 @@ public class PilotDaoImpl implements PilotDao {
 		try {
 			tx.begin();
 			
+			/*
 			pilotRetrieved = pm.getObjectById(PilotInfos.class, as.idUser);
 			
 			detachedPilot = pm.detachCopy(pilotRetrieved);
@@ -79,8 +80,9 @@ public class PilotDaoImpl implements PilotDao {
 			pilotFlightsList.add(as.flight);
 			
 			pilotRetrieved.setPilotFlightsList(pilotFlightsList);
+			*/
 			
-			
+			as.flight.setPilotID(as.idUser);
 			/* print of the flight */
 			ObjectMapper mapper = new ObjectMapper();
 			String jsonString ="";
