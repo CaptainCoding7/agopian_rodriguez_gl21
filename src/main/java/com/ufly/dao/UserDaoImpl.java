@@ -1,5 +1,6 @@
 package com.ufly.dao;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -12,6 +13,7 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.ws.rs.WebApplicationException;
 
 import com.ufly.Flight;
+import com.ufly.PilotInfos;
 import com.ufly.User;
 import com.ufly.ws.UserWS.LoginInfo;
 
@@ -105,6 +107,8 @@ public class UserDaoImpl implements UserDao {
 
 		pm = pmf.getPersistenceManager();
 		tx = pm.currentTransaction();
+		tx.setRetainValues(true);
+		
 		try {
 			tx.begin();			
 			pm.makePersistent(user);
@@ -114,7 +118,9 @@ public class UserDaoImpl implements UserDao {
 				tx.rollback();
 			}
 			pm.close();
-		}	
+		}
+		
+		printUser(getInfosFromUser(11));
 		
 		return true;
 
@@ -124,7 +130,7 @@ public class UserDaoImpl implements UserDao {
 		
 		PersistenceManager pm;
 		Transaction tx;
-		User p;
+		User u;
 		
 		// retrieve
 		pm = pmf.getPersistenceManager();
@@ -133,7 +139,7 @@ public class UserDaoImpl implements UserDao {
 	    tx.setRetainValues(true);
 		try {
 			tx.begin();
-			p = pm.getObjectById(User.class, idUser);
+			u = pm.getObjectById(User.class, idUser);
 			tx.commit();
 		} 
 		
@@ -147,7 +153,7 @@ public class UserDaoImpl implements UserDao {
 		}
 		//System.out.println(p.getFirstName());
 		
-		return p;
+		return u;
 	}	
 
 	public void editUserInfos(int idUser) {
@@ -160,17 +166,19 @@ public class UserDaoImpl implements UserDao {
 		
 		PersistenceManager pm;
 		Transaction tx;
-		User p;
 		List<User> pList;
-// retrieve
+		
+		// retrieve
 		pm = pmf.getPersistenceManager();
 		tx = pm.currentTransaction();
-		// retainValues pour que les attributs soit gardés
-	    tx.setRetainValues(true);
+		tx.setRetainValues(true);
 		try {
 			tx.begin();
+		
+			//printUser(getInfosFromUser(11));
 			
 			Query q = pm.newQuery("SELECT FROM " + User.class.getName() + " WHERE mail == '" + li.email +"' && pwd == '"+ li.pwd+"'");
+			//Query q = pm.newQuery(User.class);
 			pList= (List<User>) q.execute();
 			
 			tx.commit();
@@ -184,9 +192,9 @@ public class UserDaoImpl implements UserDao {
 			pm.close();
 			
 		}
-		
-		//for(User pl:pList)
-			//System.out.println(pl.getMail()+pl.getFirstName());
+	
+		for(User pl:pList)
+			System.out.println(pl.getMail()+pl.getFirstName());
 		
 		if(pList.size()==1) {
 			System.out.println("User "+pList.get(0).getMail()+" is logged");
@@ -196,5 +204,74 @@ public class UserDaoImpl implements UserDao {
 		return null;
 	}
 
+	@Override
+	public PilotInfos becomePilot(int userID) {
+
+		PersistenceManager pm;
+		Transaction tx;
+		User u;
+		
+		// retrieve
+		pm = pmf.getPersistenceManager();
+		tx = pm.currentTransaction();
+		// retainValues pour que les attributs soit gardés
+	    tx.setRetainValues(true);
+		try {
+			tx.begin();
+			u = pm.getObjectById(User.class, userID);
+			u.setIsApilot(true);
+			tx.commit();
+		} 
+		
+		finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+
+			pm.close();
+			
+		}
+		
+		
+		PilotInfos pilotInfos = new PilotInfos(userID);
+		
+		System.out.print(u.getIsApilot());
+		// save
+		pm = pmf.getPersistenceManager();
+		tx = pm.currentTransaction();
+		tx.setRetainValues(true);
+		try {
+			tx.begin();
+			pm.makePersistent(pilotInfos);
+			tx.commit();
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+		
+		
+		return pilotInfos;
+	}
+
+	
+	/**
+	 * Fonction to print user attributes (test)
+	 */
+	void printUser(User user) {
+		System.out.println("Firstname: "+user.getFirstName());
+		System.out.println(user.getLastName());
+		System.out.println(user.getIsApilot());
+		System.out.println(user.getMail());
+		System.out.println(user.getPwd());
+		System.out.println(user.getPhoneNumber());
+		System.out.println(user.getLivingLocation());
+		System.out.println(user.getUserID());
+		System.out.println(user.getBookedFlightsList());
+		System.out.println(user.getBirthday());
+		
+		
+	}
 
 }

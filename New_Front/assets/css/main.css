@@ -76,6 +76,7 @@
 		}
 /* Type */
 
+
 	body {
 		background-color: #fff;
 		color: #666;
@@ -126,15 +127,6 @@
 				font-size: 12pt;
 			}
 
-		}
-
-	a {
-		text-decoration: underline;
-		color: #f32853;
-	}
-
-		a:hover {
-			text-decoration: none;
 		}
 
 	strong, b {
@@ -400,8 +392,7 @@
 			}
 
 				#header.alt h1 a {
-					/*color: rgb(255, 255, 255);*/
-					color:rgb(89, 165, 241);
+					color: rgb(255, 255, 255);
 
 				}
 
@@ -411,8 +402,7 @@
 			}
 
 				#header.alt nav a {
-					/*color: #ddd;*/
-					color:rgb(89, 165, 241);
+					color: #ddd;
 				}
 
 					#header.alt nav a:active, #header.alt nav a:hover {
@@ -674,7 +664,7 @@
 /* Footer */
 
 	#footer {
-		padding: 8em 0 6em 0;
+		padding: 2em 0 2em 0;
 		background: #f6f6f6;
 		color: #aaa;
 		text-align: center;
@@ -716,7 +706,7 @@
 		@media screen and (max-width: 980px) {
 
 			#footer {
-				padding: 6em 0 4em 0;
+				padding: 2em 0 2em 0;
 			}
 
 		}
@@ -724,7 +714,7 @@
 		@media screen and (max-width: 736px) {
 
 			#footer {
-				padding: 3em 0 2em 0;
+				padding: 2em 0 2em 0;
 			}
 
 				#footer .icons {
@@ -736,7 +726,7 @@
 		@media screen and (max-width: 480px) {
 
 			#footer {
-				padding: 3em 0 1em 0;
+				padding: 2em 0 1em 0;
 			}
 
 				#footer .copyright li {
@@ -819,3 +809,21 @@ section
 	opacity: 80%;
 }
 
+
+/* code from https://www.w3schools.com/howto/howto_js_autocomplete.asp */
+
+.autocomplete-items div {
+	padding: 10px;
+	cursor: pointer;
+	background-color: #fff;
+	border-bottom: 1px solid #d4d4d4;
+  }
+  .autocomplete-items div:hover {
+	/*when hovering an item:*/
+	background-color: #e9e9e9;
+  }
+  .autocomplete-active {
+	/*when navigating through the items using the arrow keys:*/
+	background-color: DodgerBlue !important;
+	color: #ffffff;
+  }

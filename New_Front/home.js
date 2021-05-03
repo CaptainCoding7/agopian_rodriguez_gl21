@@ -1,15 +1,14 @@
 
-if(localStorage.getItem('user')!=null){
-	let userInfo = JSON.parse(localStorage.getItem('user'));
-	
-	console.log(localStorage.getItem('user')+ "user logged");
- 	document.getElementById("logSpace").innerHTML = "<a href='myspace.html'>My Space</a>";
+if(localStorage.getItem('userID')!=null){
+	let userID = JSON.parse(localStorage.getItem('userID'));
+	console.log(userID+" is logged.")
+	document.getElementById("logSpace").innerHTML = "<a href='myspace.html'>My Space</a>";
 	document.getElementById("signLogout").innerHTML = "<a href='home.html' onclick='logOut()'>Log out</a>";
 
 }
 else{
 	
-	let userInfo = JSON.parse(localStorage.getItem('user'));		
+	let userInfo = JSON.parse(localStorage.getItem('userID'));		
 
  	document.getElementById("logSpace").innerHTML = "<a href='Log-in.html'>Log in</a>";
 	document.getElementById("signLogout").innerHTML = "<a href='Sign-in.html'>Sign in</a>";
@@ -20,7 +19,8 @@ else{
 function logOut(){
 	
 	console.log("logout");
-	localStorage.removeItem('user');    
+	localStorage.removeItem('userID');    
+	localStorage.removeItem('isApilot');    
 	document.location.href = "home.html";                                                                                                                                                            
 
 }
@@ -227,3 +227,4 @@ $(function(){
 		getServerData("ws/user/getuserinfo/11",callDone);
 
 	});
+

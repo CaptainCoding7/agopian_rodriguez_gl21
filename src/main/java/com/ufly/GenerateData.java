@@ -12,6 +12,7 @@ import javax.jdo.Query;
 import javax.jdo.Transaction;
 
 import com.ufly.Flight.TypeOfFlight;
+import com.ufly.dao.DaoFactory;
 
 /**
  * Classe pour générer des données (vols, users, pilots...) au lancement du serveur
@@ -193,35 +194,10 @@ public class GenerateData {
 	 */
 	public void generatePilots() {
 		
-		PersistenceManager pm;
-		Transaction tx;
-		List<Pilot> pass = new ArrayList<Pilot>(Arrays.asList(new Pilot(),new Pilot()));
-		pass.get(0).setFirstName("benoit");
-		pass.get(0).setMail("b@");
-		pass.get(1).setFirstName("toto");
-		pass.get(1).setMail("t@");
-		
+
+		DaoFactory.getUserDao().becomePilot(1);
 	
-		// save
-		pm = pmf.getPersistenceManager();
-		tx = pm.currentTransaction();
-		try {
-			tx.begin();
-			
-			for(Pilot a: pass) {
-				pm.makePersistent(a);
-			}
-			//pm.makePersistentAll(pass);
-			tx.commit();
-		} finally {
-			if (tx.isActive()) {
-				tx.rollback();
-			}
-			pm.close();
-		}
-		
 	}
-	
 	/**
 	 * Generate all the data
 	 */
@@ -229,7 +205,7 @@ public class GenerateData {
 		this.generateAicrafts();
 		this.generateFlights();
 		this.generateUsers();
-		this.generatePilots();
+		//this.generatePilots();
 	}
 	
 	

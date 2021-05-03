@@ -25,6 +25,15 @@ public class PilotWS {
 		public int id;
 	}
 	
+	/**
+	 * 
+	 * @author Paul
+	 * Object composed of a flight and the of the pilot
+	 */
+	public static class AddingFlightStructure {
+		public Flight flight;
+		public int idUser;
+	}
 	
 	/* PILOT ***********************/
 	
@@ -48,8 +57,8 @@ public class PilotWS {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@PUT
 	@Path("addflight")
-	public void addAFlight(IdContainer instance) {
-		DaoFactory.getPilotDao().addAFlight(instance.id);
+	public void addAFlight(AddingFlightStructure as) {
+		DaoFactory.getPilotDao().addAFlight(as);
 		//System.out.println("new user "+instance.id);
 	
 	}

@@ -2,6 +2,7 @@ package com.ufly;
 
 import java.awt.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
@@ -24,38 +25,28 @@ public class User {
 	private String lastName;
 	private String phoneNumber;
 	private String livingLocation;
+	private boolean isApilot=false;
 	
 	
 	@Persistent(defaultFetchGroup = "true")	
 	private List<Flight> bookedFlightsList;
 	
-	private LocalDate birthday;
+	private String birthday;
 	
 	
 	public User(String mail, String pwd, String firstName, String lastName, String phoneNumber,
-			String livingLocation, List<Flight> passengerFlightsList, String birthday) {
+			String livingLocation, String birthday) {
 		this.mail=mail;
 		this.setPwd(pwd);
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.phoneNumber = phoneNumber;
 		this.livingLocation = livingLocation;
-		this.bookedFlightsList = passengerFlightsList;
-		this.birthday = LocalDate.parse(birthday);
+		this.bookedFlightsList = new ArrayList<Flight>();
+		this.birthday = birthday;
 	}
 
-	public User(String mail, String pwd,int day, int month, int year, String firstName, String lastName, 
-			String phoneNumber, String livingLocation, List<Flight> passengerFlightsList) {
-		this.mail=mail;
-		this.setPwd(pwd);
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.phoneNumber = phoneNumber;
-		this.livingLocation = livingLocation;
-		this.bookedFlightsList = passengerFlightsList;
-		this.birthday = LocalDate.of(year, month, day);
-	}
-	
+
 	public User() {
 		this.birthday = null;
 		this.firstName = "";
@@ -73,12 +64,12 @@ public class User {
 		this.userID = userID;
 	}
 	
-	public LocalDate getBirthday() {
+	public String getBirthday() {
 		return birthday;
 	}
 
 	public void setBirthday(String birthday) {
-		this.birthday = LocalDate.parse(birthday);
+		this.birthday = birthday;
 	}
 	
 	public String getFirstName() {
@@ -137,6 +128,14 @@ public class User {
 
 	public void setPwd(String pwd) {
 		this.pwd = pwd;
+	}
+
+	public boolean getIsApilot() {
+		return isApilot;
+	}
+
+	public void setIsApilot(boolean isApilot) {
+		this.isApilot = isApilot;
 	}
 
 }

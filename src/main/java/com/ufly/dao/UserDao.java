@@ -3,6 +3,7 @@ package com.ufly.dao;
 import java.util.List;
 
 import com.ufly.Flight;
+import com.ufly.PilotInfos;
 import com.ufly.User;
 import com.ufly.ws.UserWS.LoginInfo;
 
@@ -54,5 +55,11 @@ public interface UserDao {
 	 * POST
 	 */
 	User login(LoginInfo li);
+	
+	/**
+	 * Create a Pilot from a user (passenger)
+	 * POST
+	 */
+	PilotInfos becomePilot(int userID);
 
 }

@@ -3,6 +3,7 @@
  */
 package com.ufly.dao;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -16,10 +17,13 @@ import javax.jdo.Query;
 import javax.jdo.Transaction;
 import javax.jdo.annotations.PersistenceCapable;
 
+import org.codehaus.jackson.map.ObjectMapper;
+
 import com.ufly.Aircraft;
 import com.ufly.Flight;
 import com.ufly.User;
-import com.ufly.Pilot;
+import com.ufly.ws.PilotWS.AddingFlightStructure;
+import com.ufly.PilotInfos;
 import com.ufly.Flight.TypeOfFlight;
 
 /**
@@ -27,13 +31,13 @@ import com.ufly.Flight.TypeOfFlight;
  *
  */
 
-public class PilotDaoImpl extends UserDaoImpl implements PilotDao {
+public class PilotDaoImpl implements PilotDao {
 
 	
 	PersistenceManagerFactory pmf;
 	
 	public PilotDaoImpl(PersistenceManagerFactory pmf) {
-		super(pmf);
+		this.pmf=pmf;
 	}
 
 	public List<Flight> getPilotedFlightsList(int idUser) {
@@ -53,26 +57,45 @@ public class PilotDaoImpl extends UserDaoImpl implements PilotDao {
 	/**
 	 * 
 	 */
-	public void addAFlight(int idUser) {
+	public void addAFlight(AddingFlightStructure as) {
 		
 		PersistenceManager pm;
 		Transaction tx;
-		Pilot pilotRetrieved;
+		PilotInfos pilotRetrieved;
+		PilotInfos detachedPilot;
 		List<Flight> pilotFlightsList;
 
-		Flight f = new Flight();
-		f.setFlightDescription("un voyage en avion trop cool");
-		
-	
 		// save
 		pm = pmf.getPersistenceManager();
 		tx = pm.currentTransaction();
+		
 		try {
 			tx.begin();
-			pilotRetrieved = pm.getObjectById(Pilot.class, idUser);
-			pilotFlightsList = pilotRetrieved.getPilotFlightsList();
-			pm.makePersistent(f);
 			
+			pilotRetrieved = pm.getObjectById(PilotInfos.class, as.idUser);
+			
+			detachedPilot = pm.detachCopy(pilotRetrieved);
+			pilotFlightsList = detachedPilot.getPilotFlightsList();
+			pilotFlightsList.add(as.flight);
+			
+			pilotRetrieved.setPilotFlightsList(pilotFlightsList);
+			
+			
+			/* print of the flight */
+			ObjectMapper mapper = new ObjectMapper();
+			String jsonString ="";
+			try {
+				//Converting the Object to JSONString
+				jsonString = mapper.writeValueAsString(as.flight);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			System.out.println(jsonString);
+			
+			pm.makePersistent(as.flight);
+
+
 			tx.commit();
 		} finally {
 			if (tx.isActive()) {
@@ -80,17 +103,17 @@ public class PilotDaoImpl extends UserDaoImpl implements PilotDao {
 			}
 			pm.close();
 		}
-
+/*
 		// retrieve
 		pm = pmf.getPersistenceManager();
 		tx = pm.currentTransaction();
 		try {
 			tx.begin();
-
-			// Query q = pm.newQuery("SELECT FROM " + Flight.class.getName() + " WHERE price
-			// < 150.00 ORDER BY price ASC");
-			Flight f_ret = pm.getObjectById(Flight.class, idUser);
-			System.out.println("flight retrieved : " + f_ret.getFlightDescription());
+			
+			Query q = pm.newQuery(Flight.class);
+			List<Flight> flights = (List<Flight>) q.execute();
+			//for
+			//System.out.println("flight retrieved : " + f_ret.getFlightDescription());
 			tx.commit();
 		} finally {
 			if (tx.isActive()) {
@@ -99,7 +122,7 @@ public class PilotDaoImpl extends UserDaoImpl implements PilotDao {
 
 			pm.close();
 		}
-
+*/
 	}
 
 	public void editAFlight(int idUser, int idFlight) {

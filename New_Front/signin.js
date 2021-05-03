@@ -19,7 +19,6 @@ function callDone(result){
 	if(JSON.parse(result)==true){
 		console.log("Account successfully created");
 		localStorage.setItem('user', JSON.stringify(newUser));
-		alert("You have logged in.");
 		document.location.href = "home.html";
 	}
 	else{
@@ -54,4 +53,4 @@ $(document).ready(function() {
 		putServerData("ws/user/createuser",JSON.stringify(newUser),callDone);
 		
 	});
-})
+});

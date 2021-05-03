@@ -1,6 +1,88 @@
-.options_myspace {
-  height: 100px;
-  width: 200px;
-  position: absolute;
+
+.myflights, .myinfo, .pilot_section, .pilotFlights {
+  height: 150px;
+  width: 400px;
+  position: relative;
+  display: block;
+  margin-left: 35%;
+  margin-bottom: 1%;
   background-color: rgb(109, 121, 187);
+  border: 3px solid black;
+  filter: contrast(70%);
+  
+}
+
+.myflights{
+  margin-top: 3%;
+}
+
+.myinfo, .pilot_section, .pilotFlights {
+  margin-top: 1%;
+}
+
+.pilot_section, .pilotFlights{
+  background-color: rgb(62, 69, 117);
+  filter: contrast(70%);
+
+}
+
+div:hover {
+  filter: contrast(100%);
+
+}
+
+/*
+.myflights:hover {
+  filter: contrast(100%);
+}
+
+.myinfo:hover {
+  filter: contrast(100%);
+}
+
+.pilot_section:hover {
+  filter: contrast(100%);
+}
+*/
+
+h2 {
+  color: white ;
+  padding: 10px;
+  margin: 10px;
+  margin-top: 8%;
+  margin-left: 25%;
+}
+
+a {
+  text-decoration: none;
+
+}
+
+.myspace_title {
+  font-size: 30px;
+  color: rgb(109, 121, 187);
+  margin-top: 3%;
+  margin-left: 10%;
+
+}
+
+hr {
+  margin-top: 8%;
+}
+
+body {
+  background: linear-gradient(#f0f2f5, #7277a8);
+}
+
+
+#header.alt h1 a {
+  /*color: rgb(255, 255, 255);*/
+  color: rgb(109, 121, 187);
+
+}
+
+
+#header.alt nav a {
+  /*color: #ddd;*/
+  color: rgb(109, 121, 187);
 }
