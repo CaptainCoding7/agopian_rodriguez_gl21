@@ -3,6 +3,7 @@ package com.ufly.dao;
 import java.util.List;
 
 import com.ufly.Flight;
+import com.ufly.PilotInfos;
 import com.ufly.ws.PilotWS.AddingFlightStructure;
 
 public interface PilotDao{
@@ -17,7 +18,7 @@ public interface PilotDao{
 	 * Add a new flight (linked with a pilot designated by his id)
 	 * PUT
 	 */
-	void addAFlight(AddingFlightStructure as);
+	void addAFlight(Flight flight);
 
 
 		/**
@@ -27,4 +28,9 @@ public interface PilotDao{
 	void editAFlight(int idUser, int flightID);
 
 
+	/**
+	 * Get pilot infos from a user ID
+	 * GET
+	 */
+	PilotInfos getPilotInfos(int userID);
 }

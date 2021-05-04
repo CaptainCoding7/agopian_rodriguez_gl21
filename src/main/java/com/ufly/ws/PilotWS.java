@@ -14,6 +14,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import com.ufly.Flight;
+import com.ufly.PilotInfos;
 import com.ufly.dao.*;
 
 
@@ -49,6 +50,13 @@ public class PilotWS {
 	public List<Flight> getPilotedFlightsList(@PathParam("id") int id) {
 		return DaoFactory.getPilotDao().getPilotedFlightsList(id);
 	}
+	
+	@Produces(MediaType.APPLICATION_JSON)
+	@GET
+	@Path("pilotInfos/{id}")
+	public PilotInfos getPilotInfo(@PathParam("id") int id) {
+		return DaoFactory.getPilotDao().getPilotInfos(id);
+	}
 		
 	/**
 	 * Create a new flight for the pilot designated by his id
@@ -57,8 +65,8 @@ public class PilotWS {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@PUT
 	@Path("addflight")
-	public void addAFlight(AddingFlightStructure as) {
-		DaoFactory.getPilotDao().addAFlight(as);
+	public void addAFlight(Flight f) {
+		DaoFactory.getPilotDao().addAFlight(f);
 		//System.out.println("new user "+instance.id);
 	
 	}

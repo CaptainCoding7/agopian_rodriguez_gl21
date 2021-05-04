@@ -19,18 +19,18 @@ public interface FlightDao {
 	 * get infos from a specific flight (with the id)
 	 * GET
 	 */
-	Flight getInfoFromAFlight(int flightID);
+	Flight getInfoFromAFlight(long flightID);
 
 
 	/**
 	 * delete a specific flight
 	 * DELETE
 	 */
-	void deleteAFlight(int flightID);
+	void deleteAFlight(long flightID);
 
 	/**
 	 * Send an email to all the passengers concerned by the flight given by the id
 	 * 
 	 */
-	void sendReminderEmail(int flightID);
+	void sendReminderEmail(long flightID);
 }

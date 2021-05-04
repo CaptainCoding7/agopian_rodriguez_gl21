@@ -1,8 +1,6 @@
 package com.ufly.dao;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.jdo.PersistenceManager;
@@ -10,8 +8,8 @@ import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
 import javax.jdo.annotations.PersistenceCapable;
-import javax.ws.rs.WebApplicationException;
 
+import com.ufly.Booking;
 import com.ufly.Flight;
 import com.ufly.PilotInfos;
 import com.ufly.User;
@@ -32,7 +30,7 @@ public class UserDaoImpl implements UserDao {
 
 	}
 
-	public List<Flight> getFlightsList(int idUser) {
+	public List<Flight> getFlightsList(long idUser) {
 		
 		PersistenceManager pm;
 		Transaction tx;
@@ -61,10 +59,55 @@ public class UserDaoImpl implements UserDao {
 		return p.getBookedFlightsList();
 	}	
 
-	public void bookAFlight(int idFlight, int nbBookedSeats) {
-		// TODO Auto-generated method stub
+	public void bookAFlight(long idFlight, long userID, int nbBookedSeats) {
 		
+		PersistenceManager pm;
+		Transaction tx;
+		User u;
+		
+		Booking b = new Booking(idFlight, userID, nbBookedSeats, LocalDateTime.now().toString());
+		
+		// save
+		pm = pmf.getPersistenceManager();
+		tx = pm.currentTransaction();
+		tx.setRetainValues(true);
+		try {
+			tx.begin();
+			pm.makePersistent(b);
+			tx.commit();
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+		
+		
+		Flight f;
+		Flight detachedFlight;
+		// retrieve
+		pm = pmf.getPersistenceManager();
+		tx = pm.currentTransaction();
+	    tx.setRetainValues(true);
+		try {
+			tx.begin();
+			f = pm.getObjectById(Flight.class, idFlight);
+			f.setAvailableSeats(f.getAvailableSeats()-nbBookedSeats);
+			tx.commit();
+			
+		} 
+		
+		finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+
+			pm.close();
+			
+		}
+
 	}
+		
 
 
 	public Boolean createANewUser(User user) {
@@ -126,7 +169,7 @@ public class UserDaoImpl implements UserDao {
 
 	}
 	
-	public User getInfosFromUser(int idUser) {
+	public User getInfosFromUser(long idUser) {
 		
 		PersistenceManager pm;
 		Transaction tx;
@@ -205,7 +248,7 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public PilotInfos becomePilot(int userID) {
+	public PilotInfos becomePilot(long userID) {
 
 		PersistenceManager pm;
 		Transaction tx;

@@ -6,9 +6,10 @@
     <!-- Test configuration -->
     <persistence-unit name="UFly_Objects">
 		<class>com.ufly.Aircraft</class>
+		<class>com.ufly.Booking</class>
 		<class>com.ufly.Flight</class>
+		<class>com.ufly.PilotInfos</class>
 		<class>com.ufly.User</class>
-		<class>com.ufly.Pilot</class>
         
         <properties>
             <property name="javax.jdo.option.ConnectionURL" value="jdbc:hsqldb:mem:ufly"/>

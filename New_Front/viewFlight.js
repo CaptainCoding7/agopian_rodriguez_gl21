@@ -1,6 +1,12 @@
 console.log(localStorage.getItem('FlightID'));// log to know the id of the flight selected
+console.log(localStorage.getItem('pilotID'));// log to know the id of the flight selected
+
+var user;
+var pilotInfos;
 
 let str = "ws/flight/flightInfo/" + localStorage.getItem('FlightID'); // the path to get information about the flight
+
+
 
 function getServerData(url, success){
     $.ajax({
@@ -9,15 +15,44 @@ function getServerData(url, success){
     }).done(success);
 }
 
+function userCalldone(result){
+	
+	var templateExample = _.template($('#flightInfos').html());
+	let userDisplay = templateExample({
+        "attribute":JSON.stringify(result)
+    });
+	console.log(userDisplay);
+	let tmp = document.createElement("p");//tempary element to set correctly information
+    //for the img
+	tmp.innerHTML = userDisplay;
+    let Display = document.getElementById("Pilot_Info");
+    Display.innerHTML = tmp.textContent.replace(/[^a-zA-Z0-9.\/]/g, "");
+
+}
+
+function pilotInfosCalldone(result){
+	
+    pilotInfos = JSON.stringify(result);
+	console.log(pilotInfos);
+}
+
+
+
+
 function callDone(result){
 	//using _.
-	var templateExample = _.template($('#flightsToDisplay').html());
+	var templateExample = _.template($('#flightInfos').html());
 	
     //getting all information 
     let departure = templateExample({
-        "attribute":JSON.stringify(result.departureAirport)
+        "attribute":JSON.stringify(result.departureAirdrome)
+    });
+
+	let pilot = templateExample({
+        "attribute":JSON.stringify(result.pilotID)
     });
     
+
     let arrival = templateExample({
         "attribute":JSON.stringify(result.destination)
     });
@@ -79,7 +114,7 @@ function callDone(result){
     Display.textContent = tmp.textContent.replace(/[^a-zA-Z0-9.\/]/g, "");
 
     // for the number of seat
-    tmp.innerHTML = seat;
+    tmp.innerHTML = seats;
     Display = document.getElementById("numberOfSeat");
     Display.textContent = tmp.textContent.replace(/[^a-zA-Z0-9.\/]/g, "");
 
@@ -94,7 +129,7 @@ function callDone(result){
     Display.textContent = tmp.textContent.replace(/[^a-zA-Z0-9.\/]/g, "");
 
     // for the Departure Place
-    tmp.innerHTML = departurePlace;
+    tmp.innerHTML = departure;
     Display = document.getElementById("Departure_Place");
     Display.textContent = tmp.textContent.replace(/[^a-zA-Z0-9.\/]/g, "");
 
@@ -116,8 +151,25 @@ function callDone(result){
     // for the Pilot Information
     tmp.innerHTML = pilot;
     Display = document.getElementById("Pilot_Info");
-    Display.textContent = tmp.textContent.replace(/[^a-zA-Z0-9.\/]/g, "");
+
+	
+	tmp.innerHTML = price;
+	Display = document.getElementById("price");
+	Display.textContent = tmp.textContent.replace(/[^a-zA-Z0-9.\/]/g, "");
 
 }
 
-getServerData(str,callDone);
+$(document).ready(function() {
+
+	var pilotID=localStorage.getItem('pilotID')
+	let path = "ws/user/getuserinfo/"+ pilotID ;
+	getServerData(path,userCalldone);
+	console.log(user);
+	
+	path = "ws/pilot/pilotInfos/1";//+pilotID;
+	getServerData(path,pilotInfosCalldone);
+	
+	getServerData(str,callDone);
+});
+
+
