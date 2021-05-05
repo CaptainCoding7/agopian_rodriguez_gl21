@@ -17,19 +17,17 @@ function getServerData(url, success){
 
 function userCalldone(result){
 	
-	console.log(userDisplay);
-	let tmp = document.createElement("p");//tempary element to set correctly information
-    //for the img
-	tmp.innerHTML = JSON.stringify(result.firstName);
-    let Display = document.getElementById("Pilot_");
-    Display.innerHTML = tmp.textContent.replace(/["']+/g, "");
-
+    
+	let Display = document.getElementById("Pilot_Name");
+    Display.innerHTML = JSON.stringify(result.firstName).replace(/["']+/g, "") +
+                        " "+ JSON.stringify(result.lastName).replace(/["']+/g, "");
+    
 }
 
 function pilotInfosCalldone(result){
 	
-    pilotInfos = JSON.stringify(result);
-	console.log(pilotInfos);
+    let Display = document.getElementById("Hour_of_flight");
+    Display.innerHTML = "Hours of flight: " + JSON.stringify(result.flightHours).replace(/["']+/g, "");
 }
 
 
