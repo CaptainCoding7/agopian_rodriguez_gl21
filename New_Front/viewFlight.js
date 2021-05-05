@@ -69,9 +69,6 @@ function pilotInfosCalldone(result){
     Display.innerHTML = "Discover me : <br>" + JSON.stringify(result.description).replace(/["']+/g, "");
 }
 
-
-
-
 function callDone(result){
 	//using _.
 	var templateExample = _.template($('#flightInfos').html());
@@ -227,7 +224,7 @@ $("#bookTheFlight").click(
         postServerData("ws/booking/user/book", JSON.stringify(bookingflight), finishBook);
         }
         else{
-            
+
         localStorage.setItem("last_Page","viewFlight.html");
         document.location.href = "Log-in.html";
 
