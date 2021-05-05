@@ -1,6 +1,43 @@
 console.log(localStorage.getItem('FlightID'));// log to know the id of the flight selected
 console.log(localStorage.getItem('pilotID'));// log to know the id of the flight selected
 
+if(localStorage.getItem('userID')!=null){
+	let userID = JSON.parse(localStorage.getItem('userID'));
+	console.log(userID+" is logged.")
+	document.getElementById("logSpace").innerHTML = "<a href='myspace.html' style='color: white'>My Space</a>";
+	document.getElementById("signLogout").innerHTML = "<a href='home.html' style='color: white' onclick='logOut()'>Log out</a>";
+
+}
+else{
+	
+	let userInfo = JSON.parse(localStorage.getItem('userID'));		
+
+ 	document.getElementById("logSpace").innerHTML = "<a href='Log-in.html' style='color: white'>Log in</a>";
+	document.getElementById("signLogout").innerHTML = "<a href='Sign-in.html' style='color: white'>Sign in</a>";
+	console.log("No logged user");
+
+}
+
+function logOut(){
+	
+	console.log("logout");
+	localStorage.removeItem('userID');    
+	localStorage.removeItem('isApilot');    
+	document.location.href = "home.html";                                                                                                                                                            
+
+}
+
+function postServerData(url, data, success){
+
+    $.ajax({
+		type: 'POST',	
+        url: url,
+		data: data,
+		contentType : 'application/json',
+        dataType: "json"
+    }).done(success);
+}
+
 var user;
 var pilotInfos;
 
@@ -171,4 +208,30 @@ $(document).ready(function() {
 	getServerData(str,callDone);
 });
 
+function finishBook()
+{
+    alert("Thank for your reservation, wait the response of the pilot");
+    document.location.href = "home.html";
+}
 
+$("#bookTheFlight").click(
+    function(){
+        if(localStorage.getItem('userID')!=null){
+	    let userID = JSON.parse(localStorage.getItem('userID'));
+	    console.log(userID+" is logged.")
+	    let bookingflight = {
+            flightID: localStorage.getItem('FlightID'),
+            userID: localStorage.getItem('userID'),
+            nbSeats: $("#bookTheFligh").val()
+            }
+        postServerData("ws/booking/user/book", JSON.stringify(bookingflight), finishBook);
+        }
+        else{
+            
+        localStorage.setItem("last_Page","viewFlight.html");
+        document.location.href = "Log-in.html";
+
+        }
+    }
+
+);
