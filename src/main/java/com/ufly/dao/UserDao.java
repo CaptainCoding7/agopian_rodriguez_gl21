@@ -20,7 +20,7 @@ public interface UserDao {
 	 * Get user information
 	 * GET
 	 */
-	User getInfosFromUser(int idUser);
+	User getInfosFromUser(long idUser);
 
 	/**
 	 * Edit user information
@@ -32,7 +32,7 @@ public interface UserDao {
 	 * Book a number of seats for a flight designated by his id 
 	 * POST
 	 */
-	void bookAFlight(int flightID, int nbBookedSeats);
+	void bookAFlight(long flightID, long useriD, int nbBookedSeats);
 
 
 	/**
@@ -46,7 +46,7 @@ public interface UserDao {
 	 * Get the list of flights for which the passenger is concerned
 	 * GET
 	 */
-	List<Flight> getFlightsList(int idUser);
+	List<Flight> getFlightsList(long idUser);
 	
 	
 	/**
@@ -60,6 +60,6 @@ public interface UserDao {
 	 * Create a Pilot from a user (passenger)
 	 * POST
 	 */
-	PilotInfos becomePilot(int userID);
+	PilotInfos becomePilot(long userID);
 
 }

@@ -1,5 +1,9 @@
 package com.ufly;
 
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManagerFactory;
 
@@ -55,13 +59,33 @@ public class JettyMain {
 		contexts.setHandlers(new Handler[] { handlerWebServices, handlerPortalCtx });
 		server.setHandler(contexts);
 		
-		// Generate data
-		GenerateData gd = new GenerateData();
-		gd.generateAll();
 
 		// Start server
 		server.start();
+		
+		// Generate data
+		GenerateData gd = new GenerateData();
+		gd.generateAll();
+			
+		
+		class ThreadMail extends Thread {
+		    public void run()
+		    {
+		        try {
+		    		gd.sendReminderMails();
 
+		        }
+		        catch (Exception e) {
+		            // Throwing an exception
+		            System.out.println("Exception is caught");
+		        }
+		    }
+		}
+		 
+
+		ThreadMail t = new ThreadMail();		
+		ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+		scheduler.scheduleAtFixedRate(t, 1, 1, TimeUnit.HOURS);
 	}
 
 }

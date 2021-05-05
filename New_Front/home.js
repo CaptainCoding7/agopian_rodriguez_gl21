@@ -98,8 +98,14 @@ function callDone(result){
 		let img = templateExample({
 			"attribute":JSON.stringify(result[i].flightImg)
 		});
+		
+		let pilot = templateExample({
+			"attribute":JSON.stringify(result[i].pilotID)
+		});
 
 		let tmp = document.createElement("p");//tempary element
+		
+		
 
 		// Display the element in the page
 		let newFlight = document.createElement("li"); //creation of the element to insert in the list
@@ -107,6 +113,7 @@ function callDone(result){
 		tmp.innerHTML = id;
 		newFlight.id = tmp.textContent.replace(/[^a-zA-Z0-9.\/]/g, "");
 		newFlight.onclick = function(){
+			localStorage.setItem('pilotID',JSON.stringify(result[i].pilotID));			
 			localStorage.setItem('FlightID',this.id);
 			console.log("This.id : " + this.id , "localStorage : " + localStorage.getItem('FlightID'));
 			document.location.href = "ViewFlight.html";

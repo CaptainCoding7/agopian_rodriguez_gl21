@@ -133,7 +133,7 @@ public class FlightDaoImpl implements FlightDao {
 
 	}
 
-	public Flight getInfoFromAFlight(int idFlight) {
+	public Flight getInfoFromAFlight(long idFlight) {
 		
 		PersistenceManager pm;
 		Transaction tx;
@@ -162,7 +162,7 @@ public class FlightDaoImpl implements FlightDao {
 		return f;
 	}
 
-	public void deleteAFlight(int idFlight) {
+	public void deleteAFlight(long idFlight) {
 		
 		PersistenceManager pm;
 		Transaction tx;
@@ -200,7 +200,7 @@ public class FlightDaoImpl implements FlightDao {
 		
 	}
 
-	public void sendReminderEmail(int idFlight) {
+	public void sendReminderEmail(long idFlight) {
 		System.out.println("The Reminder Email was sent for flight :"+idFlight);
 
 	}

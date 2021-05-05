@@ -43,21 +43,21 @@ public class PilotDaoImpl implements PilotDao {
 	public List<Flight> getPilotedFlightsList(int idUser) {
 		List<Flight> SubList = new ArrayList<Flight>(Arrays.asList(
 				new Flight(new Aircraft(), TypeOfFlight.ROUND_TRIP, "Alforville", "Les Pavillons-sous-bois",
-						LocalTime.of(1, 30), "2021-03-15 13:30", "2021-03-15 13:30", "Fete du nouvel an", "Visite surprise chez Paulsy",10,null),
+						LocalTime.of(1, 30), "2021-03-15 13:30", "2021-03-15 13:30", "Fete du nouvel an", "Visite surprise chez Paulsy",10,null,1),
 				new Flight(new Aircraft(), TypeOfFlight.ONE_WAY_TICKET, "Roissy", "Chamonix", LocalTime.of(1, 30),
 						"2021-03-15 13:30","2021-03-15 13:30", "Voyage sportif",
-						"Decouverte du ski avec Paulsy",12,null),
+						"Decouverte du ski avec Paulsy",12,null,1),
 				new Flight(new Aircraft(), TypeOfFlight.BALLAD, "Volcan Volvic", "Volcan Volvic",
 						LocalTime.of(1, 30), "2021-03-15 13:30",
 						"2021-03-15 13:30", "Survoler l'auvergne",
-						"Visite aerienne des volcan de Volvic",14,null)));
+						"Visite aerienne des volcan de Volvic",14,null,1)));
 		return SubList;
 	}
 
 	/**
 	 * 
 	 */
-	public void addAFlight(AddingFlightStructure as) {
+	public void addAFlight(Flight flight) {
 		
 		PersistenceManager pm;
 		Transaction tx;
@@ -72,31 +72,41 @@ public class PilotDaoImpl implements PilotDao {
 		try {
 			tx.begin();
 			
-			/*
-			pilotRetrieved = pm.getObjectById(PilotInfos.class, as.idUser);
+			
+			pilotRetrieved = pm.getObjectById(PilotInfos.class, flight.getPilotID());
 			
 			detachedPilot = pm.detachCopy(pilotRetrieved);
 			pilotFlightsList = detachedPilot.getPilotFlightsList();
-			pilotFlightsList.add(as.flight);
+			pilotFlightsList.add(flight);
 			
 			pilotRetrieved.setPilotFlightsList(pilotFlightsList);
-			*/
 			
-			as.flight.setPilotID(as.idUser);
+			
+			//as.flight.setPilotID(as.idUser);
 			/* print of the flight */
+
+			
 			ObjectMapper mapper = new ObjectMapper();
 			String jsonString ="";
 			try {
 				//Converting the Object to JSONString
-				jsonString = mapper.writeValueAsString(as.flight);
+				jsonString = mapper.writeValueAsString(flight);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			System.out.println(jsonString);
 			
-			pm.makePersistent(as.flight);
-
+			pm.makePersistent(flight);
+			
+			try {
+				//Converting the Object to JSONString
+				jsonString = mapper.writeValueAsString(flight);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			System.out.println(jsonString);
 
 			tx.commit();
 		} finally {
@@ -130,6 +140,41 @@ public class PilotDaoImpl implements PilotDao {
 	public void editAFlight(int idUser, int idFlight) {
 		System.out.println("A flight is editing");
 
+	}
+
+	@Override
+	public PilotInfos getPilotInfos(int userID) {
+		
+		PersistenceManager pm;
+		Transaction tx;
+		PilotInfos pi;
+		List<PilotInfos> pl = new ArrayList<PilotInfos>();
+		
+		// retrieve
+		pm = pmf.getPersistenceManager();
+		tx = pm.currentTransaction();
+		// retainValues pour que les attributs soit gardés
+	    tx.setRetainValues(true);
+		try {
+			tx.begin();
+			//Query q = pm.newQuery(PilotInfos.class);
+			//pl = (List<PilotInfos>) q.execute();
+	
+			pi = pm.getObjectById(PilotInfos.class, userID);
+			tx.commit();
+		} 
+		
+		finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+
+			pm.close();
+			
+		}
+		
+		
+		return pi;
 	}
 
 }

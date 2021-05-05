@@ -43,7 +43,7 @@ public class UserWS {
 	@Produces(MediaType.APPLICATION_JSON)
 	@GET
 	@Path("getuserinfo/{id}")
-	public User getInfosFromUser(@PathParam("id") int id) {
+	public User getInfosFromUser(@PathParam("id") long id) {
 		return DaoFactory.getUserDao().getInfosFromUser(id);
 	}
 	
@@ -69,15 +69,9 @@ public class UserWS {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@POST
 	@Path("book/{id}")
-	public void bookAFlight(@PathParam("id") int id) {//, IdContainer instance2) {
-		ArrayList<Flight> flightsList= new ArrayList<Flight>(Arrays.asList(new Flight(),new Flight(),new Flight()));
-		for(Flight f:flightsList){
-			if(f.getFlightID()==id){
-				System.out.println(id);
-				//f.setAvailableSeats(f.getAvailableSeats()-Integer.parseInt(instance2.id));
-				break;
-			}
-		}
+	public void bookAFlight(@PathParam("id") long id) {//, IdContainer instance2) {
+		//DaoFactory.getUserDao().bookAFlight(flightID, id)
+		
 	}	
 	
 	/**
@@ -105,7 +99,7 @@ public class UserWS {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@POST
 	@Path("becomePilot")
-	public PilotInfos becomePilot(int userID)  {
+	public PilotInfos becomePilot(long userID)  {
 		PilotInfos p =  DaoFactory.getUserDao().becomePilot(userID);
 		System.out.print(getInfosFromUser(userID).getIsApilot());
 		return p;
@@ -114,7 +108,7 @@ public class UserWS {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@POST
 	@Path("isApilot")
-	public boolean isAPilot(int userID)  {
+	public boolean isAPilot(long userID)  {
 		return DaoFactory.getUserDao().getInfosFromUser(userID).getIsApilot();
 	}	
 

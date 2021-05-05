@@ -1,14 +1,13 @@
 package com.ufly;
 
 import java.awt.Image;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
-import javax.persistence.ElementCollection;
 import javax.persistence.Id;
 
 @PersistenceCapable
@@ -17,7 +16,7 @@ public class PilotInfos{
 	// the pilot take the same ID than the user who identifies him
 	@PrimaryKey
 	@Id
-	private int userID;
+	private long userID;
 	
 	private Image license;
 	
@@ -34,9 +33,17 @@ public class PilotInfos{
 	private int flightHours;
 
 	// pilot version
-	public PilotInfos(int userID) {
+	public PilotInfos(long userID) {
 
 		this.setUserID(userID);
+		this.license = null;
+		this.pilotFlightsList = new ArrayList<Flight>();
+		this.flightHours = 0;
+	}
+
+	// pilot version
+	public PilotInfos() {
+
 		this.license = null;
 		this.pilotFlightsList = new ArrayList<Flight>();
 		this.flightHours = 0;
@@ -68,12 +75,12 @@ public class PilotInfos{
 	}
 
 
-	public int getUserID() {
+	public long getUserID() {
 		return userID;
 	}
 
 
-	public void setUserID(int userID) {
+	public void setUserID(long userID) {
 		this.userID = userID;
 	}
 

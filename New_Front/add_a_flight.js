@@ -38,19 +38,16 @@ $(document).ready(function() {
 			destinationAirdrome : $("#destAirdrome").val(),
       departureDate : $("#depDate").val(),
       arrivalDate : $("#arrDate").val(),
-      duration : null,
 			pricePerPassenger : $("#price").val(),
-			aircraft : null,//newAircraft,
+			aircraft : newAircraft,//newAircraft,
       typeOfFlight : null,//"typeOfFlight."+$("#typeOfFlight").val(),
-      availableSeats : 0,
-      passengerInFlight : null,
-      flightImg : null
+      availableSeats : 5,
+      flightImg : null,
+      pilotID : userID
 		};
-		flightStructure = {
-            flight : newFlight,
-            idUser : userID
-        }
-		putServerData("ws/pilot/addflight",JSON.stringify(flightStructure),callDone);
+    
+		putServerData("ws/pilot/addflight",JSON.stringify(newFlight),callDone);
+		//putServerData("ws/pilot/addflight/1",JSON.stringify(newFlight),callDone);
 		
 	});
 });

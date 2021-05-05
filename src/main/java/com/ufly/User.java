@@ -18,7 +18,7 @@ public class User {
 	@PrimaryKey
 	@Id
 	@Persistent(valueStrategy=IdGeneratorStrategy.INCREMENT)
-	private int userID;
+	private long userID;
 	private String mail;
 	private String pwd;
 	private String firstName;
@@ -56,11 +56,11 @@ public class User {
 		this.bookedFlightsList = null;
 	}	
 
-	public int getUserID() {
+	public long getUserID() {
 		return userID;
 	}
 
-	public void setUserID(int userID) {
+	public void setUserID(long userID) {
 		this.userID = userID;
 	}
 	

@@ -43,7 +43,7 @@ public class Flight {
 	private int pilotID;
 	
 	public Flight(Aircraft aircraft, TypeOfFlight typeOfFlight, String departureAirdrome, String arrivalAirdrome, LocalTime duration,
-			String depatureDate, String arrivalDate, String flightTitle, String flightDescription, int pricePerPassenger, String flightImg) {
+			String depatureDate, String arrivalDate, String flightTitle, String flightDescription, int pricePerPassenger, String flightImg, int pilotID) {
 		//this.flightID=flightID; // auto-increment s'en occupe !
 		this.aircraft = aircraft;
 		this.typeOfFlight = typeOfFlight;
@@ -57,6 +57,7 @@ public class Flight {
 		this.availableSeats=aircraft.getSeatNumber();
 		this.pricePerPassenger = pricePerPassenger;
 		this.setFlightImg(flightImg);
+		this.pilotID=pilotID;
 	}
 	
 	public Flight()
