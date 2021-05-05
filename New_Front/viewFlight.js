@@ -225,8 +225,8 @@ $("#bookTheFlight").click(
         }
         else{
 
-        localStorage.setItem("last_Page","viewFlight.html");
-        document.location.href = "Log-in.html";
+            localStorage.setItem("last_Page","viewFlight.html");
+            document.location.href = "Log-in.html";
 
         }
     }
