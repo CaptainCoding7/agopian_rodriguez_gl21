@@ -9,11 +9,7 @@ public class DaoFactory {
 	// PersistenceManagerFactory
 	private static PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("UFly_Objects");
 	
-	
-	public static AircraftDao getAircraftDao() {
-		return new AircraftDaoImpl(pmf);
-	}
-	
+		
 	public static FlightDao getFlightDao() {
 		return new FlightDaoImpl(pmf);
 	}

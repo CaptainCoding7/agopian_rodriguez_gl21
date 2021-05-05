@@ -11,8 +11,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import com.ufly.Aircraft;
-import com.ufly.Booking;
 import com.ufly.Flight;
 import com.ufly.dao.*;
 
@@ -69,18 +67,6 @@ public class FlightWS {
 		return DaoFactory.getFlightDao().getInfoFromAFlight(id);
 	}
 		
-	/**
-	 * Fonction similaire mais pour les avions
-	 * @param instance
-	 * @return
-	 */
-	@Produces(MediaType.APPLICATION_JSON)
-	@GET
-	@Path("aircraftInfo/{id}")
-	public Aircraft getAircraftInfo(@PathParam("id") long id) {
-		return DaoFactory.getAircraftDao().getAircraftInfo(id);
-
-	}
 	
 	/**
 	 * Fonction similaire mais pour les booking

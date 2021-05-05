@@ -24,12 +24,16 @@ $(document).ready(function() {
 	$("#butAddFlight").click(function() {
 		
 		console.log("create flight");
-        let userID = JSON.parse(localStorage.getItem('userID'));
+    let userID = JSON.parse(localStorage.getItem('userID'));
 
-        newAircraft = {
-            aircraftModel: $("#aircraftModel").val(),
-            seatNumber: $("#seatNumber").val()
-        }
+    // saving the image in file system server
+    let photo = document.getElementById("image-file").files[0];
+    alert(photo);
+    const dateNow = Date.now().toString();
+    console.log(dateNow);
+    const formData = new FormData();
+    formData.append('myFile', photo);
+    fetch("/images/flightPhoto"+dateNow, {method: "POST", body: formData});
 
 		newFlight = {
 			flightTitle : $("#flightTitle").val(),
@@ -39,10 +43,10 @@ $(document).ready(function() {
       departureDate : $("#depDate").val(),
       arrivalDate : $("#arrDate").val(),
 			pricePerPassenger : $("#price").val(),
-			aircraft : newAircraft,//newAircraft,
-      typeOfFlight : null,//"typeOfFlight."+$("#typeOfFlight").val(),
-      availableSeats : 5,
-      flightImg : null,
+			aircraftModel :  $("#aircraftModel").val(),
+      typeOfFlight : $("#typeOfFlight").val(),
+      availableSeats : $("#seatNumber").val(),
+      flightImg : "images/flightPhoto"+dateNow,
       pilotID : userID
 		};
     

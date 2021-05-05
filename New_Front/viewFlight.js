@@ -132,6 +132,7 @@ function callDone(result){
 	tmp.innerHTML = img;
     let Display = document.getElementById("Flight-Picture");
     Display.src = tmp.textContent.replace(/["']+/g, "");
+    Display.src = Display.src.replace(/\s/g, '');
 
     //for the title
 	tmp.innerHTML = title;
@@ -219,14 +220,14 @@ $("#bookTheFlight").click(
 	    let bookingflight = {
             flightID: localStorage.getItem('FlightID'),
             userID: localStorage.getItem('userID'),
-            nbSeats: $("#bookTheFligh").val()
+            nbSeats: $("#nbOfSeats").val()
             }
-        postServerData("ws/booking/user/book", JSON.stringify(bookingflight), finishBook);
+        postServerData("ws/user/book", JSON.stringify(bookingflight), finishBook);
         }
         else{
 
-            localStorage.setItem("last_Page","viewFlight.html");
-            document.location.href = "Log-in.html";
+        localStorage.setItem("last_Page","viewFlight.html");
+        document.location.href = "Log-in.html";
 
         }
     }

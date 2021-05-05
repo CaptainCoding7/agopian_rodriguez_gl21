@@ -27,6 +27,13 @@ public class UserWS {
 		public String pwd;
 	}
 	
+	public static class BookingStructure{
+		public long flightID;
+		public long userID;
+		public int nbSeats;
+	
+	}
+	
 	/**
 	 * 
 	 * @param instance
@@ -68,9 +75,9 @@ public class UserWS {
 
 	@Consumes(MediaType.APPLICATION_JSON)
 	@POST
-	@Path("book/{id}")
-	public void bookAFlight(@PathParam("id") long id) {//, IdContainer instance2) {
-		//DaoFactory.getUserDao().bookAFlight(flightID, id)
+	@Path("book")
+	public void bookAFlight(BookingStructure bs) {//, IdContainer instance2) {
+		DaoFactory.getUserDao().bookAFlight(bs.flightID, bs.userID, bs.nbSeats);
 		
 	}	
 	

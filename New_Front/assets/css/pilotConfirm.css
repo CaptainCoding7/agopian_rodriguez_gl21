@@ -1,0 +1,52 @@
+.confirm_section {
+
+    position: relative;
+    display: block;
+    margin-top:10%;
+    margin-left: 40%;
+    margin-bottom: 1%;
+    /*border: 1px solid black;*/
+    
+}  
+  
+  h2 {
+    color: white ;
+    padding: 10px;
+    margin: 10px;
+    margin-top: 8%;
+    margin-left: 25%;
+  }
+  
+  a {
+    text-decoration: none;
+  
+  }
+  
+  .myspace_title {
+    font-size: 30px;
+    color: rgb(109, 121, 187);
+    margin-top: 3%;
+    margin-left: 10%;
+  
+  }
+  
+  hr {
+    margin-top: 8%;
+  }
+  
+  body {
+    background: linear-gradient(#f0f2f5, #7277a8);
+  }
+  
+  
+  #header.alt h1 a {
+    /*color: rgb(255, 255, 255);*/
+    color: rgb(109, 121, 187);
+  
+  }
+  
+  
+  #header.alt nav a {
+    /*color: #ddd;*/
+    color: rgb(109, 121, 187);
+  }

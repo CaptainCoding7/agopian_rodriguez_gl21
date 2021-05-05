@@ -177,30 +177,22 @@ public class BookingDaoImpl implements BookingDao {
 		}
 		
 		
+		System.out.println("Booked !");
+		
 		GenerateData.sendConfirmationMailToPassenger(b);;
 		
-		
+		System.out.println("Mail sent !");
+
 	}
 
 
 	@Override
 	public void refuseBooking(long bookingId) {
 		
-		Booking b = getInfoFromABooking(bookingId);
-		User passenger = DaoFactory.getUserDao().getInfosFromUser(b.getUserID());
-		Flight f = DaoFactory.getFlightDao().getInfoFromAFlight(b.getFlightID());
-		User pilot = DaoFactory.getUserDao().getInfosFromUser(f.getPilotID());
-		
-		PersistenceManager pm;
-		Transaction tx;
-		
-		
+		Booking b = getInfoFromABooking(bookingId);	
 		GenerateData.refuseDemand(b);
 		
-		
 	}
-	
-	
 	
 	
 }

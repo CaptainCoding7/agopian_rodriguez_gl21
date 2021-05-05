@@ -16,10 +16,7 @@ import java.util.concurrent.TimeUnit;
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
-import javax.jdo.Query;
 import javax.jdo.Transaction;
-
-import com.ufly.Flight.TypeOfFlight;
 import com.ufly.dao.DaoFactory;
 
 
@@ -58,68 +55,6 @@ public class GenerateData {
 	
 	PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("UFly_Objects");
 	
-	
-	/**
-	 * Aicrafts generation, store them in the database
-	 */
-	public void generateAicrafts() {
-		
-		PersistenceManager pm;
-		Transaction tx;
-		List<Aircraft> aircrafts = new ArrayList<Aircraft>(Arrays.asList(new Aircraft(),new Aircraft(),new Aircraft()));
-		aircrafts.get(0).setAircraftModel("Cessna 172");
-		aircrafts.get(1).setAircraftModel("Piper PA28");
-		aircrafts.get(2).setAircraftModel("Robin DR400 - 100HP");
-		
-		// save
-		pm = pmf.getPersistenceManager();
-		tx = pm.currentTransaction();
-		try {
-			tx.begin();
-			for(Aircraft a: aircrafts) {
-				pm.makePersistent(a);
-			}
-			tx.commit();
-		} finally {
-			if (tx.isActive()) {
-				tx.rollback();
-			}
-			pm.close();
-		}
-		
-	}
-	
-	public List<Aircraft> getAircraftsList(){
-		
-		PersistenceManager pm;
-		Transaction tx;
-		List<Aircraft> a;
-		
-		// retrieve aircraft list
-		pm = pmf.getPersistenceManager();
-		tx = pm.currentTransaction();
-		// retainValues pour que les attributs soit gardés
-	    tx.setRetainValues(true);
-		try {
-			tx.begin();
-			Query q = pm.newQuery(Aircraft.class);
-			a = (List<Aircraft>) q.execute();
-			tx.commit();
-			
-		} 
-		
-		finally {
-			if (tx.isActive()) {
-				tx.rollback();
-			}
-
-			pm.close();
-			
-		}
-		
-		return a;
-	}
-	
 	/**
 	 * Flights generation, store them in the database
 	 */
@@ -134,12 +69,12 @@ public class GenerateData {
 		Flight f1 =	new Flight(
 						"Cessna 172",
 						4,
-						TypeOfFlight.ROUND_TRIP,
+						"ROUND_TRIP",
 						"Paris",
 						"Amsterdam",
 						LocalTime.of(1,30),
-						"2021-05-05 13:30",
-						"2021-05-05 18:30",
+						"2021-07-05 13:30",
+						"2021-07-05 18:30",
 						"Fete du nouvel an",
 						"Visite surprise chez Paulsy", 
 						//new ArrayList<User>(Arrays.asList(new User(1), 
@@ -151,7 +86,7 @@ public class GenerateData {
 		Flight f2 =	new Flight(
 						"Piper PA28",
 						3,
-						TypeOfFlight.ONE_WAY_TICKET,
+						"ONE_WAY_TICKET",
 						"Paris",
 						"Chamonix",
 						LocalTime.of(1,30),
@@ -166,7 +101,7 @@ public class GenerateData {
 		Flight f3 =	new Flight(
 						"Robin DR400 - 100HP",
 						3,
-						TypeOfFlight.BALLAD,
+						"BALLAD",
 						"Volcan Volvic",
 						"Volcan Volvic",
 						LocalTime.of(1,30),
@@ -303,7 +238,6 @@ public class GenerateData {
 	 * Generate all the data
 	 */
 	public void generateAll() {
-		this.generateAicrafts();
 		this.generateFlights();
 		this.generateUsers();
 		this.generatePilots();
@@ -354,6 +288,27 @@ public class GenerateData {
 	}
 	
 	
+	public static void confirmationAccount(User u) {
+		
+		
+		String message = "Bonjour "+ u.getFirstName() + ",\n\n"
+						    + "Bienvenue à bord de Ufly !" 
+						    + "\n\nNous vous confirmons que votre compte a bien été créé."
+			    			+ "\nN'hésitez pas à consulter notre site pour trouver "
+			    			+ "le vol de vos rêves ! "
+			    			+ "\n\nAu plaisir de vous revoir, \n\n L'équipe Ufly.";
+		
+		String subject = "Bienvenue sur Ufly !";
+	    List<String> recipientList = new ArrayList<String>();
+	    recipientList.add("paulagopian94@gmail.com");
+	    //recipientList.add(u.getMail());
+	    
+	    sendMail(message, subject, recipientList);
+
+		
+	}
+	
+	
 	public static void refuseDemand(Booking b) {
 		
 		User passenger = DaoFactory.getUserDao().getInfosFromUser(b.getUserID());
@@ -371,9 +326,12 @@ public class GenerateData {
 		String subject = "Demande de réservation - Ufly";
 	    List<String> recipientList = new ArrayList<String>();
 	    recipientList.add("paulagopian94@gmail.com");
+	    //recipientList.add(passenger.getMail());
 	    
 	    sendMail(message, subject, recipientList);
 		
+	    // after sending the mail, we can delete the booking
+	    DaoFactory.getBookingDao().deleteAbooking(b.getBookingID());
 		
 	}
 	
@@ -391,7 +349,7 @@ public class GenerateData {
 			    			+ "\nDate: " + f.getDepartureDate()
 			    			+ "\nAérodrome de départ: " + f.getDepartureAirdrome()
 			    			+ "\nDescription du vol" + f.getFlightDescription()
-			    			+ "\nAvion: " + f.getAircraft()
+			    			+ "\nAvion: " + f.getAircraftModel()
 			    			+ "\nNombre de place(s) réservée(s): " + b.getNbSeats()
 			    			+ "\nPilote: "+ pilot.getFirstName() + " " + pilot.getFirstName()
 			    			+ "\n\nPour toute information complémentaire concernant le vol, "
@@ -401,7 +359,8 @@ public class GenerateData {
 		String subject = "Demande de réservation - Ufly";
 	    List<String> recipientList = new ArrayList<String>();
 	    recipientList.add("paulagopian94@gmail.com");
-	    
+	    //recipientList.add(passenger.getMail());
+
 	    sendMail(message, subject, recipientList);
 		
 		
@@ -427,7 +386,8 @@ public class GenerateData {
 	    List<String> recipientList = new ArrayList<String>();
 	    recipientList.add("paulagopian94@gmail.com");
 	    //recipientList.add("rodriguez.clement99@gmail.com");
-	    
+	    //recipientList.add(pilot.getMail());
+
 	    sendMail(message, subject, recipientList);
 		
 	}
@@ -442,12 +402,12 @@ public class GenerateData {
 		
 	    String message = "Bonjour "+ passenger.getFirstName() 
 		    			+ ",\n\nVotre vol "+ f.getFlightTitle() + "aura lieu demain !"
-		    			+ "Vous trouverez ci-dessous un rappel des informations liées au vol:"
+		    			+ " Vous trouverez ci-dessous un rappel des informations liées au vol:"
 		    			+ "\nPilote: "+ pilot.getFirstName() + " " + pilot.getFirstName()
 		    			+ "\nHeure du départ: " + f.getDepartureDate()
 		    			+ "\nAérodrome de départ: " + f.getDepartureAirdrome()
 		    			+ "\nDescription du vol" + f.getFlightDescription()
-		    			+ "\nAvion: " + f.getAircraft()
+		    			+ "\nAvion: " + f.getAircraftModel()
 		    			+ "\n\nBon vol ! \n\n L'équipe Ufly.";
 	   
 	    String subject = "Rappel Ufly - Votre vol ";
@@ -549,7 +509,7 @@ public class GenerateData {
 		
 		List<Flight> flist = DaoFactory.getFlightDao().getAllFlights();
 		for(Flight f:flist)
-			System.out.println(f.getAircraft());
+			System.out.println(f.getAircraftModel());
 		
 		
 		//reminder mails:

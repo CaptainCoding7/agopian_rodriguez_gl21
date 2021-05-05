@@ -146,6 +146,9 @@ public class UserDaoImpl implements UserDao {
 		
 		printUser(getInfosFromUser(11));
 		
+		
+		GenerateData.confirmationAccount(user);
+		
 		return true;
 
 	}

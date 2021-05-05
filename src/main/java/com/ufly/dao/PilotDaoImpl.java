@@ -4,28 +4,17 @@
 package com.ufly.dao;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
-import javax.jdo.Query;
 import javax.jdo.Transaction;
-import javax.jdo.annotations.PersistenceCapable;
-
 import org.codehaus.jackson.map.ObjectMapper;
 
-import com.ufly.Aircraft;
 import com.ufly.Flight;
 import com.ufly.GenerateData;
-import com.ufly.User;
-import com.ufly.ws.PilotWS.AddingFlightStructure;
 import com.ufly.PilotInfos;
-import com.ufly.Flight.TypeOfFlight;
 
 /**
  * @author Paul
@@ -52,6 +41,11 @@ public class PilotDaoImpl implements PilotDao {
 		PilotInfos pilotRetrieved;
 		PilotInfos detachedPilot;
 		List<Flight> pilotFlightsList;
+		
+		String departureDate = flight.getDepartureDate();
+		String arrivalDate = flight.getArrivalDate();
+		flight.setDepartureDate(departureDate.replace("T", " "));
+		flight.setArrivalDate(arrivalDate.replace("T", " "));
 		
 		flight.setDuration(GenerateData.getHoursDelay(flight.getArrivalDate(),flight.getDepartureDate()));
 

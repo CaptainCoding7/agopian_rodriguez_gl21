@@ -25,7 +25,17 @@ function callDone(result){
 		localStorage.setItem('userID', JSON.stringify(result.userID));
 		console.log("user id: "+ result.userID);
 		localStorage.setItem('isApilot', JSON.stringify(result.isApilot));
-		document.location.href = "home.html";
+
+		if(localStorage.getItem("confirmAsked")){
+			document.location.href = "pilotConfirm.html?bookingId=1";
+		}
+		else{
+			document.location.href = "home.html";
+		}
+		if(localStorage.getItem("last_Page")=="ViewFlight.html"){
+			document.location.href = "ViewFlight.html";
+		}
+
 	}
 	else
 	{

@@ -16,16 +16,12 @@ import javax.jdo.annotations.PrimaryKey;
 @PersistenceCapable
 public class Flight {
 			
-	
-	public enum TypeOfFlight{
-		ROUND_TRIP/*A->B B->A*/, ONE_WAY_TICKET/*A->B*/, BALLAD/*A->A*/ 
-	}
-	
+		
 	@PrimaryKey
 	@Persistent(valueStrategy=IdGeneratorStrategy.INCREMENT)
 	private int flightID;
 	private String aircraftModel;
-	private TypeOfFlight typeOfFlight;
+	private String typeOfFlight;
 	private String departureAirdrome;
 	private String destinationAirdrome;
 	private long duration;
@@ -42,10 +38,10 @@ public class Flight {
 	private String flightImg;
 	private int pilotID;
 	
-	public Flight(String aircraftModel, int availableSeats, TypeOfFlight typeOfFlight, String departureAirdrome, String arrivalAirdrome, LocalTime duration,
+	public Flight(String aircraftModel, int availableSeats, String typeOfFlight, String departureAirdrome, String arrivalAirdrome, LocalTime duration,
 			String depatureDate, String arrivalDate, String flightTitle, String flightDescription, int pricePerPassenger, String flightImg, int pilotID) {
 		//this.flightID=flightID; // auto-increment s'en occupe !
-		this.aircraftModel = aircraftModel;
+		this.setAircraftModel(aircraftModel);
 		this.typeOfFlight = typeOfFlight;
 		this.departureAirdrome = departureAirdrome;
 		this.destinationAirdrome = arrivalAirdrome;
@@ -62,9 +58,9 @@ public class Flight {
 	
 	public Flight()
 	{
-		this.aircraftModel = null;
+		this.setAircraftModel(null);
 		this.setAvailableSeats(0);
-		this.typeOfFlight = TypeOfFlight.ROUND_TRIP;
+		this.typeOfFlight = null;
 		this.departureAirdrome = "";
 		this.destinationAirdrome = "";
 		this.departureDate = null;
@@ -83,19 +79,11 @@ public class Flight {
 		this.flightID=flightID;
 	}
 
-	public String getAircraft() {
-		return aircraftModel;
-	}
-
-	public void setAircraft(String aircraft) {
-		this.aircraftModel = aircraft;
-	}
-
-	public TypeOfFlight getTypeOfFlight() {
+	public String getTypeOfFlight() {
 		return typeOfFlight;
 	}
 
-	public void setTypeOfFlight(TypeOfFlight typeOfFlight) {
+	public void setTypeOfFlight(String typeOfFlight) {
 		this.typeOfFlight = typeOfFlight;
 	}
 
@@ -193,6 +181,14 @@ public class Flight {
 
 	public void setPilotID(int pilotID) {
 		this.pilotID = pilotID;
+	}
+
+	public String getAircraftModel() {
+		return aircraftModel;
+	}
+
+	public void setAircraftModel(String aircraftModel) {
+		this.aircraftModel = aircraftModel;
 	}
 
 }

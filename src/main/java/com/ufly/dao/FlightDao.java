@@ -2,7 +2,6 @@ package com.ufly.dao;
 
 import java.util.List;
 
-import com.ufly.Aircraft;
 import com.ufly.Flight;
 import com.ufly.ws.FlightWS;
 

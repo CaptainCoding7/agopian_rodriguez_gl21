@@ -79,7 +79,7 @@ public class FlightDaoImpl implements FlightDao {
 					
 					.filter(p->{
 						if(!sc.plane.toUpperCase().equals("ALL"))
-							return (p.getAircraft().toUpperCase().equals(sc.plane.toUpperCase()));
+							return (p.getAircraftModel().toUpperCase().equals(sc.plane.toUpperCase()));
 						return true;
 					})
 					
