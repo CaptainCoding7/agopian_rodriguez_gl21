@@ -28,11 +28,8 @@ function pilotInfosCalldone(result){
 	
     let Display = document.getElementById("Hour_of_flight");
     Display.innerHTML = "Hours of flight: " + JSON.stringify(result.flightHours).replace(/["']+/g, "");
-    /*
     Display = document.getElementById("Discover_me");
-    Display.innerHTML = JSON.stringify(result.description).replace(/["']+/g, "");
-    
-    */
+    Display.innerHTML = "Discover me : <br>" + JSON.stringify(result.description).replace(/["']+/g, "");
 }
 
 
@@ -116,6 +113,11 @@ function callDone(result){
     tmp.innerHTML = seats;
     Display = document.getElementById("numberOfSeat");
     Display.textContent = "Available Seats : " + tmp.textContent.replace(/["']+/g, "");
+    Display = document.getElementById("nbOfSeats");
+    console.log(JSON.stringify(result.availableSeats)+1)
+    for (let index = 2; index < parseInt(JSON.stringify(result.availableSeats)) + 1 ; index++) { 
+        Display.innerHTML += "<option value="+ index + ">"+ index +"</option>";    
+    }
 
     // for the duration
     tmp.innerHTML = duration;
@@ -145,7 +147,7 @@ function callDone(result){
     // for the Aircraft Information
     tmp.innerHTML = aircraft;
     Display = document.getElementById("Aircraft_Info");
-    Display.textContent = tmp.textContent.replace(/["']+/g, "");
+    Display.innerHTML ="Aircraft Model  :" + tmp.textContent.replace(/["']+/g, "");
     
     //for the price
 	tmp.innerHTML = price;
