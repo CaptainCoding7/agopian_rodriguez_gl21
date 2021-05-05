@@ -15,6 +15,14 @@ public interface FlightDao {
 	 */
 	List<Flight> getFlightsFromCriteria(FlightWS.SearchCriteria sc);
 
+	
+	/**
+	 * get all the flights from the database
+	 * 
+	 */
+	List<Flight> getAllFlights();
+
+	
 	/**
 	 * get infos from a specific flight (with the id)
 	 * GET
@@ -22,6 +30,7 @@ public interface FlightDao {
 	Flight getInfoFromAFlight(long flightID);
 
 
+	
 	/**
 	 * delete a specific flight
 	 * DELETE

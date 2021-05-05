@@ -9,6 +9,6 @@ public interface AircraftDao {
 	 * get infos from a plane
 	 * GET
 	 */
-	Aircraft getAircraftInfo(int aircraftID);
+	Aircraft getAircraftInfo(long aircraftID);
 
 }

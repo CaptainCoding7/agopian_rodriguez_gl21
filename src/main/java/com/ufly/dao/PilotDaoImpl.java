@@ -21,6 +21,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 
 import com.ufly.Aircraft;
 import com.ufly.Flight;
+import com.ufly.GenerateData;
 import com.ufly.User;
 import com.ufly.ws.PilotWS.AddingFlightStructure;
 import com.ufly.PilotInfos;
@@ -40,19 +41,6 @@ public class PilotDaoImpl implements PilotDao {
 		this.pmf=pmf;
 	}
 
-	public List<Flight> getPilotedFlightsList(int idUser) {
-		List<Flight> SubList = new ArrayList<Flight>(Arrays.asList(
-				new Flight(new Aircraft(), TypeOfFlight.ROUND_TRIP, "Alforville", "Les Pavillons-sous-bois",
-						LocalTime.of(1, 30), "2021-03-15 13:30", "2021-03-15 13:30", "Fete du nouvel an", "Visite surprise chez Paulsy",10,null,1),
-				new Flight(new Aircraft(), TypeOfFlight.ONE_WAY_TICKET, "Roissy", "Chamonix", LocalTime.of(1, 30),
-						"2021-03-15 13:30","2021-03-15 13:30", "Voyage sportif",
-						"Decouverte du ski avec Paulsy",12,null,1),
-				new Flight(new Aircraft(), TypeOfFlight.BALLAD, "Volcan Volvic", "Volcan Volvic",
-						LocalTime.of(1, 30), "2021-03-15 13:30",
-						"2021-03-15 13:30", "Survoler l'auvergne",
-						"Visite aerienne des volcan de Volvic",14,null,1)));
-		return SubList;
-	}
 
 	/**
 	 * 
@@ -64,6 +52,8 @@ public class PilotDaoImpl implements PilotDao {
 		PilotInfos pilotRetrieved;
 		PilotInfos detachedPilot;
 		List<Flight> pilotFlightsList;
+		
+		flight.setDuration(GenerateData.getHoursDelay(flight.getArrivalDate(),flight.getDepartureDate()));
 
 		// save
 		pm = pmf.getPersistenceManager();
@@ -163,7 +153,7 @@ public class PilotDaoImpl implements PilotDao {
 			pi = pm.getObjectById(PilotInfos.class, userID);
 			tx.commit();
 		} 
-		
+	
 		finally {
 			if (tx.isActive()) {
 				tx.rollback();
@@ -175,6 +165,12 @@ public class PilotDaoImpl implements PilotDao {
 		
 		
 		return pi;
+	}
+
+	@Override
+	public List<Flight> getPilotedFlightsList(int idUser) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

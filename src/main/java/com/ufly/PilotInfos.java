@@ -19,6 +19,7 @@ public class PilotInfos{
 	private long userID;
 	
 	private Image license;
+	private String description;
 	
 	// flights list for which the user participate as a pilot
 	
@@ -31,7 +32,7 @@ public class PilotInfos{
 	 * private FlightNoteBook fNB;
 	 */
 	private int flightHours;
-		
+
 	// pilot version
 	public PilotInfos(long userID) {
 
@@ -48,7 +49,7 @@ public class PilotInfos{
 		this.pilotFlightsList = new ArrayList<Flight>();
 		this.flightHours = 0;
 	}
-	
+
 
 	public List<Flight> getPilotFlightsList() {
 		return pilotFlightsList;
@@ -82,6 +83,14 @@ public class PilotInfos{
 
 	public void setUserID(long userID) {
 		this.userID = userID;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 }

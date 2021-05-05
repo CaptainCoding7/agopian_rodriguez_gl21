@@ -23,11 +23,11 @@ public class FlightDAOTest {
 		sc.price = "50";
 		sc.destination = "Amsterdam";
 		sc.seats = 0;
-		
+	
 		List<Flight> lf = DaoFactory.getFlightDao().getFlightsFromCriteria(sc);
 		assertTrue(lf.size()==1);
 		//System.out.println(lf.get(0).getFlightID());
-		assertTrue(lf.get(0).getAircraft().getAircraftModel().equals("Cessna 172"));
+		assertTrue(lf.get(0).getAircraft().equals("Cessna 172"));
         //assertThrows(IllegalStateException.class, () -> { i.remove(); } );
         
 	}

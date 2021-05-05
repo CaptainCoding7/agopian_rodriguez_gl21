@@ -25,5 +25,9 @@ public class DaoFactory {
 	public static PilotDao getPilotDao() {
 		return new PilotDaoImpl(pmf);
 	}
-		
+
+	
+	public static BookingDao getBookingDao() {
+		return new BookingDaoImpl(pmf);
+	}
 }

@@ -24,11 +24,11 @@ public class Flight {
 	@PrimaryKey
 	@Persistent(valueStrategy=IdGeneratorStrategy.INCREMENT)
 	private int flightID;
-	private Aircraft aircraft;
+	private String aircraftModel;
 	private TypeOfFlight typeOfFlight;
 	private String departureAirdrome;
 	private String destinationAirdrome;
-	private LocalTime duration;
+	private long duration;
 	private String departureDate;
 	private String arrivalDate;
 	
@@ -42,19 +42,19 @@ public class Flight {
 	private String flightImg;
 	private int pilotID;
 	
-	public Flight(Aircraft aircraft, TypeOfFlight typeOfFlight, String departureAirdrome, String arrivalAirdrome, LocalTime duration,
+	public Flight(String aircraftModel, int availableSeats, TypeOfFlight typeOfFlight, String departureAirdrome, String arrivalAirdrome, LocalTime duration,
 			String depatureDate, String arrivalDate, String flightTitle, String flightDescription, int pricePerPassenger, String flightImg, int pilotID) {
 		//this.flightID=flightID; // auto-increment s'en occupe !
-		this.aircraft = aircraft;
+		this.aircraftModel = aircraftModel;
 		this.typeOfFlight = typeOfFlight;
 		this.departureAirdrome = departureAirdrome;
 		this.destinationAirdrome = arrivalAirdrome;
-		this.duration = duration;
 		this.departureDate = depatureDate;
 		this.arrivalDate = arrivalDate;
+		this.duration = GenerateData.getHoursDelay(arrivalDate, depatureDate);
 		this.flightTitle = flightTitle;
 		this.flightDescription = flightDescription;
-		this.availableSeats=aircraft.getSeatNumber();
+		this.availableSeats=availableSeats;
 		this.pricePerPassenger = pricePerPassenger;
 		this.setFlightImg(flightImg);
 		this.pilotID=pilotID;
@@ -62,12 +62,11 @@ public class Flight {
 	
 	public Flight()
 	{
-		this.aircraft = null;
+		this.aircraftModel = null;
 		this.setAvailableSeats(0);
 		this.typeOfFlight = TypeOfFlight.ROUND_TRIP;
 		this.departureAirdrome = "";
 		this.destinationAirdrome = "";
-		this.duration = null;
 		this.departureDate = null;
 		this.arrivalDate = null;
 		this.flightTitle = "";
@@ -84,12 +83,12 @@ public class Flight {
 		this.flightID=flightID;
 	}
 
-	public Aircraft getAircraft() {
-		return aircraft;
+	public String getAircraft() {
+		return aircraftModel;
 	}
 
-	public void setAircraft(Aircraft aircraft) {
-		this.aircraft = aircraft;
+	public void setAircraft(String aircraft) {
+		this.aircraftModel = aircraft;
 	}
 
 	public TypeOfFlight getTypeOfFlight() {
@@ -116,11 +115,11 @@ public class Flight {
 		this.destinationAirdrome = arrivalAirdrome;
 	}
 
-	public LocalTime getDuration() {
+	public long getDuration() {
 		return duration;
 	}
 
-	public void setDuration(LocalTime duration) {
+	public void setDuration(long duration) {
 		this.duration = duration;
 	}
 	

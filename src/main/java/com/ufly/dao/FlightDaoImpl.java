@@ -5,26 +5,20 @@ package com.ufly.dao;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
-import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
 import javax.jdo.annotations.PersistenceCapable;
 
-import com.ufly.Aircraft;
+import com.ufly.Booking;
 import com.ufly.Flight;
-import com.ufly.User;
 import com.ufly.ws.FlightWS;
-import com.ufly.Flight.TypeOfFlight;
 
 /**
  * @author Paul
@@ -55,8 +49,6 @@ public class FlightDaoImpl implements FlightDao {
 	    tx.setRetainValues(true);
 		try {
 			tx.begin();
-			Flight f;			
-
 			Query q = pm.newQuery(Flight.class);
 			flights = (List<Flight>) q.execute();
 
@@ -87,7 +79,7 @@ public class FlightDaoImpl implements FlightDao {
 					
 					.filter(p->{
 						if(!sc.plane.toUpperCase().equals("ALL"))
-							return (p.getAircraft().getAircraftModel().toUpperCase().equals(sc.plane.toUpperCase()));
+							return (p.getAircraft().toUpperCase().equals(sc.plane.toUpperCase()));
 						return true;
 					})
 					
@@ -97,7 +89,8 @@ public class FlightDaoImpl implements FlightDao {
 						return true;
 					})
 					
-					.filter(p->p.getAvailableSeats()>=sc.seats)
+					// we don't display flights for which there is no available seats
+					.filter(p->p.getAvailableSeats()>=sc.seats && p.getAvailableSeats()>0)
 				
 					.filter(p->{
 						if(sc.depDate!=null && !sc.depDate.equals("")) {
@@ -167,16 +160,11 @@ public class FlightDaoImpl implements FlightDao {
 		PersistenceManager pm;
 		Transaction tx;
 		Flight f;
-		List<Flight> flights = new ArrayList<Flight>(); 
 
 // retrieve
 		pm = pmf.getPersistenceManager();
 		tx = pm.currentTransaction();
-		// retainValues pour que les attributs soit gardés
-	    tx.setRetainValues(true);
-	    
-	    getFlightsFromCriteria(null);
-	    
+	    	    
 		try {
 			tx.begin();
 			f = pm.getObjectById(Flight.class, idFlight);
@@ -196,13 +184,47 @@ public class FlightDaoImpl implements FlightDao {
 		
 		System.out.println("The flight with the Id :"+idFlight+" has been deleted");// TODO Auto-generated method stub
 		
-	    getFlightsFromCriteria(null);		
-		
+	
 	}
 
 	public void sendReminderEmail(long idFlight) {
 		System.out.println("The Reminder Email was sent for flight :"+idFlight);
 
+	}
+	
+	public List<Flight> getAllFlights(){
+		
+		
+		PersistenceManager pm;
+		Transaction tx;
+		Flight f;
+		List<Flight> flist;
+		
+		// retrieve
+		pm = pmf.getPersistenceManager();
+		tx = pm.currentTransaction();
+		// retainValues pour que les attributs soit gardés
+	    tx.setRetainValues(true);
+		try {
+			tx.begin();
+			Query q = pm.newQuery(Flight.class);
+			flist = (List<Flight>) q.execute();
+
+			tx.commit();
+			
+		} 
+		
+		finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+
+			pm.close();
+			
+		}
+		
+		return flist;
+		
 	}
 
 }

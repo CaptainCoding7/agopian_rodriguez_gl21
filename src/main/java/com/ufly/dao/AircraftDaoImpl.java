@@ -25,8 +25,8 @@ public class AircraftDaoImpl implements AircraftDao {
 	public AircraftDaoImpl(PersistenceManagerFactory pmf) {
 		this.pmf=pmf;
 	}
-	
-	public Aircraft getAircraftInfo(int aircraftID) {
+
+	public Aircraft getAircraftInfo(long aircraftID) {
 		PersistenceManager pm;
 		Transaction tx;
 		Aircraft a;

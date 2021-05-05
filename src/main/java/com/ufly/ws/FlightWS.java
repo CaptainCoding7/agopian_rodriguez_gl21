@@ -1,29 +1,25 @@
 package com.ufly.ws;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.DELETE;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import com.ufly.Aircraft;
+import com.ufly.Booking;
 import com.ufly.Flight;
-import com.ufly.User;
 import com.ufly.dao.*;
 
 
 @Path("flight")
 public class FlightWS {
-
+	
 	
 	public static class IdContainer {
 		public int id;
@@ -69,7 +65,7 @@ public class FlightWS {
 	@Produces(MediaType.APPLICATION_JSON)
 	@GET
 	@Path("flightInfo/{id}")
-	public Flight getInfoFromAFlight(@PathParam("id") int id) {
+	public Flight getInfoFromAFlight(@PathParam("id") long id) {
 		return DaoFactory.getFlightDao().getInfoFromAFlight(id);
 	}
 		
@@ -81,17 +77,26 @@ public class FlightWS {
 	@Produces(MediaType.APPLICATION_JSON)
 	@GET
 	@Path("aircraftInfo/{id}")
-	public Aircraft getAircraftInfo(@PathParam("id") int id) {
+	public Aircraft getAircraftInfo(@PathParam("id") long id) {
 		return DaoFactory.getAircraftDao().getAircraftInfo(id);
 
 	}
 	
+	/**
+	 * Fonction similaire mais pour les booking
+	 * @param instance
+	 * @return
+	 */
+
+	
 	@Consumes(MediaType.APPLICATION_JSON)
 	@DELETE
 	@Path("deleteflight/{id}")
-	public void deleteAFlight(@PathParam("id") int id){
+	public void deleteAFlight(@PathParam("id") long id){
 		DaoFactory.getFlightDao().deleteAFlight(id);
 	}
+	
+	
 	
 	
 }
