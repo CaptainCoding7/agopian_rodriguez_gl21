@@ -28,6 +28,11 @@ function pilotInfosCalldone(result){
 	
     let Display = document.getElementById("Hour_of_flight");
     Display.innerHTML = "Hours of flight: " + JSON.stringify(result.flightHours).replace(/["']+/g, "");
+    /*
+    Display = document.getElementById("Discover_me");
+    Display.innerHTML = JSON.stringify(result.description).replace(/["']+/g, "");
+    
+    */
 }
 
 
@@ -146,6 +151,8 @@ function callDone(result){
 	tmp.innerHTML = price;
 	Display = document.getElementById("price");
 	Display.textContent = "Price : " + tmp.textContent.replace(/["']+/g, "") + "€ per person";
+
+    console.log("aircraft_info : ", JSON.stringify(result.aircraft));
 
 }
 

@@ -71,18 +71,25 @@ hr {
 }
 
 body {
-  background: linear-gradient(#f0f2f5, #7277a8);
+  /* background-color: rgba(0, 89, 255, 0.658); */
+  background: linear-gradient(#f0f2f5, rgba(0, 89, 255, 0.658));
+  
 }
 
 
 #header.alt h1 a {
   /*color: rgb(255, 255, 255);*/
   color: rgb(109, 121, 187);
-
 }
 
 
 #header.alt nav a {
   /*color: #ddd;*/
   color: rgb(109, 121, 187);
+}
+
+#header
+{
+  background-color: rgba(0, 89, 255, 0.658);
+
 }
