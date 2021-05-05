@@ -76,6 +76,7 @@
 		}
 /* Type */
 
+
 	body {
 		background-color: #fff;
 		color: #666;
@@ -128,22 +129,13 @@
 
 		}
 
-	a {
-		text-decoration: underline;
-		color: #f32853;
-	}
-
-		a:hover {
-			text-decoration: none;
-		}
-
 	strong, b {
 		color: #484848;
 		font-weight: 700;
 	}
 
 	p {
-		margin: 0 0 2em 0;
+		margin: 0;
 	}
 
 	h1, h2, h3, h4, h5, h6 {
@@ -243,6 +235,7 @@
 
 		.wrapper.style3 {
 			background-attachment: fixed;
+			background-image: url("images/overlay.png"), url("../../images/pic12.jpg");
 			background-position: center center;
 			background-size: cover;
 		}
@@ -399,7 +392,8 @@
 			}
 
 				#header.alt h1 a {
-					color: #FFF;
+					color: rgb(255, 255, 255);
+
 				}
 
 			#header.alt nav {
@@ -412,7 +406,7 @@
 				}
 
 					#header.alt nav a:active, #header.alt nav a:hover {
-						color: #FFF;
+						color: rgb(152, 173, 219);
 					}
 
 			#header.alt .button {
@@ -593,6 +587,7 @@
 	#banner {
 		padding: 16em 0 13em 0;
 		background-attachment: fixed;
+		background-image: url("images/overlay.png"), url("../../images/pic12.jpg");
 		background-position: center top;
 		background-size: cover;
 		line-height: 1.75;
@@ -614,14 +609,14 @@
 		#banner p {
 			color: #aaa;
 			font-size: 1.5em;
-			margin-bottom: 1.75em;
+			margin-bottom: 0;
 			text-transform: uppercase;
 		}
 
 		@media screen and (max-width: 1280px) {
 
 			#banner {
-				padding: 14em 0 11em 0;
+				padding: 7em 0 11em 0;
 			}
 
 				#banner h2 {
@@ -633,7 +628,7 @@
 		@media screen and (max-width: 980px) {
 
 			#banner {
-				padding: 9em 0 7em 0;
+				padding: 1em 0 7em 0;
 			}
 
 		}
@@ -641,7 +636,7 @@
 		@media screen and (max-width: 736px) {
 
 			#banner {
-				padding: 6em 2em 6em 2em;
+				padding: 1em 2em 6em 2em;
 			}
 
 				#banner br {
@@ -661,7 +656,7 @@
 		@media screen and (max-width: 480px) {
 
 			#banner {
-				padding: 4em 2em 4em 2em;
+				padding: 1em 2em 4em 2em;
 			}
 
 		}
@@ -669,7 +664,7 @@
 /* Footer */
 
 	#footer {
-		padding: 8em 0 6em 0;
+		padding: 2em 0 2em 0;
 		background: #f6f6f6;
 		color: #aaa;
 		text-align: center;
@@ -711,7 +706,7 @@
 		@media screen and (max-width: 980px) {
 
 			#footer {
-				padding: 6em 0 4em 0;
+				padding: 2em 0 2em 0;
 			}
 
 		}
@@ -719,7 +714,7 @@
 		@media screen and (max-width: 736px) {
 
 			#footer {
-				padding: 3em 0 2em 0;
+				padding: 2em 0 2em 0;
 			}
 
 				#footer .icons {
@@ -731,7 +726,7 @@
 		@media screen and (max-width: 480px) {
 
 			#footer {
-				padding: 3em 0 1em 0;
+				padding: 2em 0 1em 0;
 			}
 
 				#footer .copyright li {
@@ -814,3 +809,58 @@ section
 	opacity: 80%;
 }
 
+
+/* code from https://www.w3schools.com/howto/howto_js_autocomplete.asp */
+
+.autocomplete-items div {
+	padding: 10px;
+	cursor: pointer;
+	background-color: #fff;
+	border-bottom: 1px solid #d4d4d4;
+  }
+.autocomplete-items div:hover {
+	/*when hovering an item:*/
+	background-color: #e9e9e9;
+  }
+.autocomplete-active {
+	/*when navigating through the items using the arrow keys:*/
+	background-color: DodgerBlue !important;
+	color: #ffffff;
+}
+
+#Flight-Picture
+{
+	grid-area: picture;
+	height: auto;
+	width: auto;
+	border-radius: 20px;
+	padding: 0px;
+	margin-bottom: 0px;
+	object-fit: scale-down;
+	align-self: center;
+	justify-self: center;
+}
+
+#main-info
+{
+	grid-area: main-info;
+	border: 1px solid white;
+	border-radius: 10px;
+	margin: 5%;
+}
+
+#Description
+{
+	grid-area: description;
+	border: 1px solid white;
+	border-radius: 10px;
+	margin: 5%;
+}
+
+#banner
+{
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	grid-template-areas: "picture picture"
+						 "main-info description";
+}

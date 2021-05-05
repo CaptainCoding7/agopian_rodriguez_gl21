@@ -5,7 +5,7 @@
 		<title>Ufly | View Flight</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="shortcut icon" href="#">
-		<link rel="stylesheet" href="assets/css/main.css">
+		<link rel="stylesheet" href="assets/css/style-ViewFlight.css">
 			
 		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -13,7 +13,7 @@
 
     <body class="landing">
 		<!--To use underscore.js -->
-		<script id="templateExample" type="text/template">
+		<script id="flightInfos" type="text/template">
 			<div>
 				<%= attribute %>
 			</div>
@@ -38,18 +38,26 @@
 	
 			<img id="Flight-Picture" src="#" alt="Image Presentation of the flight">
 			<div id="main-info">
-				<h1 id="title"></h1>
-				<h2 id="typeOfFlight"></h2>
-				<p id="numberOfSeat"></p>
-				<p id="Duration"></p>
-				<p id="Depature_Date"></p>
-				<p id="Departure_Place"></p>
-				<p id="Arrival_Place"></p>
+				<h2 id="title" style="color: white;"></h2>
+				<h1 id="typeOfFlight" style="color: white; text-transform: none;"></h1>
+				<p id="numberOfSeat" style="color: white; text-transform: none;"></p>
+				<p id="price" style="color: white; text-transform: none;"></p>
+				<p id="Duration" style="color: white; text-transform: none;"></p>
+				<p id="Departure_Date" style="color: white; text-transform: none;"></p>
+				<p id="Departure_Place" style="color: white; text-transform: none;"></p>
+				<p id="Arrival_Place" style="color: white; text-transform: none;"></p>
 
 			</div>
-			<div id="Description"></div>
-			<div id="Aircraft_Info"></div>
-			<div id="Pilot_Info"></div>
+			<div id="Description" style="color: white;"></div>
+			<div id="Aircraft_Info" style="color: white;">
+				<h2 id="Aircraft_Model" style="color: white;"></h2>
+				<p id="seat_number" style="color: white; text-transform: none;"></p>
+			</div>
+			<div id="Pilot_Info" style="color: white;">
+				<h2 id="Pilot_Name" style="color: white;"></h2>
+				<p id="Hour_of_flight" style="color: white; text-transform: none;"></p>
+				<p id="Discover_me" style="color: white; text-transform: none;"></p>
+			</div>
 			</section>
 
 		<!-- Footer -->
