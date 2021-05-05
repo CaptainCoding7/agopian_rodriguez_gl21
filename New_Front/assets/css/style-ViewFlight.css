@@ -863,11 +863,29 @@ section
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
 	grid-template-areas: "picture picture"
-						 "main-info description";
+						 "main-info description"
+						 "aircraft pilot";
 	column-gap: 1%;
+	row-gap: 1%;
 }
 
 #title
 {
 	text-transform: none;
+}
+
+#Pilot_Info
+{
+	grid-area: pilot;
+	border: 1px solid white;
+	border-radius: 10px;
+	margin: 10px;
+}
+
+#Aircraft_Info
+{
+	grid-area: aircraft;
+	border: 1px solid white;
+	border-radius: 10px;
+	margin: 10px;
 }

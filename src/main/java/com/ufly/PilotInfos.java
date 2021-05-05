@@ -31,7 +31,7 @@ public class PilotInfos{
 	 * private FlightNoteBook fNB;
 	 */
 	private int flightHours;
-
+		
 	// pilot version
 	public PilotInfos(long userID) {
 
