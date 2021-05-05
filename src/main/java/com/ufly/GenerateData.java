@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
@@ -36,6 +39,22 @@ import org.eclipse.jetty.server.ServerConnector;
  *
  */
 public class GenerateData {
+	
+	
+	/* The class which periodically check for sending reminder mails  */
+	class ThreadMail extends Thread {
+	    public void run()
+	    {
+	        try {
+	    		sendAllReminderMails();
+
+	        }
+	        catch (Exception e) {
+	            System.out.println(e.getStackTrace());
+	        }
+	    }
+	}
+	 
 	
 	PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("UFly_Objects");
 	
@@ -108,18 +127,19 @@ public class GenerateData {
 
 		PersistenceManager pm;
 		Transaction tx;
-
-		List<Aircraft> aircrafts = this.getAircraftsList();
+		
 		List<Flight> flights;
-		flights = new ArrayList<Flight>(Arrays.asList(
-				new Flight(
-						aircrafts.get(0),
+		flights = new ArrayList<Flight>();
+		
+		Flight f1 =	new Flight(
+						"Cessna 172",
+						4,
 						TypeOfFlight.ROUND_TRIP,
 						"Paris",
 						"Amsterdam",
 						LocalTime.of(1,30),
-						"2021-05-04 13:30",
-						"2021-05-04 18:30",
+						"2021-05-05 13:30",
+						"2021-05-05 18:30",
 						"Fete du nouvel an",
 						"Visite surprise chez Paulsy", 
 						//new ArrayList<User>(Arrays.asList(new User(1), 
@@ -127,40 +147,49 @@ public class GenerateData {
 						10,
 						"images/pic01.jpg",
 						1
-						),
-				new Flight(
-						new Aircraft(),
+						);
+		Flight f2 =	new Flight(
+						"Piper PA28",
+						3,
 						TypeOfFlight.ONE_WAY_TICKET,
 						"Paris",
 						"Chamonix",
 						LocalTime.of(1,30),
-						"2021-03-15 13:30",
-						"2021-03-15 15:30",
+						"2021-06-15 13:30",
+						"2021-06-15 15:30",
 						"Voyage sportif",
 						"Decouverte du ski avec Paulsy", 
 						12,
 						"images/pic02.jpg",
 						2
-						),
-				new Flight(
-						new Aircraft(),
+						);
+		Flight f3 =	new Flight(
+						"Robin DR400 - 100HP",
+						3,
 						TypeOfFlight.BALLAD,
 						"Volcan Volvic",
 						"Volcan Volvic",
 						LocalTime.of(1,30),
-						"2021-04-20 14:30",
-						"2021-04-20 17:30",
+						"2021-07-20 14:30",
+						"2021-07-20 17:30",
 						"Survoler l'auvergne",
 						"Visite aerienne des volcan de Volvic", 
 						14,
 						"images/pic03.jpg",
 						1
-				)));		
+						);
+		
+		flights.add(f1);
+		flights.add(f2);
+		flights.add(f3);
+		
+
 			
 		// save
 		pm = pmf.getPersistenceManager();
 		tx = pm.currentTransaction();
-		
+		tx.setRetainValues(true);
+
 		try {
 			tx.begin();
 			for(Flight f: flights) {
@@ -243,10 +272,11 @@ public class GenerateData {
 
 		PersistenceManager pm;
 		Transaction tx;
-		User u;
+		User passenger;
 		
 		Booking b1 = new Booking(1, 1, 2, LocalDateTime.of(2021, Month.MAY, 5, 10, 0, 30).toString());
 		b1.setValidated(true);
+
 		Booking b2 = new Booking(2, 2, 2, LocalDateTime.of(2021, Month.MAY, 5, 10, 0, 30).toString());
 		
 		// save
@@ -280,11 +310,15 @@ public class GenerateData {
 		this.generateBooking();
 	}
 
-	public void sendMail(Booking b) {
-		
-		User u = DaoFactory.getUserDao().getInfosFromUser(b.getUserID());
-		Flight f = DaoFactory.getFlightDao().getInfoFromAFlight(b.getFlightID());
-		
+	
+	
+	/********************** MAILS ********************/
+	
+
+
+	public static void sendMail(String message, String subject, List<String> recipientList) {
+
+	
 	    Properties props = new Properties();
 	    props.put("mail.smtp.user", "ufly_eidd@outlook.com");
 	    props.put("mail.smtp.host", "smtp-mail.outlook.com");
@@ -303,86 +337,238 @@ public class GenerateData {
 	    Session session = Session.getInstance(props, auth);
 	
 	    MimeMessage msg = new MimeMessage(session);
-	    msg.setText("Bonjour "+ u.getFirstName() + ",\n\nVotre vol ");
-	    
-	    msg.setSubject("Rappel Ufly - Votre réservation ");
+	    msg.setText(message);
+	   
+	    msg.setSubject(subject);
 	    msg.setFrom(new InternetAddress("ufly_eidd@outlook.com"));
-	    msg.addRecipient(Message.RecipientType.TO, new InternetAddress("paulagopian94@gmail.com"));
+	    
+	    // for the tests, we send a mail to a default address
+	    for (String s : recipientList)
+	    	msg.addRecipient(Message.RecipientType.TO, new InternetAddress(s));
+	    
 	    Transport.send(msg);
 	
 	    }catch (MessagingException mex) {
 	       mex.printStackTrace();
 	    }	
 	}
-
-	public void sendReminderMails() {
+	
+	
+	public static void refuseDemand(Booking b) {
 		
-		PersistenceManager pm;
-		Transaction tx;
-		List<Booking> blist;
+		User passenger = DaoFactory.getUserDao().getInfosFromUser(b.getUserID());
+		Flight f = DaoFactory.getFlightDao().getInfoFromAFlight(b.getFlightID());
+		User pilot = DaoFactory.getUserDao().getInfosFromUser(f.getPilotID());
 		
-		// retrieve
-		pm = pmf.getPersistenceManager();
-		tx = pm.currentTransaction();
-		// retainValues pour que les attributs soit gardés
-	    tx.setRetainValues(true);
-		try {
-			tx.begin();
-			Query q = pm.newQuery(Booking.class);
-			blist = (List<Booking>) q.execute();
-			
-			for(Booking b:blist)
-				System.out.println(b.getDate());
-
-			tx.commit();
-			
-		} 
 		
-		finally {
-			if (tx.isActive()) {
-				tx.rollback();
-			}
+		String message = "Bonjour "+ passenger.getFirstName() + ",\n\n"
+						    + "Malheureusement, " + pilot.getFirstName() 
+						    + " a refusé votre demande de réservation pour voler à bord de son avion."
+			    			+ "N'hésitez pas à consulter notre site pour trouver "
+			    			+ "d'autres vol partant de " + f.getDepartureAirdrome()
+			    			+ "\n\nAu plaisir de vous revoir, \n\n L'équipe Ufly.";
+		
+		String subject = "Demande de réservation - Ufly";
+	    List<String> recipientList = new ArrayList<String>();
+	    recipientList.add("paulagopian94@gmail.com");
+	    
+	    sendMail(message, subject, recipientList);
+		
+		
+	}
+	
+	
+	public static void sendConfirmationMailToPassenger(Booking b) {
+		
+		User passenger = DaoFactory.getUserDao().getInfosFromUser(b.getUserID());
+		Flight f = DaoFactory.getFlightDao().getInfoFromAFlight(b.getFlightID());
+		User pilot = DaoFactory.getUserDao().getInfosFromUser(f.getPilotID());
+		
+		
+		String message = "Bonjour "+ passenger.getFirstName() + ",\n\n"
+						  + pilot.getFirstName() + " a accepté votre demande pour voler à bord de son avion !"
+			    			+ "Vous trouverez ci-dessous les informations liées au vol:"
+			    			+ "\nDate: " + f.getDepartureDate()
+			    			+ "\nAérodrome de départ: " + f.getDepartureAirdrome()
+			    			+ "\nDescription du vol" + f.getFlightDescription()
+			    			+ "\nAvion: " + f.getAircraft()
+			    			+ "\nNombre de place(s) réservée(s): " + b.getNbSeats()
+			    			+ "\nPilote: "+ pilot.getFirstName() + " " + pilot.getFirstName()
+			    			+ "\n\nPour toute information complémentaire concernant le vol, "
+			    			+ "vous pouvez joindre " + pilot.getFirstName() + " au numéro suivant: " + pilot.getPhoneNumber()
+			    			+ "\n\nBon vol ! \n\n L'équipe Ufly.";
+		
+		String subject = "Demande de réservation - Ufly";
+	    List<String> recipientList = new ArrayList<String>();
+	    recipientList.add("paulagopian94@gmail.com");
+	    
+	    sendMail(message, subject, recipientList);
+		
+		
+	}
+	
+	
+	public static void askConfirmationToPilot(Booking b) {
 
-			pm.close();
-			
-		}
+		User passenger = DaoFactory.getUserDao().getInfosFromUser(b.getUserID());
+		Flight f = DaoFactory.getFlightDao().getInfoFromAFlight(b.getFlightID());
+		User pilot = DaoFactory.getUserDao().getInfosFromUser(f.getPilotID());
+		
+		
+		String message = "Bonjour "+ pilot.getFirstName() + ",\n\n"
+						  + passenger.getFirstName() + " " + passenger.getLastName()
+						  + " aimerait réservé " + b.getNbSeats() + " places pour le vol "
+						  + f.getFlightTitle() + ".\n\n"
+						  + "Veuillez renseigner si vous acceptez ou refusez cette réservation "
+						  + "à l'adresse suivante: \n\n" + "http://localhost:8080/pilotConfirm.html?bookingId="+b.getBookingID()
+						  + "\n\nA bientôt !\n\n L'équipe Ufly.";
+		
+		String subject = "Demande de réservation - Ufly";
+	    List<String> recipientList = new ArrayList<String>();
+	    recipientList.add("paulagopian94@gmail.com");
+	    //recipientList.add("rodriguez.clement99@gmail.com");
+	    
+	    sendMail(message, subject, recipientList);
+		
+	}
+
+	
+	
+	public void sendOneReminderMail(Booking b) {
+		
+		User passenger = DaoFactory.getUserDao().getInfosFromUser(b.getUserID());
+		Flight f = DaoFactory.getFlightDao().getInfoFromAFlight(b.getFlightID());
+		User pilot = DaoFactory.getUserDao().getInfosFromUser(f.getPilotID());
+		
+	    String message = "Bonjour "+ passenger.getFirstName() 
+		    			+ ",\n\nVotre vol "+ f.getFlightTitle() + "aura lieu demain !"
+		    			+ "Vous trouverez ci-dessous un rappel des informations liées au vol:"
+		    			+ "\nPilote: "+ pilot.getFirstName() + " " + pilot.getFirstName()
+		    			+ "\nHeure du départ: " + f.getDepartureDate()
+		    			+ "\nAérodrome de départ: " + f.getDepartureAirdrome()
+		    			+ "\nDescription du vol" + f.getFlightDescription()
+		    			+ "\nAvion: " + f.getAircraft()
+		    			+ "\n\nBon vol ! \n\n L'équipe Ufly.";
+	   
+	    String subject = "Rappel Ufly - Votre vol ";
+	    
+	    List<String> recipientList = new ArrayList<String>();
+	    recipientList.add("paulagopian94@gmail.com");
+	    recipientList.add("rodriguez.clement99@gmail.com");
+	    //recipientList.add(passenger.getMail());
+	    //recipientList.add(pilot.getMail());
+	    
+	    sendMail(message, subject, recipientList);
+
+	}
+	
+	public static long getHoursDelay(String toStr, String from) {
+		
+
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		LocalDateTime fromTemp = LocalDateTime.from(LocalDateTime.parse(from, formatter));
+		LocalDateTime to = LocalDateTime.parse(toStr, formatter);
+		
+        long hours = fromTemp.until(to, ChronoUnit.HOURS);
+        
+        System.out.println(hours);
+        
+        return hours;
+	}
+
+	public void sendAllReminderMails() {
+		
+		long hours;
+		List<Booking> blist = DaoFactory.getBookingDao().getAllBooking();
+		
+		for(Booking b:blist)
+			askConfirmationToPilot(b);
 		
 		System.out.println("Sending reminder mails...");
 		
+		
 		for(Booking b:blist) {
 			
-
 			if(b.isValidated()) {
 				
-
-				LocalDateTime from = LocalDateTime.now();
-		        LocalDateTime fromTemp = LocalDateTime.from(from);
-		        
-				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 		        String toStr = DaoFactory.getFlightDao().getInfoFromAFlight(b.getFlightID()).getDepartureDate();
-				LocalDateTime to = LocalDateTime.parse(toStr, formatter);
-				
-		        long hours = fromTemp.until(to, ChronoUnit.HOURS);
+		        LocalDateTime now = LocalDateTime.now(); 
+				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		        String from = now.format(formatter);
+		        hours = getHoursDelay(toStr, from);
 		        
-		        System.out.println(hours);
-		        if(hours<0) {
-		        	DaoFactory.getFlightDao().deleteAFlight(b.getFlightID());
+		        // we delete the booking for the past flights
+		        if(hours < 0) {
+					System.out.print("booking "+ b.getBookingID() + "has been deleted");
+		        	DaoFactory.getBookingDao().deleteAbooking(b.getBookingID());
 		        }
 		        else if(hours < 24) {
-		        	sendMail(b);
-		        }
-		        	
-				
+		        	sendOneReminderMail(b);
+		        }	
+			
 			}
 		}
 
 	}
 	
-	
-	public void test() {
+	public void deleteOldFlights() {
 		
-		System.out.println("hello");
+		long hours;
+		List<Flight> flist = DaoFactory.getFlightDao().getAllFlights();
+		
+		System.out.println("Deleting past flights...");
+		
+		
+		for(Flight f:flist) {
+							
+	        String toStr = f.getDepartureDate();
+	        LocalDateTime now = LocalDateTime.now(); 
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+	        String from = now.format(formatter);
+	        
+	        hours = getHoursDelay(toStr, from);
+	        
+	        // past flight are deleted
+	        if(hours<0) {
+				System.out.print("flight "+ f.getFlightID() + "has been deleted");
+	        	DaoFactory.getFlightDao().deleteAFlight(f.getFlightID());
+	        }
+
+		}
+		
+		
 	}
+	
+	public void manageDatabase() {
 		
+		
+		PersistenceManager pm;
+		Transaction tx;
+		
+		generateAll();
+		
+		List<Flight> flist = DaoFactory.getFlightDao().getAllFlights();
+		for(Flight f:flist)
+			System.out.println(f.getAircraft());
+		
+		
+		//reminder mails:
+	
+		// at the server start:
+		sendAllReminderMails();
+		
+		//and each hour:
+		ThreadMail t = new ThreadMail();		
+		ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+		scheduler.scheduleAtFixedRate(t, 1, 1, TimeUnit.HOURS);
+		
+		
+		deleteOldFlights();
+		
+
+			
+	}
+
+
 
 }

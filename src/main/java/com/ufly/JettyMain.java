@@ -65,27 +65,11 @@ public class JettyMain {
 		
 		// Generate data
 		GenerateData gd = new GenerateData();
-		gd.generateAll();
+		// the function to manage the database (create data, delete old flights, send mails)
+		gd.manageDatabase();
 			
 		
-		class ThreadMail extends Thread {
-		    public void run()
-		    {
-		        try {
-		    		gd.sendReminderMails();
 
-		        }
-		        catch (Exception e) {
-		            // Throwing an exception
-		            System.out.println("Exception is caught");
-		        }
-		    }
-		}
-		 
-
-		ThreadMail t = new ThreadMail();		
-		ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-		scheduler.scheduleAtFixedRate(t, 1, 1, TimeUnit.HOURS);
 	}
 
 }

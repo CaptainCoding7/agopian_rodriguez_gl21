@@ -11,6 +11,7 @@ import javax.jdo.annotations.PersistenceCapable;
 
 import com.ufly.Booking;
 import com.ufly.Flight;
+import com.ufly.GenerateData;
 import com.ufly.PilotInfos;
 import com.ufly.User;
 import com.ufly.ws.UserWS.LoginInfo;
@@ -82,29 +83,9 @@ public class UserDaoImpl implements UserDao {
 			pm.close();
 		}
 		
-		
-		Flight f;
-		Flight detachedFlight;
-		// retrieve
-		pm = pmf.getPersistenceManager();
-		tx = pm.currentTransaction();
-	    tx.setRetainValues(true);
-		try {
-			tx.begin();
-			f = pm.getObjectById(Flight.class, idFlight);
-			f.setAvailableSeats(f.getAvailableSeats()-nbBookedSeats);
-			tx.commit();
-			
-		} 
-		
-		finally {
-			if (tx.isActive()) {
-				tx.rollback();
-			}
 
-			pm.close();
-			
-		}
+		GenerateData.askConfirmationToPilot(b);
+		
 
 	}
 		

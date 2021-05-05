@@ -22,7 +22,7 @@ public class Booking {
 	private int nbSeats;
 	private boolean validated;
 	private String date;
-	
+
 	
 	public Booking(long flightID, long userID, int nbSeats, String date) {
 		
