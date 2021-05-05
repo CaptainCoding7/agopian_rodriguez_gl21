@@ -17,16 +17,12 @@ function getServerData(url, success){
 
 function userCalldone(result){
 	
-	var templateExample = _.template($('#flightInfos').html());
-	let userDisplay = templateExample({
-        "attribute":JSON.stringify(result)
-    });
 	console.log(userDisplay);
 	let tmp = document.createElement("p");//tempary element to set correctly information
     //for the img
-	tmp.innerHTML = userDisplay;
-    let Display = document.getElementById("Pilot_Info");
-    Display.innerHTML = tmp.textContent.replace(/[ "']+/g, "");
+	tmp.innerHTML = JSON.stringify(result.firstName);
+    let Display = document.getElementById("Pilot_");
+    Display.innerHTML = tmp.textContent.replace(/["']+/g, "");
 
 }
 
@@ -54,7 +50,7 @@ function callDone(result){
     
 
     let arrival = templateExample({
-        "attribute":JSON.stringify(result.destination)
+        "attribute":JSON.stringify(result.destinationAirdrome)
     });
     
     let price = templateExample({
@@ -101,61 +97,57 @@ function callDone(result){
     //for the img
 	tmp.innerHTML = img;
     let Display = document.getElementById("Flight-Picture");
-    Display.src = tmp.textContent.replace(/[ "']+/g, "");
+    Display.src = tmp.textContent.replace(/["']+/g, "");
 
     //for the title
 	tmp.innerHTML = title;
     Display = document.getElementById("title");
-    Display.textContent = tmp.textContent.replace(/[ "']+/g, "");
+    Display.textContent = tmp.textContent.replace(/["']+/g, "");
 
     //for the type of flight
     tmp.innerHTML = typeOfFlight;
     Display = document.getElementById("typeOfFlight");
-    Display.textContent = tmp.textContent.replace(/[ "']+/g, "");
+    Display.textContent = "Type of Flight : " + tmp.textContent.replace(/["']+/g, "");
 
     // for the number of seat
     tmp.innerHTML = seats;
     Display = document.getElementById("numberOfSeat");
-    Display.textContent = tmp.textContent.replace(/[ "']+/g, "");
+    Display.textContent = "Available Seats : " + tmp.textContent.replace(/["']+/g, "");
 
     // for the duration
     tmp.innerHTML = duration;
     Display = document.getElementById("Duration");
-    Display.textContent = tmp.textContent.replace(/[ "']+/g, "");
+    Display.textContent = "The duration of the travel : " + tmp.textContent.replace(/["']+/g, "");
 
     // for the Departure Date
     tmp.innerHTML = departureDate;
     Display = document.getElementById("Departure_Date");
-    Display.textContent = tmp.textContent.replace(/[ "']+/g, "");
+    Display.textContent = "Departure date : " + tmp.textContent.replace(/["']+/g, "");
 
     // for the Departure Place
     tmp.innerHTML = departure;
     Display = document.getElementById("Departure_Place");
-    Display.textContent = tmp.textContent.replace(/[ "']+/g, "");
+    Display.textContent = " Departure Place : " + tmp.textContent.replace(/["']+/g, "");
 
     // for the Arrival Place
     tmp.innerHTML = arrival;
     Display = document.getElementById("Arrival_Place");
-    Display.textContent = tmp.textContent.replace(/[ "']+/g, "");
+    Display.textContent = "Arrival Place : " + tmp.textContent.replace(/["']+/g, "");
 
     // for the Description
     tmp.innerHTML = flightDescription;
     Display = document.getElementById("Description");
-    Display.textContent = tmp.textContent.replace(/[ "']+/g, "");
+    Display.innerHTML = "<h2 style='text-transform: none;'>Description : </h2> <br>" + tmp.textContent.replace(/["']+/g, "");
 
     // for the Aircraft Information
     tmp.innerHTML = aircraft;
     Display = document.getElementById("Aircraft_Info");
-    Display.textContent = tmp.textContent.replace(/[ "']+/g, "");
-
-    // for the Pilot Information
-    tmp.innerHTML = pilot;
-    Display = document.getElementById("Pilot_Info");
-
-	
+    Display.textContent = tmp.textContent.replace(/["']+/g, "");
+    
+    //for the price
 	tmp.innerHTML = price;
 	Display = document.getElementById("price");
-	Display.textContent = tmp.textContent.replace(/[ "']+/g, "");
+	Display.textContent = "Price : " + tmp.textContent.replace(/["']+/g, "") + "€ per person";
 
 }
 
