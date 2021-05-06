@@ -38,7 +38,7 @@ public class Flight {
 	private String flightImg;
 	private int pilotID;
 	
-	public Flight(String aircraftModel, int availableSeats, String typeOfFlight, String departureAirdrome, String arrivalAirdrome, LocalTime duration,
+	public Flight(String aircraftModel, int availableSeats, String typeOfFlight, String departureAirdrome, String arrivalAirdrome,
 			String depatureDate, String arrivalDate, String flightTitle, String flightDescription, int pricePerPassenger, String flightImg, int pilotID) {
 		//this.flightID=flightID; // auto-increment s'en occupe !
 		this.setAircraftModel(aircraftModel);

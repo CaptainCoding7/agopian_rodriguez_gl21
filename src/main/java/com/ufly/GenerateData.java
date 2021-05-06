@@ -1,7 +1,6 @@
 package com.ufly;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -40,11 +39,9 @@ public class GenerateData {
 	
 	/* The class which periodically check for sending reminder mails  */
 	class ThreadMail extends Thread {
-	    public void run()
-	    {
+	    public void run(){
 	        try {
 	    		sendAllReminderMails();
-
 	        }
 	        catch (Exception e) {
 	            System.out.println(e.getStackTrace());
@@ -63,54 +60,53 @@ public class GenerateData {
 		PersistenceManager pm;
 		Transaction tx;
 		
-		List<Flight> flights;
-		flights = new ArrayList<Flight>();
+		List<Flight> flights = new ArrayList<Flight>();
 		
 		Flight f1 =	new Flight(
 						"Cessna 172",
 						4,
-						"ROUND_TRIP",
-						"Paris",
-						"Amsterdam",
-						LocalTime.of(1,30),
+						"Ballad",
+						"Héliport de Paris - Issy-les-Moulineaux",
+						"Héliport de Paris - Issy-les-Moulineaux",
 						"2021-07-05 13:30",
-						"2021-07-05 18:30",
-						"Fete du nouvel an",
-						"Visite surprise chez Paulsy", 
-						//new ArrayList<User>(Arrays.asList(new User(1), 
-						//										new User(2))),
-						10,
-						"images/pic01.jpg",
+						"2021-07-05 16:30",
+						"Ballade aérienne: Vaux-le-vicomte/Disney", 
+						"Une fois dans le ciel nous mettrons cap sur Melun pour pouvoir admirer le Château de Vaux-le-Vicomte. "
+						+ "Puis nous survolerons à basse altitude Disneyland ainsi que le village nature.",
+						70,
+						"images/vauxlevicomte.jpg",
 						1
 						);
 		Flight f2 =	new Flight(
 						"Piper PA28",
 						3,
-						"ONE_WAY_TICKET",
-						"Paris",
-						"Chamonix",
-						LocalTime.of(1,30),
+						"One way ticket",
+						"Héliport de Paris - Issy-les-Moulineaux",
+						"Altiport de Courchevel",
 						"2021-06-15 13:30",
-						"2021-06-15 15:30",
-						"Voyage sportif",
-						"Decouverte du ski avec Paulsy", 
-						12,
-						"images/pic02.jpg",
-						2
+						"2021-06-15 16:00",
+						"Vol vers le massif du Mont Blanc",
+						"Un merveilleux vol vous attend! Nous pourrons survoler le massif du Mont Blanc: glacier du Tour, d'Argentière, Mer de Glace... "
+						+ "N'hésitez pas à me contacter, je serai ravi de vous faire découvrir les Alpes vues du ciel.",
+						160,
+						"images/montblanc.jpg",
+						1
 						);
 		Flight f3 =	new Flight(
 						"Robin DR400 - 100HP",
 						3,
-						"BALLAD",
-						"Volcan Volvic",
-						"Volcan Volvic",
-						LocalTime.of(1,30),
-						"2021-07-20 14:30",
-						"2021-07-20 17:30",
-						"Survoler l'auvergne",
-						"Visite aerienne des volcan de Volvic", 
-						14,
-						"images/pic03.jpg",
+						"Round Trip",
+						"Héliport de Paris - Issy-les-Moulineaux",
+						"Aérodrome de Toulouse - Lasbordes",
+						"2021-07-20 13:30",
+						"2021-07-20 19:30",
+						"Excursion à Toulouse",
+						"A bord d'un Robin DR400 - 100HP, "
+						+ "vous profiterez d'une superbe vue durant tout le voyage. "
+						+ "J'ai choisi un A/R à Toulouse car c'est une belle excursion en avion avec "
+						+ "un break dans un aérodrome sur le trajet. Atterrissage à Lasbordes (LFCL). ", 
+						110,
+						"images/toulouse.jpg",
 						1
 						);
 		
@@ -148,11 +144,16 @@ public class GenerateData {
 		PersistenceManager pm;
 		Transaction tx;
 		List<User> pass = new ArrayList<User>(Arrays.asList(new User(),new User()));
-		pass.get(0).setFirstName("michel");
-		pass.get(0).setMail("michel@gmail.com");
-		pass.get(0).setPwd("xxx");
-		pass.get(1).setFirstName("jean-patrick");	
+		pass.get(0).setFirstName("Michel");
+		pass.get(0).setLastName("Bertrand");
+		pass.get(0).setMail("paulagopian94@gmail.com");
+		pass.get(0).setPwd("1234");
+		pass.get(0).setPhoneNumber("07 82 65 38 89");
+		pass.get(0).setLivingLocation("Paris");
+		pass.get(1).setFirstName("Jean-Patrick");		
+		pass.get(1).setLastName("Dupont");
 		pass.get(1).setMail("jp@gmail.com");
+		pass.get(1).setPwd("abcd");
 
 		// save
 		pm = pmf.getPersistenceManager();
@@ -183,6 +184,8 @@ public class GenerateData {
 		PersistenceManager pm;
 		Transaction tx;
 		PilotInfos pi = new PilotInfos(1);
+		pi.setFlightHours(340);
+		pi.setDescription("Pilote professionnel depuis 2012");
 
 		// save
 		pm = pmf.getPersistenceManager();
@@ -296,12 +299,12 @@ public class GenerateData {
 						    + "\n\nNous vous confirmons que votre compte a bien été créé."
 			    			+ "\nN'hésitez pas à consulter notre site pour trouver "
 			    			+ "le vol de vos rêves ! "
-			    			+ "\n\nAu plaisir de vous revoir, \n\n L'équipe Ufly.";
+			    			+ "\n\nAu plaisir de vous revoir, \n\nL'équipe Ufly.";
 		
 		String subject = "Bienvenue sur Ufly !";
 	    List<String> recipientList = new ArrayList<String>();
-	    recipientList.add("paulagopian94@gmail.com");
-	    //recipientList.add(u.getMail());
+	    //recipientList.add("paulagopian94@gmail.com");
+	    recipientList.add(u.getMail());
 	    
 	    sendMail(message, subject, recipientList);
 
@@ -321,12 +324,12 @@ public class GenerateData {
 						    + " a refusé votre demande de réservation pour voler à bord de son avion."
 			    			+ "N'hésitez pas à consulter notre site pour trouver "
 			    			+ "d'autres vol partant de " + f.getDepartureAirdrome()
-			    			+ "\n\nAu plaisir de vous revoir, \n\n L'équipe Ufly.";
+			    			+ "\n\nAu plaisir de vous revoir, \n\nL'équipe Ufly.";
 		
 		String subject = "Demande de réservation - Ufly";
 	    List<String> recipientList = new ArrayList<String>();
-	    recipientList.add("paulagopian94@gmail.com");
-	    //recipientList.add(passenger.getMail());
+	    //recipientList.add("paulagopian94@gmail.com");
+	    recipientList.add(passenger.getMail());
 	    
 	    sendMail(message, subject, recipientList);
 		
@@ -354,12 +357,12 @@ public class GenerateData {
 			    			+ "\nPilote: "+ pilot.getFirstName() + " " + pilot.getFirstName()
 			    			+ "\n\nPour toute information complémentaire concernant le vol, "
 			    			+ "vous pouvez joindre " + pilot.getFirstName() + " au numéro suivant: " + pilot.getPhoneNumber()
-			    			+ "\n\nBon vol ! \n\n L'équipe Ufly.";
+			    			+ "\n\nBon vol ! \n\nL'équipe Ufly.";
 		
 		String subject = "Demande de réservation - Ufly";
 	    List<String> recipientList = new ArrayList<String>();
-	    recipientList.add("paulagopian94@gmail.com");
-	    //recipientList.add(passenger.getMail());
+	    //recipientList.add("paulagopian94@gmail.com");
+	    recipientList.add(passenger.getMail());
 
 	    sendMail(message, subject, recipientList);
 		
@@ -380,13 +383,13 @@ public class GenerateData {
 						  + f.getFlightTitle() + ".\n\n"
 						  + "Veuillez renseigner si vous acceptez ou refusez cette réservation "
 						  + "à l'adresse suivante: \n\n" + "http://localhost:8080/pilotConfirm.html?bookingId="+b.getBookingID()
-						  + "\n\nA bientôt !\n\n L'équipe Ufly.";
+						  + "\n\nA bientôt !\n\nL'équipe Ufly.";
 		
 		String subject = "Demande de réservation - Ufly";
 	    List<String> recipientList = new ArrayList<String>();
-	    recipientList.add("paulagopian94@gmail.com");
+	    //recipientList.add("paulagopian94@gmail.com");
 	    //recipientList.add("rodriguez.clement99@gmail.com");
-	    //recipientList.add(pilot.getMail());
+	    recipientList.add(pilot.getMail());
 
 	    sendMail(message, subject, recipientList);
 		
@@ -413,10 +416,10 @@ public class GenerateData {
 	    String subject = "Rappel Ufly - Votre vol ";
 	    
 	    List<String> recipientList = new ArrayList<String>();
-	    recipientList.add("paulagopian94@gmail.com");
-	    recipientList.add("rodriguez.clement99@gmail.com");
-	    //recipientList.add(passenger.getMail());
-	    //recipientList.add(pilot.getMail());
+	    //recipientList.add("paulagopian94@gmail.com");
+	    //recipientList.add("rodriguez.clement99@gmail.com");
+	    recipientList.add(passenger.getMail());
+	    recipientList.add(pilot.getMail());
 	    
 	    sendMail(message, subject, recipientList);
 
@@ -440,9 +443,7 @@ public class GenerateData {
 		
 		long hours;
 		List<Booking> blist = DaoFactory.getBookingDao().getAllBooking();
-		
-		for(Booking b:blist)
-			askConfirmationToPilot(b);
+
 		
 		System.out.println("Sending reminder mails...");
 		

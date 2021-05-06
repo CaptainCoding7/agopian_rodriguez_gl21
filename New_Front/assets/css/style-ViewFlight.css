@@ -607,10 +607,9 @@
 		}
 
 		#banner p {
-			color: #aaa;
+			color: rgb(255, 255, 255);
 			font-size: 1.5em;
 			margin-bottom: 0;
-			text-transform: uppercase;
 		}
 
 		@media screen and (max-width: 1280px) {

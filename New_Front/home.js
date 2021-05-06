@@ -76,11 +76,11 @@ function callDone(result){
 		
 	
 		let departure = templateExample({
-			"attribute":JSON.stringify(result[i].departureAirport)
+			"attribute":JSON.stringify(result[i].departureAirdrome)
 		});
 		
 		let arrival = templateExample({
-			"attribute":JSON.stringify(result[i].destination)
+			"attribute":JSON.stringify(result[i].destinationAirdrome)
 		});
 		
 		let price = templateExample({
@@ -161,22 +161,32 @@ $(function(){
 	function viewFlight(event){
 
 		let searchBar = document.querySelector("#departure");
-
+		let destination;
 		if($("#departure").val() == "")
 		{
 			searchBar.style.border = "2px solid red"; 
 			return false;
 		}
 
+		if($("#destination").val() == "")
+		{
+			destination="All";
+		}
+		else{
+			destination=$("#destination").val();
+		}
+
 		searchBar.style.border = "initial";
 		let results = document.querySelector("#list-result");
 		results.innerHTML = "";
+
+		console.log(destination);
 
 		var data = {
 			departure : $("#departure").val(),
 			plane : $("#plane").val(),
 			price : $("#price").val(),
-			destination : $("#destination").val(),
+			destination : destination,
 			seats : parseInt($("#nbOfSeats").val()),
 			depDate : $("#date").val()
 		}
