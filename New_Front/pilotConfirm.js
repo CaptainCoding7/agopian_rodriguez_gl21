@@ -35,17 +35,18 @@ function callDoneBookingInfo(result){
     accBut.onclick=function(){
         console.log(bookingId);
         postServerData("ws/booking/accept/" + bookingId, confirmCalldone);
+        localStorage.removeItem('confirmAsked');
         document.location.href = "home.html";                                                                                                                                                            
     };
     confirm_section.appendChild(accBut);
 
     var refBut = document.createElement("button");   
     refBut.innerHTML="Refuser";
-    alert("bookingggggg");
 
     refBut.onclick=function(){
         console.log(bookingId);
         postServerData("ws/booking/refuse/" + bookingId, confirmCalldone);
+        localStorage.removeItem('confirmAsked');
         document.location.href = "home.html";                                                                                                                                                            
     };
     confirm_section.appendChild(refBut);

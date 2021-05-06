@@ -65,8 +65,8 @@ function pilotInfosCalldone(result){
 	
     let Display = document.getElementById("Hour_of_flight");
     Display.innerHTML = "Hours of flight: " + JSON.stringify(result.flightHours).replace(/["']+/g, "");
-    Display = document.getElementById("Discover_me");
-    Display.innerHTML = "Discover me : <br>" + JSON.stringify(result.description).replace(/["']+/g, "");
+    Display = document.getElementById("about_me");
+    Display.innerHTML = JSON.stringify(result.description).replace(/["']+/g, "");
 }
 
 function callDone(result){
@@ -104,7 +104,7 @@ function callDone(result){
     });
 
     let aircraft = templateExample({
-        "attribute":JSON.stringify(result.aircraft)
+        "attribute":JSON.stringify(result.aircraftModel)
     });
 
     let typeOfFlight = templateExample({
@@ -157,7 +157,7 @@ function callDone(result){
     // for the duration
     tmp.innerHTML = duration;
     Display = document.getElementById("Duration");
-    Display.textContent = "The duration of the travel : " + tmp.textContent.replace(/["']+/g, "");
+    Display.textContent = "Duration of the travel : " + tmp.textContent.replace(/["']+/g, "");
 
     // for the Departure Date
     tmp.innerHTML = departureDate;
@@ -167,17 +167,20 @@ function callDone(result){
     // for the Departure Place
     tmp.innerHTML = departure;
     Display = document.getElementById("Departure_Place");
-    Display.textContent = " Departure Place : " + tmp.textContent.replace(/["']+/g, "");
+    Display.textContent = " Departure Airdrom : " + tmp.textContent.replace(/["']+/g, "");
 
     // for the Arrival Place
     tmp.innerHTML = arrival;
     Display = document.getElementById("Arrival_Place");
-    Display.textContent = "Arrival Place : " + tmp.textContent.replace(/["']+/g, "");
+    Display.textContent = "Arrival Airdrom : " + tmp.textContent.replace(/["']+/g, "");
 
     // for the Description
     tmp.innerHTML = flightDescription;
     Display = document.getElementById("Description");
-    Display.innerHTML = "<h2 style='text-transform: none;'>Description : </h2> <br>" + tmp.textContent.replace(/["']+/g, "");
+    Display.innerHTML = "<h3 style='text-transform: none;'>Description from the pilot </h3> <br>" 
+                        + "<p> '"
+                        + tmp.textContent.replace(/["']+/g, "")
+                        + "' </p>";
 
     // for the Aircraft Information
     tmp.innerHTML = aircraft;
@@ -200,7 +203,7 @@ $(document).ready(function() {
 	getServerData(path,userCalldone);
 	console.log(user);
 	
-	path = "ws/pilot/pilotInfos/1";//+pilotID;
+	path = "ws/pilot/pilotInfos/"+pilotID;
 	getServerData(path,pilotInfosCalldone);
 	
 	getServerData(str,callDone);
@@ -208,8 +211,6 @@ $(document).ready(function() {
 
 function finishBook()
 {
-    alert("Thank for your reservation, wait the response of the pilot");
-    document.location.href = "home.html";
 }
 
 $("#bookTheFlight").click(
@@ -223,6 +224,8 @@ $("#bookTheFlight").click(
             nbSeats: $("#nbOfSeats").val()
             }
         postServerData("ws/user/book", JSON.stringify(bookingflight), finishBook);
+        document.location.href = "confirmBooking.html";
+
         }
         else{
 

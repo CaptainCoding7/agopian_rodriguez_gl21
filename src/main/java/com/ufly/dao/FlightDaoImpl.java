@@ -56,8 +56,8 @@ public class FlightDaoImpl implements FlightDao {
 			
 			flights=flights.stream()
 					
-					.filter(p->p.getDepartureAirdrome().toUpperCase().equals(sc.departure.toUpperCase()))
-					
+					.filter(p->p.getDepartureAirdrome().toUpperCase().contains(sc.departure.toUpperCase()))
+				
 					.filter(p->{
 						switch(sc.price)
 						{
@@ -85,7 +85,7 @@ public class FlightDaoImpl implements FlightDao {
 					
 					.filter(p->{
 						if(!sc.destination.toUpperCase().equals("ALL"))
-							return (p.getDestinationAirdrome().toUpperCase().equals(sc.destination.toUpperCase()));
+							return (p.getDestinationAirdrome().toUpperCase().contains(sc.destination.toUpperCase()));
 						return true;
 					})
 					

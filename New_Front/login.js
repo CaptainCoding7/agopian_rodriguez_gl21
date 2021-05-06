@@ -66,9 +66,7 @@ $(function(){
 			console.log("password is null");
 			return false;
 		}
-	
-		alert(user.email + user.pwd);
-		
+			
 	postServerData("ws/user/login",JSON.stringify(user),callDone);
 	
 	});

@@ -59,7 +59,7 @@
 					<li><button id="butFlightsList" class="button special big">Search a Flight</button></li>
 				</ul>
 			
-				<form class="demo" id="SearchFlightFilter" action="#">
+				<form id="SearchFlightFilter" action="#">
 				 
 				  <fieldset id="Search-filter">
 					<div id="plane-filter">
@@ -104,13 +104,8 @@
 					</div>
 				 	
 					<div id="destination-filter">
-					    <label for="destination">Select a destination</label>
-					    <select name="destination" id="destination">
-						  <option value="All" selected="selected">All the destinations</option> 
-					      <option value="Londres">London</option>
-					      <option value="Paris">Paris</option>
-					      <option value="Amsterdam">Amsterdam</option>
-					    </select>
+						<label for="destination">Select a destination</label>
+						<input type="text" id="destination" placeholder="All" required>
 					</div>
 					
 					<div id="date-filter">

@@ -59,10 +59,12 @@ public class JettyMain {
 		contexts.setHandlers(new Handler[] { handlerWebServices, handlerPortalCtx });
 		server.setHandler(contexts);
 		
-
 		// Start server
 		server.start();
 		
+		
+		System.out.println(handlerPortalCtx.getServletContext().getRealPath("/images"));
+
 		// Generate data
 		GenerateData gd = new GenerateData();
 		// the function to manage the database (create data, delete old flights, send mails)
